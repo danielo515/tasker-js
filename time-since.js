@@ -29,6 +29,6 @@ var e=require("../compare_desc/index.js"),n=require("../parse/index.js"),r=requi
 },{"../compare_desc/index.js":"pfSt","../parse/index.js":"ajCz","../difference_in_seconds/index.js":"Sjwe","../difference_in_months/index.js":"5KzI","../locale/en/index.js":"N6L2"}],"jUDc":[function(require,module,exports) {
 var e=require("../distance_in_words/index.js");function n(n,r){return e(Date.now(),n,r)}module.exports=n;
 },{"../distance_in_words/index.js":"HLwM"}],"Wjjo":[function(require,module,exports) {
-"use strict";var e=n(require("date-fns/distance_in_words_to_now"));function n(e){return e&&e.__esModule?e:{default:e}}var t=function(n){return(0,e.default)(Number(n))},r=function(n){return(0,e.default)(Number(tk.global(n)))};window.timeSince=t,window.timeSinceGlobal=r;
+"use strict";var e=n(require("date-fns/distance_in_words_to_now"));function n(e){return e&&e.__esModule?e:{default:e}}var t=function(n){return(0,e.default)(Number(n))},i=function(n){return(0,e.default)(Number(tk.global(n)))};window.timeSince=t,window.timeSinceGlobal=i,tk.flashLong(window.timeSinceGlobal.toString());
 },{"date-fns/distance_in_words_to_now":"jUDc"}]},{},["Wjjo"], null)
 //# sourceMappingURL=/time-since.js.map
