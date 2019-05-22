@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build src/*.js",
-    "push": "gh-pages -d dist --branch dist",
-    "deploy":"yarn build && yarn push"
+    "build": "rm -rf dist && parcel build src/*.js --no-source-maps",
+    "build-dev": "yarn build --no-minify",
+    "push": "gh-pages -d dist",
+    "deploy": "yarn build && yarn push",
+    "watch": "nodemon --watch src --exec yarn deploy"
   },
   "repository": {
     "type": "git",
@@ -22,9 +24,11 @@
   "homepage": "https://github.com/danielo515/tasker-js#readme",
   "devDependencies": {
     "gh-pages": "^2.0.1",
+    "nodemon": "^1.19.0",
     "parcel": "^1.12.3"
   },
   "dependencies": {
-    "date-fns": "^1.30.1"
+    "date-fns": "^1.30.1",
+    "tasker-js-runner": "^0.1.3"
   }
 }
