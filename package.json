@@ -9,7 +9,9 @@
     "build-dev": "yarn build --no-minify",
     "push": "gh-pages -d dist",
     "deploy": "yarn build && yarn push",
-    "watch": "nodemon --watch src --exec yarn deploy"
+    "deploy-dev": "yarn build-dev && yarn push",
+    "watch": "nodemon --watch src --exec yarn deploy",
+    "watch-dev": "nodemon --watch src --exec yarn deploy-dev"
   },
   "repository": {
     "type": "git",

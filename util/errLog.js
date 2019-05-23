@@ -5,3 +5,5 @@ const logErrs = (fn) => (...args) => {
         tk.flashLong(error.toString())
     }
 }
+
+export default logErrs;
