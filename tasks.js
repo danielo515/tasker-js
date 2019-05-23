@@ -1331,6 +1331,11 @@ window.timeSinceGlobal = timeSinceGlobal;
 },{"date-fns/distance_in_words_to_now":"jUDc"}],"rzbf":[function(require,module,exports) {
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = void 0;
+
 var _safeParse = _interopRequireDefault(require("../util/safeParse"));
 
 var _errLog = _interopRequireDefault(require("../util/errLog"));
@@ -1343,12 +1348,39 @@ var startVar = function startVar(name) {
   return "TASK_".concat(name, "_START");
 };
 
-var pauseTask = function pauseTask(name) {
-  var varName = "TASK_".concat(name, "_PAUSE");
-  var current = (0, _safeParse.default)(tk.global(varName), []);
-  current.push(Date.now());
-  tk.setGlobal(varName, JSON.stringify(current));
+var readArr = function readArr(name) {
+  return (0, _safeParse.default)(tk.global(name), []);
 };
+
+var readObj = function readObj(name) {
+  return (0, _safeParse.default)(tk.global(name), {});
+};
+
+var saveJson = function saveJson(name, value) {
+  return tk.setGlobal(name, JSON.stringify(value));
+};
+
+var updateTask = function updateTask(field) {
+  return function (updater) {
+    return function (name) {
+      var task = readObj("TASK_".concat(name), {
+        startedAt: null,
+        pauses: [],
+        stoppedAt: null
+      });
+      task[field] = updater(task[field]); // pass the current value for convenience
+
+      saveJson(name, task);
+    };
+  };
+};
+
+exports.updateTask = updateTask;
+var pauseTask = updateTask('pauses')(function (current) {
+  current.push(Date.now());
+  return current;
+});
+exports.pauseTask = pauseTask;
 
 var startTask = function startTask(name) {
   var varName = startVar(name);
@@ -1356,14 +1388,17 @@ var startTask = function startTask(name) {
 }; // calculates the time spent on the task and saves it to the log
 
 
+exports.startTask = startTask;
+
 var stopTask = function stopTask(name) {
   var varName = "TASK_".concat(name, "_LOG");
   var current = (0, _safeParse.default)(tk.global(varName), []);
   current.push((0, _timeSince.timeSinceGlobal)(startVar(name)));
-  tk.setGlobal(varName, JSON.stringify(current));
+  saveJson(varName, current);
   tk.setGlobal(startVar(name), '');
 };
 
+exports.stopTask = stopTask;
 window.pauseTask = (0, _errLog.default)(pauseTask);
 window.startTask = (0, _errLog.default)(startTask);
 window.stopTask = (0, _errLog.default)(stopTask);
