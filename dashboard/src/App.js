@@ -6,7 +6,7 @@ import { Task } from './Task';
 const devMode = process.env.NODE_ENV !== 'production';
 
 let tasks;
-if (devMode) {
+if (!devMode) {
   tasks = require('./fakeTask').tasks;
 }
 
