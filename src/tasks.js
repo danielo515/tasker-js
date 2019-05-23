@@ -1,9 +1,9 @@
 import safeParse from '../util/safeParse';
-import LogErrors from "../util/errLog";
+import LogErrors from '../util/errLog';
 
 const readObj = name => safeParse(tk.global(name), {});
 const saveJson = (name, value) =>
-    tk.setGlobal(name, JSON.stringify(value))
+    tk.setGlobal(name, JSON.stringify(value));
 
 export const loadTask = name => readObj(
     `TASK_${name}`,
@@ -22,7 +22,7 @@ export const updateTask = field => updater => name => {
     } catch (error) {
         tk.flash(`Error updating task ${name}:\n ${error.toString}`);
     }
-}
+};
 
 export const pauseTask = updateTask('pauses')(
     current => {

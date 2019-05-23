@@ -5,7 +5,6 @@ const calculatePauseTime = pauses => {
         // not sure why I have to invert this
         pauseTime += differenceInMilliseconds(pauses[i + 1], pauses[i]);
     }
-    ;
     return pauseTime;
 };
 export const calculateRunningTime = (start, stop, pauses) => {

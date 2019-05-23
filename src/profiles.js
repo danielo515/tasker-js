@@ -4,4 +4,4 @@ import {startTask} from './modules/timeManager';
 new TaskerJs({
     // Profile name: module
     'taskStart': startTask,
-  });
+});
