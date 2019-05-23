@@ -1361,7 +1361,7 @@ var stopTask = function stopTask(name) {
   var current = (0, _safeParse.default)(tk.global(varName), []);
   current.push((0, _timeSince.timeSinceGlobal)(startVar(name)));
   tk.setGlobal(varName, JSON.stringify(current));
-  tk.setGlobal(startVar(name));
+  tk.setGlobal(startVar(name), '');
 };
 
 window.pauseTask = (0, _errLog.default)(pauseTask);
