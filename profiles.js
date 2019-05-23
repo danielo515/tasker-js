@@ -338,6 +338,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.startTask = void 0;
 var startTask = {
   enter: function enter(locals, tasker) {
+    tasker.flash('Starting task');
     var varName = "TASK_".concat(locals.par1, "_START");
     tasker.setGlobal(varName, Date.now().toString());
   },
