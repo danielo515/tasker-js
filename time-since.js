@@ -1266,6 +1266,11 @@ module.exports = distanceInWordsToNow
 },{"../distance_in_words/index.js":"HLwM"}],"Wjjo":[function(require,module,exports) {
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.timeSinceGlobal = exports.timeSince = void 0;
+
 var _distance_in_words_to_now = _interopRequireDefault(require("date-fns/distance_in_words_to_now"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -1274,10 +1279,13 @@ var timeSince = function timeSince(str) {
   return (0, _distance_in_words_to_now.default)(Number(str));
 };
 
+exports.timeSince = timeSince;
+
 var timeSinceGlobal = function timeSinceGlobal(globalName) {
   return (0, _distance_in_words_to_now.default)(Number(tk.global(globalName)));
 };
 
+exports.timeSinceGlobal = timeSinceGlobal;
 window.timeSince = timeSince;
 window.timeSinceGlobal = timeSinceGlobal;
 },{"date-fns/distance_in_words_to_now":"jUDc"}]},{},["Wjjo"], null)

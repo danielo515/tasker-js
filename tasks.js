@@ -1303,14 +1303,39 @@ function distanceInWordsToNow (dirtyDate, dirtyOptions) {
 
 module.exports = distanceInWordsToNow
 
-},{"../distance_in_words/index.js":"HLwM"}],"rzbf":[function(require,module,exports) {
+},{"../distance_in_words/index.js":"HLwM"}],"Wjjo":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.timeSinceGlobal = exports.timeSince = void 0;
+
+var _distance_in_words_to_now = _interopRequireDefault(require("date-fns/distance_in_words_to_now"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var timeSince = function timeSince(str) {
+  return (0, _distance_in_words_to_now.default)(Number(str));
+};
+
+exports.timeSince = timeSince;
+
+var timeSinceGlobal = function timeSinceGlobal(globalName) {
+  return (0, _distance_in_words_to_now.default)(Number(tk.global(globalName)));
+};
+
+exports.timeSinceGlobal = timeSinceGlobal;
+window.timeSince = timeSince;
+window.timeSinceGlobal = timeSinceGlobal;
+},{"date-fns/distance_in_words_to_now":"jUDc"}],"rzbf":[function(require,module,exports) {
 "use strict";
 
 var _safeParse = _interopRequireDefault(require("../util/safeParse"));
 
 var _errLog = _interopRequireDefault(require("../util/errLog"));
 
-var _distance_in_words_to_now = _interopRequireDefault(require("date-fns/distance_in_words_to_now"));
+var _timeSince = require("./time-since");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1334,8 +1359,7 @@ var startTask = function startTask(name) {
 var stopTask = function stopTask(name) {
   var varName = "TASK_".concat(name, "_LOG");
   var current = (0, _safeParse.default)(tk.global(varName), []);
-  var startedAt = tk.global(startVar(name));
-  current.push((0, _distance_in_words_to_now.default)(startedAt));
+  current.push((0, _timeSince.timeSinceGlobal)(startVar(name)));
   tk.setGlobal(varName, JSON.stringify(current));
   tk.setGlobal(startVar(name));
 };
@@ -1343,4 +1367,4 @@ var stopTask = function stopTask(name) {
 window.pauseTask = (0, _errLog.default)(pauseTask);
 window.startTask = (0, _errLog.default)(startTask);
 window.stopTask = (0, _errLog.default)(stopTask);
-},{"../util/safeParse":"8Lq7","../util/errLog":"T/DR","date-fns/distance_in_words_to_now":"jUDc"}]},{},["rzbf"], null)
+},{"../util/safeParse":"8Lq7","../util/errLog":"T/DR","./time-since":"Wjjo"}]},{},["rzbf"], null)
