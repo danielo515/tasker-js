@@ -1314,7 +1314,7 @@ var _distance_in_words_to_now = _interopRequireDefault(require("date-fns/distanc
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var starVar = function starVar(name) {
+var startVar = function startVar(name) {
   return "TASK_".concat(name, "_START");
 };
 
