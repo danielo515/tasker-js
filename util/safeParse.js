@@ -8,3 +8,4 @@ const safeParse = (str, defaultVal = {}) =>
 };
 
 export default safeParse;
+export const readArr = name => safeParse(tk.global(name),[]);
