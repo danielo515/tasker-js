@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "rm -rf dist && parcel build src/*.js src/index.html --public-url . --no-source-maps",
     "build-dev": "yarn build --no-minify",
     "build-dashboard": "parcel build --no-source-maps index.html --public-url .",
@@ -26,9 +26,14 @@
   },
   "homepage": "https://github.com/danielo515/tasker-js#readme",
   "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.8.0",
     "eslint": "^5.16.0",
     "eslint-plugin-react": "^7.13.0",
     "gh-pages": "^2.0.1",
+    "jest": "^24.8.0",
     "nodemon": "^1.19.0",
     "parcel": "^1.12.3",
     "parcel-plugin-inliner": "^1.0.10"

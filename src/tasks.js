@@ -1,7 +1,7 @@
 import safeParse from '../util/safeParse';
 import LogErrors from '../util/errLog';
 
-const readObj = name => safeParse(tk.global(name), {});
+const readObj = (name, fallback) => safeParse(tk.global(name), fallback);
 const saveJson = (name, value) =>
     tk.setGlobal(name, JSON.stringify(value));
 
@@ -16,9 +16,10 @@ export const loadTask = name => readObj(
 
 export const updateTask = field => updater => name => {
     try {
-        const task = loadTask(name);
-        task[field] = updater(task[field]);// pass the current value for convenience
-        saveJson(name, task);
+        const task = loadTask(name);        
+        task[field] = updater(task[field]);// pass the current value for convenience 
+        saveJson(`TASK_${name}`, task);
+        return task;
     } catch (error) {
         tk.flash(`Error updating task ${name}:\n ${error.toString}`);
     }
