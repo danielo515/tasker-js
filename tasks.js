@@ -1328,7 +1328,8 @@ var pauseTask = function pauseTask(name) {
 var startTask = function startTask(name) {
   var varName = startVar(name);
   tk.setGlobal(varName, Date.now().toString());
-};
+}; // calculates the time spent on the task and saves it to the log
+
 
 var stopTask = function stopTask(name) {
   var varName = "TASK_".concat(name, "_LOG");
