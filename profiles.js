@@ -356,6 +356,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // Construct Tasker JS and pass in mapping information as an Object
 new _taskerJsRunner.default({
   // Profile name: module
-  'task:start': _timeManager.startTask
+  'taskStart': _timeManager.startTask
 });
 },{"tasker-js-runner":"ncRp","./modules/timeManager":"pfd8"}]},{},["cPI2"], null)
