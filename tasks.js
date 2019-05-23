@@ -1334,7 +1334,7 @@ var startTask = function startTask(name) {
 var stopTask = function stopTask(name) {
   var varName = "TASK_".concat(name, "_LOG");
   var current = (0, _safeParse.default)(tk.global(varName), []);
-  var startedAt = tk.global(starVal(name));
+  var startedAt = tk.global(startVar(name));
   current.push((0, _distance_in_words_to_now.default)(startedAt));
   tk.setGlobal(varName, JSON.stringify(current));
   tk.setGlobal(startVar(varName));
