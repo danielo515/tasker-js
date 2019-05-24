@@ -284,20 +284,7 @@ exports.stopTask = stopTask;
 window.pauseTask = (0, _errLog.default)(pauseTask);
 window.startTask = (0, _errLog.default)(startTask);
 window.stopTask = (0, _errLog.default)(stopTask);
-},{"../util/safeParse":"8Lq7","../util/errLog":"T/DR","./dashboard/isOdd":"PAGD"}],"oZB5":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.isEven = void 0;
-
-var isEven = function isEven(x) {
-  return x % 2 === 0;
-};
-
-exports.isEven = isEven;
-},{}],"bjhr":[function(require,module,exports) {
+},{"../util/safeParse":"8Lq7","../util/errLog":"T/DR","./dashboard/isOdd":"PAGD"}],"bjhr":[function(require,module,exports) {
 var MILLISECONDS_IN_MINUTE = 60000
 
 /**
@@ -6441,18 +6428,16 @@ module.exports = {
 
 var _tasks = require("./tasks");
 
-var _isEven = require("./dashboard/isEven");
-
 var _dateFns = require("date-fns");
 
 var task = (0, _tasks.pauseTask)('work');
 var pauses = task.pauses;
 
-if ((0, _isEven.isEven)(pauses.length)) {
-  var b = pauses[pauses.length - 1];
+if ((0, _tasks.isPaused)(pauses)) {
   var a = pauses[pauses.length - 2];
+  var b = pauses[pauses.length - 1];
   tk.flashLong((0, _dateFns.differenceInMinutes)(b, a) + ' minutes');
 }
 
 tk.exit();
-},{"./tasks":"rzbf","./dashboard/isEven":"oZB5","date-fns":"cWQX"}]},{},["E6Mj"], null)
+},{"./tasks":"rzbf","date-fns":"cWQX"}]},{},["E6Mj"], null)
