@@ -10365,7 +10365,7 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 var tasks;
 
 if (!window.tk) {
-  tasks = require('./fakeTask').fakeONe;
+  tasks = require('./fakeTask').tasks;
 } else {
   tasks = {
     work: (0, _tasks.loadTask)('work')
