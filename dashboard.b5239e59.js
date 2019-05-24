@@ -10436,7 +10436,14 @@ var _tasks = require("../tasks");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// @ts-check
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 // const devMode = process.env.NODE_ENV !== 'production';
 var taskNames = ['work', 'eating', 'workout'];
 var tasks;
@@ -10445,7 +10452,7 @@ if (!window.tk) {
   window.tk = {
     global: function global() {}
   };
-  tasks = [require('../../fixtures/fakeTask').running, (0, _tasks.loadTask)('eating')];
+  tasks = [require('../../fixtures/fakeTask').running].concat(_toConsumableArray(taskNames.map(_tasks.loadTask)));
 } else {
   tasks = taskNames.map(_tasks.loadTask);
 }
