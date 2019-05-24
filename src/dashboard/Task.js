@@ -16,6 +16,12 @@ const Row = styled.p`
   margin: 0;
 `;
 
+const Header = styled.h2`
+text-transform: capitalize;
+color: green;
+`;
+
+
 export const Task = ({ startedAt, stoppedAt, pauses, title }) => {
 
     const runningTime = calculateRunningTime(startedAt, stoppedAt, pauses);
@@ -25,7 +31,7 @@ export const Task = ({ startedAt, stoppedAt, pauses, title }) => {
     const computedPauses =  mapInPairs((a = now, b = now) => differenceInMinutes(a, b) )(pauses);
     return (
         <Root>
-            {title}
+            <Header>{title}</Header>
             <Row> Status: {status} </Row>
             <Row> Started: { startedAt ? distanceInWordsToNow(startedAt) + ' ago' : '-'}</Row>
             <Row> Finished: {stoppedAt ? distanceInWordsToNow(stoppedAt) : '-'} </Row>
