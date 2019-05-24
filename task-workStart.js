@@ -204,9 +204,9 @@ var saveJson = function saveJson(name, value) {
  * 
  * @typedef  Task
  * @property {String} title
- * @property {String} startedAt
- * @property {String} stoppedAt
- * @property {String} pauses
+ * @property {Number|null} startedAt
+ * @property {Number|null} stoppedAt
+ * @property {[Number]} pauses
  */
 
 /**
