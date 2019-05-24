@@ -10452,7 +10452,7 @@ if (!window.tk) {
   window.tk = {
     global: function global() {}
   };
-  tasks = [require('../../fixtures/fakeTask').running].concat(_toConsumableArray(taskNames.map(_tasks.loadTask)));
+  tasks = [require('../../fixtures/fakeTask').running].concat(_toConsumableArray(taskNames.slice(1).map(_tasks.loadTask)));
 } else {
   tasks = taskNames.map(_tasks.loadTask);
 }
