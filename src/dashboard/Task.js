@@ -1,7 +1,7 @@
 import React from 'react';
 import { distanceInWordsToNow, format, differenceInMinutes } from 'date-fns';
 import styled from 'styled-components';
-import { calculateRunningTime } from './timeUtils';
+import { calculateRunningTime } from '../timeUtils';
 import { mapInPairs } from '../../util/mapInPairs';
 
 const Root = styled.div`

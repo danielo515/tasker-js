@@ -1,4 +1,6 @@
-import { distanceInWords, differenceInMilliseconds, subMilliseconds, distanceInWordsToNow } from 'date-fns';
+import distanceInWords from 'date-fns/distance_in_words';
+import differenceInMilliseconds from 'date-fns/difference_in_milliseconds';
+import  subMilliseconds  from 'date-fns/sub_milliseconds';
 
 export const calculatePauseTime = pauses => {
     let pauseTime = 0;
@@ -11,7 +13,6 @@ export const calculatePauseTime = pauses => {
 
 export const calculateRunningTime = (start, stop, pauses) => {
     const discount = calculatePauseTime(pauses);
-    return stop 
-        ? distanceInWords(start, subMilliseconds(stop, discount), { includeSeconds: true })
-        : distanceInWordsToNow(start);
+    const adjustedStop = subMilliseconds(stop || Date.now(), discount);
+    return distanceInWords(start, adjustedStop, { includeSeconds: true });
 };
