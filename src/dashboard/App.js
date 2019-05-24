@@ -8,7 +8,7 @@ import { loadTask } from '../tasks';
 
 let tasks;
 if (!window.tk) {
-    tasks = require('./fakeTask').tasks;
+    tasks = { work: require('../../fixtures/fakeTask').running };
 } else {
     tasks = { work: loadTask('work') };
 }
@@ -17,7 +17,7 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <Task title='Work' {...tasks.work}></Task>
+                {tasks ? <Task title='Work' {...tasks.work}></Task> : 'NO tasks detected'}
             </header>
         </div>
     );

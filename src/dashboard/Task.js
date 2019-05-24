@@ -17,29 +17,26 @@ const Row = styled.p`
 `;
 
 export const Task = ({ startedAt, stoppedAt, pauses, title }) => {
-    
+
     const runningTime = calculateRunningTime(startedAt, stoppedAt, pauses);
-    const status = stoppedAt ? 'finished' : !isEven(pauses.length)  ? 'paused' : 'running';
+    const status = stoppedAt ? 'finished' : !isEven(pauses.length) ? 'paused' : 'running';
+    const lastPause = pauses.length ? distanceInWordsToNow(pauses[pauses.length - 1]) : null;
+    const now = Date.now();
+    const computedPauses =  mapInPairs((a = now, b = now) => differenceInMinutes(a, b) )(pauses);
     return (
         <Root>
             {title}
+            <Row> Started: {distanceInWordsToNow(startedAt)} ago </Row>
+            <Row> Status: {status} </Row>
             <Row>
-                Started: {distanceInWordsToNow(startedAt)} ago
+                Finished: {stoppedAt ? distanceInWordsToNow(stoppedAt) : '-'}
             </Row>
-            <Row>
-                Status: {status}
-            </Row>
-            <Row>
-               Finished: { stoppedAt ? distanceInWordsToNow(stoppedAt) : '-'}
-            </Row>
-            <Row>
-                Running Time: {runningTime}
-            </Row>
-            {mapInPairs((a = Date.now(),b = Date.now()) => 
-                differenceInMinutes(a,b)
-            )(pauses)
-                .join(' |-| ') 
-            }
+            <Row> Running Time: {runningTime} </Row>
+            {lastPause &&
+                <Row>
+                    Last pause: {lastPause} ago
+                </Row>}
+            <Row> { computedPauses .join(' |-| ') } </Row>
         </Root>
     );
 };
