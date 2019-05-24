@@ -4,10 +4,10 @@ import { Task } from './Task';
 import { loadTask } from '../tasks';
 
 
-const devMode = process.env.NODE_ENV !== 'production';
+// const devMode = process.env.NODE_ENV !== 'production';
 
 let tasks;
-if (devMode) {
+if (!window.tk) {
     tasks = require('./fakeTask').tasks;
 } else {
     tasks = { work: loadTask('work') };
