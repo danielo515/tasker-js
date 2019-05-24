@@ -10217,7 +10217,7 @@ var Task = function Task(_ref) {
       pauses = _ref.pauses,
       title = _ref.title;
   var runningTime = (0, _timeUtils.calculateRunningTime)(startedAt, stoppedAt, pauses);
-  return _react.default.createElement(Root, null, title, _react.default.createElement(Row, null, "Started: ", (0, _dateFns.distanceInWordsToNow)(startedAt), " ago"), _react.default.createElement(Row, null, "Status: ", stoppedAt ? 'finished' : 'running'), _react.default.createElement(Row, null, "Finished: ", (0, _dateFns.distanceInWordsToNow)(stoppedAt)), _react.default.createElement(Row, null, "Running Time: ", runningTime));
+  return _react.default.createElement(Root, null, title, _react.default.createElement(Row, null, "Started: ", (0, _dateFns.distanceInWordsToNow)(startedAt), " ago"), _react.default.createElement(Row, null, "Status: ", stoppedAt ? 'finished' : 'running'), _react.default.createElement(Row, null, "Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-'), _react.default.createElement(Row, null, "Running Time: ", runningTime));
 };
 
 exports.Task = Task;
