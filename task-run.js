@@ -117,6 +117,196 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"aZLK":[function(require,module,exports) {
+})({"8Lq7":[function(require,module,exports) {
+"use strict";
 
-},{}]},{},["aZLK"], null)
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.readArr = exports.default = void 0;
+
+var safeParse = function safeParse(str) {
+  var defaultVal = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  try {
+    return JSON.parse(str);
+  } catch (error) {
+    return defaultVal;
+  }
+};
+
+var _default = safeParse;
+exports.default = _default;
+
+var readArr = function readArr(name) {
+  return safeParse(tk.global(name), []);
+};
+
+exports.readArr = readArr;
+},{}],"T/DR":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var logErrs = function logErrs(fn) {
+  return function () {
+    try {
+      fn.apply(void 0, arguments);
+    } catch (error) {
+      tk.flashLong(error.toString());
+    }
+  };
+};
+
+var _default = logErrs;
+exports.default = _default;
+},{}],"PAGD":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isOdd = void 0;
+
+var isOdd = function isOdd(x) {
+  return x % 2 !== 0;
+};
+
+exports.isOdd = isOdd;
+},{}],"rzbf":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.getTaskStatus = exports.isPaused = void 0;
+
+var _safeParse = _interopRequireDefault(require("../util/safeParse"));
+
+var _errLog = _interopRequireDefault(require("../util/errLog"));
+
+var _isOdd = require("./dashboard/isOdd");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// @ts-check
+var readObj = function readObj(name, fallback) {
+  return (0, _safeParse.default)(tk.global(name), fallback);
+};
+
+var saveJson = function saveJson(name, value) {
+  return tk.setGlobal(name, JSON.stringify(value));
+};
+/**
+ * 
+ * @typedef  Task
+ * @property {String} title
+ * @property {Number|null} startedAt
+ * @property {Number|null} stoppedAt
+ * @property {[Number]} pauses
+ */
+
+
+var isPaused = function isPaused(pauses) {
+  return pauses.length && (0, _isOdd.isOdd)(pauses.length);
+};
+/**
+ * computes the status of a task based on its fields
+ * @param {Task} param0 
+ * @returns {'stopped'|'paused'|'running'|'not-started'}
+ */
+
+
+exports.isPaused = isPaused;
+
+var getTaskStatus = function getTaskStatus(_ref) {
+  var startedAt = _ref.startedAt,
+      stoppedAt = _ref.stoppedAt,
+      pauses = _ref.pauses;
+  if (stoppedAt) return 'stopped';
+  if (startedAt && isPaused(pauses)) return 'paused';
+  if (startedAt) return 'running';
+  return 'not-started';
+};
+/**
+ * Loads a task from the storage or returns a default one
+ * @param {String} name the name of the task to load
+ * @returns {Task} the task from memory or empty task if it was not found or invalid
+ */
+
+
+exports.getTaskStatus = getTaskStatus;
+
+var loadTask = function loadTask(name) {
+  return readObj("TASK_".concat(name), {
+    title: name,
+    startedAt: null,
+    pauses: [],
+    stoppedAt: null
+  });
+};
+
+exports.loadTask = loadTask;
+
+var updateTask = function updateTask(field) {
+  return function (updater) {
+    return function (name) {
+      try {
+        var task = loadTask(name);
+        task[field] = updater(task[field]); // pass the current value for convenience 
+
+        saveJson("TASK_".concat(name), task);
+        return task;
+      } catch (error) {
+        tk.flash("Error updating task ".concat(name, ":\n ").concat(error.toString));
+      }
+    };
+  };
+};
+
+exports.updateTask = updateTask;
+var pauseTask = updateTask('pauses')(function (current) {
+  current.push(Date.now());
+  return current;
+});
+exports.pauseTask = pauseTask;
+var startTask = updateTask('startedAt')(function () {
+  return Date.now();
+});
+exports.startTask = startTask;
+var stopTask = updateTask('stoppedAt')(function () {
+  return Date.now();
+});
+exports.stopTask = stopTask;
+window.pauseTask = (0, _errLog.default)(pauseTask);
+window.startTask = (0, _errLog.default)(startTask);
+window.stopTask = (0, _errLog.default)(stopTask);
+},{"../util/safeParse":"8Lq7","../util/errLog":"T/DR","./dashboard/isOdd":"PAGD"}],"aZLK":[function(require,module,exports) {
+"use strict";
+
+var _tasks = require("./tasks");
+
+var fail = function fail(msg) {
+  tk.flashLong(msg);
+  tk.exit();
+};
+
+var taskName = tk.local('task ');
+if (!taskName) fail('Please set a local variable with task name called task');
+var action = tk.local('action');
+if (!action) fail('Please set a local variable with the action (start,stop,pause)');
+
+switch (action) {
+  case 'start':
+    (0, _tasks.startTask)(taskName);
+    break;
+
+  default:
+    break;
+}
+
+tk.exit();
+},{"./tasks":"rzbf"}]},{},["aZLK"], null)
