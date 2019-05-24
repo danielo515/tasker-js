@@ -10371,10 +10371,6 @@ var Row = _styledComponents.default.p(_templateObject2());
 
 var Header = _styledComponents.default.h2(_templateObject3());
 
-var capitalize = function capitalize(str) {
-  return str[0].toUpperCase() + str.slice(1);
-};
-
 var Task = function Task(_ref) {
   var startedAt = _ref.startedAt,
       stoppedAt = _ref.stoppedAt,
