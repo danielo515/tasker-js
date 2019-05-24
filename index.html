@@ -10358,12 +10358,13 @@ var realOne = {
   'pauses': [1558682273187, 1558688205396],
   'stoppedAt': null
 };
+var fakeONe = {
+  startedAt: startedAt,
+  pauses: [(0, _dateFns.addHours)(startedAt, 1), (0, _dateFns.addHours)(startedAt, 2)],
+  stoppedAt: (0, _dateFns.addHours)(startedAt, 8)
+};
 var tasks = {
-  work: {
-    startedAt: startedAt,
-    pauses: [(0, _dateFns.addHours)(startedAt, 1), (0, _dateFns.addHours)(startedAt, 2)],
-    stoppedAt: (0, _dateFns.addHours)(startedAt, 8)
-  }
+  work: realOne
 };
 exports.tasks = tasks;
 },{"date-fns":"cWQX"}],"yWfa":[function(require,module,exports) {
