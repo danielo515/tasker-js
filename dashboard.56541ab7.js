@@ -10411,6 +10411,8 @@ var taskNames = ['work', 'eating', 'workout'];
 var tasks;
 
 if (!window.tk) {
+  window.tk = {};
+
   window.tk.global = function () {};
 
   tasks = [require('../../fixtures/fakeTask').running, (0, _tasks.loadTask)('eating')];
