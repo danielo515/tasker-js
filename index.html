@@ -10161,9 +10161,9 @@ exports.calculatePauseTime = calculatePauseTime;
 
 var calculateRunningTime = function calculateRunningTime(start, stop, pauses) {
   var discount = calculatePauseTime(pauses);
-  return (0, _dateFns.distanceInWords)(start, (0, _dateFns.subMilliseconds)(stop, discount), {
+  return stop ? (0, _dateFns.distanceInWords)(start, (0, _dateFns.subMilliseconds)(stop, discount), {
     includeSeconds: true
-  });
+  }) : (0, _dateFns.distanceInWordsToNow)(start);
 };
 
 exports.calculateRunningTime = calculateRunningTime;
