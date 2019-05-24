@@ -10222,7 +10222,7 @@ var Task = function Task(_ref) {
       title = _ref.title;
   var runningTime = (0, _timeUtils.calculateRunningTime)(startedAt, stoppedAt, pauses);
   var status = stoppedAt ? 'finished' : !isEven(pauses.length) ? 'paused' : 'running';
-  return _react.default.createElement(Root, null, title, _react.default.createElement(Row, null, "Started: ", (0, _dateFns.distanceInWordsToNow)(startedAt), " ago"), _react.default.createElement(Row, null, "Status: ", status), _react.default.createElement(Row, null, "Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-'), _react.default.createElement(Row, null, "Running Time: ", runningTime));
+  return _react.default.createElement(Root, null, title, _react.default.createElement(Row, null, "Started: ", (0, _dateFns.distanceInWordsToNow)(startedAt), " ago"), _react.default.createElement(Row, null, "Status: ", status), _react.default.createElement(Row, null, "Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-'), _react.default.createElement(Row, null, "Running Time: ", runningTime), JSON.stringify(pauses.map(_dateFns.format)));
 };
 
 exports.Task = Task;
@@ -10378,10 +10378,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-var devMode = "production" !== 'production';
+// const devMode = process.env.NODE_ENV !== 'production';
 var tasks;
 
-if (devMode) {
+if (!tk) {
   tasks = require('./fakeTask').tasks;
 } else {
   tasks = {
