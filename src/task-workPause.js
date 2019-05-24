@@ -1,4 +1,4 @@
 import { pauseTask } from './tasks';
 
 pauseTask('work');
-exit();
+tk.exit();
