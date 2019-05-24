@@ -10187,7 +10187,7 @@ var mapInPairs = function mapInPairs(fn) {
     var ln = arr.length;
     var acc = [];
 
-    for (var i = 0; i + 1 < ln; i += 2) {
+    for (var i = 0; i < ln; i += 2) {
       // not sure why I have to invert this
       acc.push(fn(arr[i + 1], arr[i]));
     }
