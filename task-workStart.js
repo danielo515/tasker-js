@@ -163,32 +163,32 @@ var logErrs = function logErrs(fn) {
 
 var _default = logErrs;
 exports.default = _default;
-},{}],"oZB5":[function(require,module,exports) {
+},{}],"PAGD":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.isEven = void 0;
+exports.isOdd = void 0;
 
-var isEven = function isEven(x) {
-  return x % 2 === 0;
+var isOdd = function isOdd(x) {
+  return x % 2 !== 0;
 };
 
-exports.isEven = isEven;
+exports.isOdd = isOdd;
 },{}],"rzbf":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.getTaskStatus = void 0;
+exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.getTaskStatus = exports.isPaused = void 0;
 
 var _safeParse = _interopRequireDefault(require("../util/safeParse"));
 
 var _errLog = _interopRequireDefault(require("../util/errLog"));
 
-var _isEven = require("./dashboard/isEven");
+var _isOdd = require("./dashboard/isOdd");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -209,6 +209,10 @@ var saveJson = function saveJson(name, value) {
  * @property {[Number]} pauses
  */
 
+
+var isPaused = function isPaused(pauses) {
+  return pauses.length && (0, _isOdd.isOdd)(pauses.length);
+};
 /**
  * computes the status of a task based on its fields
  * @param {Task} param0 
@@ -216,12 +220,14 @@ var saveJson = function saveJson(name, value) {
  */
 
 
+exports.isPaused = isPaused;
+
 var getTaskStatus = function getTaskStatus(_ref) {
   var startedAt = _ref.startedAt,
       stoppedAt = _ref.stoppedAt,
       pauses = _ref.pauses;
   if (stoppedAt) return 'stopped';
-  if (pauses.length && !(0, _isEven.isEven)(pauses.length)) return 'paused';
+  if (pauses.length && !isEven(pauses.length)) return 'paused';
   if (startedAt) return 'running';
   return 'not-started';
 };
@@ -278,7 +284,7 @@ exports.stopTask = stopTask;
 window.pauseTask = (0, _errLog.default)(pauseTask);
 window.startTask = (0, _errLog.default)(startTask);
 window.stopTask = (0, _errLog.default)(stopTask);
-},{"../util/safeParse":"8Lq7","../util/errLog":"T/DR","./dashboard/isEven":"oZB5"}],"NGbl":[function(require,module,exports) {
+},{"../util/safeParse":"8Lq7","../util/errLog":"T/DR","./dashboard/isOdd":"PAGD"}],"NGbl":[function(require,module,exports) {
 "use strict";
 
 var _tasks = require("./tasks");
