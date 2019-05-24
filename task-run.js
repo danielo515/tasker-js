@@ -6438,7 +6438,7 @@ var fail = function fail(msg) {
 var taskName = tk.local('task ');
 if (taskName == 'undefined') fail('Please set local var. "task" with the task name');
 var action = tk.local('action');
-if (action == 'undefined') fail('Please set a local variable with the action (start,stop,pause)');
+if (action == 'undefined') fail('Please set a local var. "action" with one of: start,stop,pause');
 tk.flashLong("About to ".concat(action, " task ").concat(taskName));
 
 switch (action) {
