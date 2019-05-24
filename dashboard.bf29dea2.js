@@ -10333,6 +10333,16 @@ var _tasks = require("../tasks");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\ntext-transform: capitalize;\ncolor: green;\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject2() {
   var data = _taggedTemplateLiteral(["\n  padding: 0 0 0 15px;\n  margin: 0;\n"]);
 
@@ -10359,6 +10369,8 @@ var Root = _styledComponents.default.div(_templateObject());
 
 var Row = _styledComponents.default.p(_templateObject2());
 
+var Header = _styledComponents.default.h2(_templateObject3());
+
 var capitalize = function capitalize(str) {
   return str[0].toUpperCase() + str.slice(1);
 };
@@ -10381,7 +10393,7 @@ var Task = function Task(_ref) {
     var b = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : now;
     return (0, _dateFns.differenceInMinutes)(a, b);
   })(pauses);
-  return _react.default.createElement(Root, null, capitalize(title), _react.default.createElement(Row, null, " Status: ", status, " "), _react.default.createElement(Row, null, " Started: ", startedAt ? (0, _dateFns.distanceInWordsToNow)(startedAt) + ' ago' : '-'), _react.default.createElement(Row, null, " Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-', " "), _react.default.createElement(Row, null, " Running Time: ", runningTime, " "), lastPause && _react.default.createElement(Row, null, " Last pause: ", lastPause, " ago "), _react.default.createElement(Row, null, " ", computedPauses.join(' |-| '), " "));
+  return _react.default.createElement(Root, null, _react.default.createElement(Header, null, title), _react.default.createElement(Row, null, " Status: ", status, " "), _react.default.createElement(Row, null, " Started: ", startedAt ? (0, _dateFns.distanceInWordsToNow)(startedAt) + ' ago' : '-'), _react.default.createElement(Row, null, " Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-', " "), _react.default.createElement(Row, null, " Running Time: ", runningTime, " "), lastPause && _react.default.createElement(Row, null, " Last pause: ", lastPause, " ago "), _react.default.createElement(Row, null, " ", computedPauses.join(' |-| '), " "));
 };
 
 exports.Task = Task;
