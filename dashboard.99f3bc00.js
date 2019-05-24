@@ -10144,19 +10144,6 @@ var mapInPairs = function mapInPairs(fn) {
 };
 
 exports.mapInPairs = mapInPairs;
-},{}],"oZB5":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.isEven = void 0;
-
-var isEven = function isEven(x) {
-  return x % 2 === 0;
-};
-
-exports.isEven = isEven;
 },{}],"8Lq7":[function(require,module,exports) {
 "use strict";
 
@@ -10203,6 +10190,19 @@ var logErrs = function logErrs(fn) {
 
 var _default = logErrs;
 exports.default = _default;
+},{}],"oZB5":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isEven = void 0;
+
+var isEven = function isEven(x) {
+  return x % 2 === 0;
+};
+
+exports.isEven = isEven;
 },{}],"rzbf":[function(require,module,exports) {
 "use strict";
 
@@ -10323,8 +10323,6 @@ var _timeUtils = require("../timeUtils");
 
 var _mapInPairs = require("../../util/mapInPairs");
 
-var _isEven = require("./isEven");
-
 var _tasks = require("../tasks");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -10377,7 +10375,7 @@ var Task = function Task(_ref) {
 };
 
 exports.Task = Task;
-},{"react":"1n8/","date-fns":"cWQX","styled-components":"tFSs","../timeUtils":"9n5r","../../util/mapInPairs":"HfN6","./isEven":"oZB5","../tasks":"rzbf"}],"p+TI":[function(require,module,exports) {
+},{"react":"1n8/","date-fns":"cWQX","styled-components":"tFSs","../timeUtils":"9n5r","../../util/mapInPairs":"HfN6","../tasks":"rzbf"}],"p+TI":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
