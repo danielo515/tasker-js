@@ -10283,6 +10283,7 @@ var _errLog = _interopRequireDefault(require("../util/errLog"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// @ts-check
 var readObj = function readObj(name, fallback) {
   return (0, _safeParse.default)(tk.global(name), fallback);
 };
@@ -10299,6 +10300,18 @@ var saveJson = function saveJson(name, value) {
  * @property {String} pauses
  */
 
+/**
+ * computes the status of a task based on its fields
+ * @param {Task} param0 
+ * @returns {string}
+ */
+
+
+var getTaskStatus = function getTaskStatus(_ref) {
+  var startedAt = _ref.startedAt,
+      stoppedAt = _ref.stoppedAt,
+      pauses = _ref.pauses;
+};
 /**
  * Loads a task from the storage or returns a default one
  * @param {String} name the name of the task to load
