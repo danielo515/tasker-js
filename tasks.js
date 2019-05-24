@@ -163,17 +163,32 @@ var logErrs = function logErrs(fn) {
 
 var _default = logErrs;
 exports.default = _default;
+},{}],"oZB5":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isEven = void 0;
+
+var isEven = function isEven(x) {
+  return x % 2 === 0;
+};
+
+exports.isEven = isEven;
 },{}],"rzbf":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = void 0;
+exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.getTaskStatus = void 0;
 
 var _safeParse = _interopRequireDefault(require("../util/safeParse"));
 
 var _errLog = _interopRequireDefault(require("../util/errLog"));
+
+var _isEven = require("./dashboard/isEven");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -197,7 +212,7 @@ var saveJson = function saveJson(name, value) {
 /**
  * computes the status of a task based on its fields
  * @param {Task} param0 
- * @returns {string}
+ * @returns {String}
  */
 
 
@@ -205,6 +220,10 @@ var getTaskStatus = function getTaskStatus(_ref) {
   var startedAt = _ref.startedAt,
       stoppedAt = _ref.stoppedAt,
       pauses = _ref.pauses;
+  if (stoppedAt) return 'stopped';
+  if (!stoppedAt || !(0, _isEven.isEven)(pauses.length)) return 'paused';
+  if (startedAt) return 'running';
+  return 'not-started';
 };
 /**
  * Loads a task from the storage or returns a default one
@@ -212,6 +231,8 @@ var getTaskStatus = function getTaskStatus(_ref) {
  * @returns {Task} the task from memory or empty task if it was not found or invalid
  */
 
+
+exports.getTaskStatus = getTaskStatus;
 
 var loadTask = function loadTask(name) {
   return readObj("TASK_".concat(name), {
@@ -257,4 +278,4 @@ exports.stopTask = stopTask;
 window.pauseTask = (0, _errLog.default)(pauseTask);
 window.startTask = (0, _errLog.default)(startTask);
 window.stopTask = (0, _errLog.default)(stopTask);
-},{"../util/safeParse":"8Lq7","../util/errLog":"T/DR"}]},{},["rzbf"], null)
+},{"../util/safeParse":"8Lq7","../util/errLog":"T/DR","./dashboard/isEven":"oZB5"}]},{},["rzbf"], null)
