@@ -309,7 +309,16 @@ switch (action) {
     break;
 
   case 'pause':
-    (0, _tasks.pauseTask)(taskName);
+    {
+      var task = (0, _tasks.pauseTask)('work');
+      var pauses = task.pauses;
+
+      if ((0, _tasks.isPaused)(pauses)) {
+        var a = pauses[pauses.length - 2];
+        var b = pauses[pauses.length - 1];
+        tk.flashLong(differenceInMinutes(b, a) + ' minutes');
+      }
+    }
     break;
 
   default:
