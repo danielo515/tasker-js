@@ -234,6 +234,6 @@ window.stopTask = (0, _errLog.default)(stopTask);
 
 var _tasks = require("./tasks");
 
-(0, _tasks.startTask)('work');
+(0, _tasks.stopTask)('work');
 exit();
 },{"./tasks":"rzbf"}]},{},["8Zl5"], null)
