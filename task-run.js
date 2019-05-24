@@ -304,8 +304,16 @@ switch (action) {
     (0, _tasks.startTask)(taskName);
     break;
 
-  default:
+  case 'stop':
+    (0, _tasks.stopTask)(taskName);
     break;
+
+  case 'pause':
+    (0, _tasks.pauseTask)(taskName);
+    break;
+
+  default:
+    fail('Unknown action: ' + action);
 }
 
 tk.exit();
