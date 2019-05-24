@@ -3,6 +3,7 @@ import { distanceInWordsToNow, format, differenceInMinutes } from 'date-fns';
 import styled from 'styled-components';
 import { calculateRunningTime } from '../timeUtils';
 import { mapInPairs } from '../../util/mapInPairs';
+import { isEven } from './isEven';
 
 const Root = styled.div`
     display: flex;
@@ -14,8 +15,6 @@ const Row = styled.p`
   padding: 0 0 0 15px;
   margin: 0;
 `;
-
-const isEven = x => x%2 === 0;
 
 export const Task = ({ startedAt, stoppedAt, pauses, title }) => {
     
