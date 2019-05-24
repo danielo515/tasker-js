@@ -35,7 +35,11 @@ export const Task = ({ startedAt, stoppedAt, pauses, title }) => {
             <Row>
                 Running Time: {runningTime}
             </Row>
-            {mapInPairs((a,b) => differenceInMinutes(a,b||Date.now()))(pauses).join(' |-| ') }
+            {mapInPairs((a = Date.now(),b = Date.now()) => 
+                differenceInMinutes(a,b)
+            )(pauses)
+                .join(' |-| ') 
+            }
         </Root>
     );
 };
