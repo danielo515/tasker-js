@@ -10195,7 +10195,7 @@ var Task = function Task(_ref) {
   var status = stoppedAt ? 'finished' : !isEven(pauses.length) ? 'paused' : 'running';
   return _react.default.createElement(Root, null, title, _react.default.createElement(Row, null, "Started: ", (0, _dateFns.distanceInWordsToNow)(startedAt), " ago"), _react.default.createElement(Row, null, "Status: ", status), _react.default.createElement(Row, null, "Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-'), _react.default.createElement(Row, null, "Running Time: ", runningTime), (0, _mapInPairs.mapInPairs)(function (a, b) {
     return (0, _dateFns.differenceInMinutes)(a, b || Date.now());
-  }).join(' |-| '));
+  })(pauses).join(' |-| '));
 };
 
 exports.Task = Task;
