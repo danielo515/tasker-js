@@ -6439,6 +6439,7 @@ var taskName = tk.local('task ');
 if (!taskName) fail('Please set a local variable with task name called task');
 var action = tk.local('action');
 if (!action) fail('Please set a local variable with the action (start,stop,pause)');
+tk.flashLong("About to ".concat(action, " task ").concat(taskName));
 
 switch (action) {
   case 'start':
@@ -6451,7 +6452,7 @@ switch (action) {
 
   case 'pause':
     {
-      var task = (0, _tasks.pauseTask)('work');
+      var task = (0, _tasks.pauseTask)(taskName);
       var pauses = task.pauses;
 
       if ((0, _tasks.isPaused)(pauses)) {
