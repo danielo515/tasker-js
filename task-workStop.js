@@ -229,11 +229,11 @@ exports.stopTask = stopTask;
 window.pauseTask = (0, _errLog.default)(pauseTask);
 window.startTask = (0, _errLog.default)(startTask);
 window.stopTask = (0, _errLog.default)(stopTask);
-},{"../util/safeParse":"8Lq7","../util/errLog":"T/DR"}],"a5uB":[function(require,module,exports) {
+},{"../util/safeParse":"8Lq7","../util/errLog":"T/DR"}],"8Zl5":[function(require,module,exports) {
 "use strict";
 
 var _tasks = require("./tasks");
 
 (0, _tasks.startTask)('work');
 exit();
-},{"./tasks":"rzbf"}]},{},["a5uB"], null)
+},{"./tasks":"rzbf"}]},{},["8Zl5"], null)
