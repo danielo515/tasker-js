@@ -10211,73 +10211,7 @@ var isEven = function isEven(x) {
 };
 
 exports.isEven = isEven;
-},{}],"V/1Z":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Task = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _dateFns = require("date-fns");
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _timeUtils = require("../timeUtils");
-
-var _mapInPairs = require("../../util/mapInPairs");
-
-var _isEven = require("./isEven");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  padding: 0 0 0 15px;\n  margin: 0;\n"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n    display: flex;\n    flex-direction: column;\n    align-items: flex-start;\n    padding: 1em;\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-var Root = _styledComponents.default.div(_templateObject());
-
-var Row = _styledComponents.default.p(_templateObject2());
-
-var Task = function Task(_ref) {
-  var startedAt = _ref.startedAt,
-      stoppedAt = _ref.stoppedAt,
-      pauses = _ref.pauses,
-      title = _ref.title;
-  var runningTime = (0, _timeUtils.calculateRunningTime)(startedAt, stoppedAt, pauses);
-  var status = stoppedAt ? 'finished' : !(0, _isEven.isEven)(pauses.length) ? 'paused' : 'running';
-  var lastPause = pauses.length ? (0, _dateFns.distanceInWordsToNow)(pauses[pauses.length - 1]) : null;
-  var now = Date.now();
-  var computedPauses = (0, _mapInPairs.mapInPairs)(function () {
-    var a = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : now;
-    var b = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : now;
-    return (0, _dateFns.differenceInMinutes)(a, b);
-  })(pauses);
-  return _react.default.createElement(Root, null, title, _react.default.createElement(Row, null, " Started: ", (0, _dateFns.distanceInWordsToNow)(startedAt), " ago "), _react.default.createElement(Row, null, " Status: ", status, " "), _react.default.createElement(Row, null, "Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-'), _react.default.createElement(Row, null, " Running Time: ", runningTime, " "), lastPause && _react.default.createElement(Row, null, "Last pause: ", lastPause, " ago"), _react.default.createElement(Row, null, " ", computedPauses.join(' |-| '), " "));
-};
-
-exports.Task = Task;
-},{"react":"1n8/","date-fns":"cWQX","styled-components":"tFSs","../timeUtils":"9n5r","../../util/mapInPairs":"HfN6","./isEven":"oZB5"}],"8Lq7":[function(require,module,exports) {
+},{}],"8Lq7":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10425,7 +10359,79 @@ exports.stopTask = stopTask;
 window.pauseTask = (0, _errLog.default)(pauseTask);
 window.startTask = (0, _errLog.default)(startTask);
 window.stopTask = (0, _errLog.default)(stopTask);
-},{"../util/safeParse":"8Lq7","../util/errLog":"T/DR","./dashboard/isEven":"oZB5"}],"p+TI":[function(require,module,exports) {
+},{"../util/safeParse":"8Lq7","../util/errLog":"T/DR","./dashboard/isEven":"oZB5"}],"V/1Z":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Task = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _dateFns = require("date-fns");
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _timeUtils = require("../timeUtils");
+
+var _mapInPairs = require("../../util/mapInPairs");
+
+var _isEven = require("./isEven");
+
+var _tasks = require("../tasks");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  padding: 0 0 0 15px;\n  margin: 0;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n    display: flex;\n    flex-direction: column;\n    align-items: flex-start;\n    padding: 1em;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var Root = _styledComponents.default.div(_templateObject());
+
+var Row = _styledComponents.default.p(_templateObject2());
+
+var Task = function Task(_ref) {
+  var startedAt = _ref.startedAt,
+      stoppedAt = _ref.stoppedAt,
+      pauses = _ref.pauses,
+      title = _ref.title;
+  var runningTime = (0, _timeUtils.calculateRunningTime)(startedAt, stoppedAt, pauses);
+  var status = (0, _tasks.getTaskStatus)({
+    startedAt: startedAt,
+    stoppedAt: stoppedAt,
+    pauses: pauses
+  });
+  var lastPause = pauses.length ? (0, _dateFns.distanceInWordsToNow)(pauses[pauses.length - 1]) : null;
+  var now = Date.now();
+  var computedPauses = (0, _mapInPairs.mapInPairs)(function () {
+    var a = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : now;
+    var b = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : now;
+    return (0, _dateFns.differenceInMinutes)(a, b);
+  })(pauses);
+  return _react.default.createElement(Root, null, title, _react.default.createElement(Row, null, " Started: ", (0, _dateFns.distanceInWordsToNow)(startedAt), " ago "), _react.default.createElement(Row, null, " Status: ", status, " "), _react.default.createElement(Row, null, "Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-'), _react.default.createElement(Row, null, " Running Time: ", runningTime, " "), lastPause && _react.default.createElement(Row, null, "Last pause: ", lastPause, " ago"), _react.default.createElement(Row, null, " ", computedPauses.join(' |-| '), " "));
+};
+
+exports.Task = Task;
+},{"react":"1n8/","date-fns":"cWQX","styled-components":"tFSs","../timeUtils":"9n5r","../../util/mapInPairs":"HfN6","./isEven":"oZB5","../tasks":"rzbf"}],"p+TI":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
