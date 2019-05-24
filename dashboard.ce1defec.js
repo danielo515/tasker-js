@@ -10292,7 +10292,7 @@ window.stopTask = (0, _errLog.default)(stopTask);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.tasks = void 0;
+exports.tasks = exports.fakeONe = exports.realOne = void 0;
 
 var _dateFns = require("date-fns");
 
@@ -10304,11 +10304,14 @@ var realOne = {
   'pauses': [1558682273187, 1558688205396],
   'stoppedAt': null
 };
+exports.realOne = realOne;
 var fakeONe = {
+  title: 'work',
   startedAt: startedAt,
   pauses: [(0, _dateFns.addHours)(startedAt, 1), (0, _dateFns.addHours)(startedAt, 2)],
   stoppedAt: (0, _dateFns.addHours)(startedAt, 8)
 };
+exports.fakeONe = fakeONe;
 var tasks = {
   work: realOne
 };
