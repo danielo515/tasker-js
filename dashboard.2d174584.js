@@ -10327,7 +10327,7 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 // const devMode = process.env.NODE_ENV !== 'production';
 var tasks;
 
-if (!tk) {
+if (!window.tk) {
   tasks = require('./fakeTask').tasks;
 } else {
   tasks = {
