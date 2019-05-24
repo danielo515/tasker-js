@@ -117,6 +117,123 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"NGbl":[function(require,module,exports) {
+})({"8Lq7":[function(require,module,exports) {
+"use strict";
 
-},{}]},{},["NGbl"], null)
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.readArr = exports.default = void 0;
+
+var safeParse = function safeParse(str) {
+  var defaultVal = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  try {
+    return JSON.parse(str);
+  } catch (error) {
+    return defaultVal;
+  }
+};
+
+var _default = safeParse;
+exports.default = _default;
+
+var readArr = function readArr(name) {
+  return safeParse(tk.global(name), []);
+};
+
+exports.readArr = readArr;
+},{}],"T/DR":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var logErrs = function logErrs(fn) {
+  return function () {
+    try {
+      fn.apply(void 0, arguments);
+    } catch (error) {
+      tk.flashLong(error.toString());
+    }
+  };
+};
+
+var _default = logErrs;
+exports.default = _default;
+},{}],"rzbf":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = void 0;
+
+var _safeParse = _interopRequireDefault(require("../util/safeParse"));
+
+var _errLog = _interopRequireDefault(require("../util/errLog"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var readObj = function readObj(name, fallback) {
+  return (0, _safeParse.default)(tk.global(name), fallback);
+};
+
+var saveJson = function saveJson(name, value) {
+  return tk.setGlobal(name, JSON.stringify(value));
+};
+
+var loadTask = function loadTask(name) {
+  return readObj("TASK_".concat(name), {
+    title: name,
+    startedAt: null,
+    pauses: [],
+    stoppedAt: null
+  });
+};
+
+exports.loadTask = loadTask;
+
+var updateTask = function updateTask(field) {
+  return function (updater) {
+    return function (name) {
+      try {
+        var task = loadTask(name);
+        task[field] = updater(task[field]); // pass the current value for convenience 
+
+        saveJson("TASK_".concat(name), task);
+        return task;
+      } catch (error) {
+        tk.flash("Error updating task ".concat(name, ":\n ").concat(error.toString));
+      }
+    };
+  };
+};
+
+exports.updateTask = updateTask;
+var pauseTask = updateTask('pauses')(function (current) {
+  current.push(Date.now());
+  return current;
+});
+exports.pauseTask = pauseTask;
+var startTask = updateTask('startedAt')(function () {
+  return Date.now();
+});
+exports.startTask = startTask;
+var stopTask = updateTask('stoppedAt')(function () {
+  return Date.now();
+});
+exports.stopTask = stopTask;
+window.pauseTask = (0, _errLog.default)(pauseTask);
+window.startTask = (0, _errLog.default)(startTask);
+window.stopTask = (0, _errLog.default)(stopTask);
+},{"../util/safeParse":"8Lq7","../util/errLog":"T/DR"}],"NGbl":[function(require,module,exports) {
+"use strict";
+
+var _tasks = require("./tasks");
+
+(0, _tasks.startTask)('work');
+exit();
+},{"./tasks":"rzbf"}]},{},["NGbl"], null)
