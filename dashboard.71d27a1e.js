@@ -10088,7 +10088,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.calculateRunningTime = void 0;
+exports.calculateRunningTime = exports.calculatePauseTime = void 0;
 
 var _dateFns = require("date-fns");
 
@@ -10102,6 +10102,8 @@ var calculatePauseTime = function calculatePauseTime(pauses) {
 
   return pauseTime;
 };
+
+exports.calculatePauseTime = calculatePauseTime;
 
 var calculateRunningTime = function calculateRunningTime(start, stop, pauses) {
   var discount = calculatePauseTime(pauses);
