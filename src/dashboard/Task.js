@@ -16,7 +16,7 @@ const Row = styled.p`
 
 export const Task = ({ startedAt, stoppedAt, pauses, title }) => {
     
-    const runningTime = calculateRunningTime(startedAt, stoppedAt,pauses)
+    const runningTime = calculateRunningTime(startedAt, stoppedAt, pauses);
     return (
         <Root>
             {title}
@@ -27,12 +27,12 @@ export const Task = ({ startedAt, stoppedAt, pauses, title }) => {
                 Status: {stoppedAt ? 'finished' : 'running'}
             </Row>
             <Row>
-               Finished: {distanceInWordsToNow(stoppedAt)}
+               Finished: { stoppedAt ? distanceInWordsToNow(stoppedAt) : '-'}
             </Row>
             <Row>
                 Running Time: {runningTime}
             </Row>
 
         </Root>
-    )
+    );
 };
