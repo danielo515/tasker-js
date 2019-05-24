@@ -10157,13 +10157,17 @@ var Root = _styledComponents.default.div(_templateObject());
 
 var Row = _styledComponents.default.p(_templateObject2());
 
+var isEven = function isEven(x) {
+  return x % 2 === 0;
+};
+
 var Task = function Task(_ref) {
   var startedAt = _ref.startedAt,
       stoppedAt = _ref.stoppedAt,
       pauses = _ref.pauses,
       title = _ref.title;
   var runningTime = (0, _timeUtils.calculateRunningTime)(startedAt, stoppedAt, pauses);
-  var status = stoppedAt ? 'finished' : pauses.length % 2 === 1 ? 'paused' : 'running';
+  var status = stoppedAt ? 'finished' : !isEven(pauses.length) ? 'paused' : 'running';
   return _react.default.createElement(Root, null, title, _react.default.createElement(Row, null, "Started: ", (0, _dateFns.distanceInWordsToNow)(startedAt), " ago"), _react.default.createElement(Row, null, "Status: ", status), _react.default.createElement(Row, null, "Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-'), _react.default.createElement(Row, null, "Running Time: ", runningTime));
 };
 
