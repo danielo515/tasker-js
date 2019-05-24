@@ -227,7 +227,7 @@ var getTaskStatus = function getTaskStatus(_ref) {
       stoppedAt = _ref.stoppedAt,
       pauses = _ref.pauses;
   if (stoppedAt) return 'stopped';
-  if (isPaused(pauses)) return 'paused';
+  if (startedAt && isPaused(pauses)) return 'paused';
   if (startedAt) return 'running';
   return 'not-started';
 };
