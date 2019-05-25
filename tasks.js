@@ -19391,7 +19391,30 @@ module.exports = function (adapter) {
 
   return db.read();
 };
-},{"lodash":"B1iE","is-promise":"ZcPk"}],"0chG":[function(require,module,exports) {
+},{"lodash":"B1iE","is-promise":"ZcPk"}],"9Ix2":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.emptyTask = void 0;
+
+/**
+ * Creates a new empty task from scratch
+ * @param {String} name the task name
+ * @returns {Task}
+ */
+var emptyTask = function emptyTask(name) {
+  return {
+    title: name,
+    startedAt: null,
+    pauses: [],
+    stoppedAt: null
+  };
+};
+
+exports.emptyTask = emptyTask;
+},{}],"0chG":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25601,7 +25624,7 @@ var _taskerAdapter = _interopRequireDefault(require("./taskerAdapter"));
 
 var _lowdb = _interopRequireDefault(require("lowdb"));
 
-var _tasks = require("../tasks");
+var _emptyTask = require("../emptyTask");
 
 var _fakeTasker = require("./fakeTasker");
 
@@ -25621,7 +25644,7 @@ if (!window.tk) {
   // browser fake mode
   var taskNames = ['work', 'eating', 'workout', 'programming'];
   (0, _fakeTasker.fakeTasker)();
-  tasks = [require('../../fixtures/fakeTask').running].concat(_toConsumableArray(taskNames.slice(1).map(_tasks.emptyTask)));
+  tasks = [require('../../fixtures/fakeTask').running].concat(_toConsumableArray(taskNames.slice(1).map(_emptyTask.emptyTask)));
 }
 
 var db = (0, _lowdb.default)(new _taskerAdapter.default('Documents/tasks-db.json', {
@@ -25630,17 +25653,19 @@ var db = (0, _lowdb.default)(new _taskerAdapter.default('Documents/tasks-db.json
   }
 }));
 exports.db = db;
-},{"./taskerAdapter":"Snw6","lowdb":"rpNd","../tasks":"rzbf","./fakeTasker":"0chG","../../fixtures/fakeTask":"p+TI"}],"rzbf":[function(require,module,exports) {
+},{"./taskerAdapter":"Snw6","lowdb":"rpNd","../emptyTask":"9Ix2","./fakeTasker":"0chG","../../fixtures/fakeTask":"p+TI"}],"rzbf":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.saveTask = exports.emptyTask = exports.getTaskStatus = exports.isPaused = void 0;
+exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.saveTask = exports.getTaskStatus = exports.isPaused = void 0;
 
 var _isOdd = require("./dashboard/isOdd");
 
 var _db = require("./database/db");
+
+var _emptyTask = require("./emptyTask");
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -25677,25 +25702,8 @@ var getTaskStatus = function getTaskStatus(_ref) {
   if (startedAt) return 'running';
   return 'not-started';
 };
-/**
- * Creates a new empty task from scratch
- * @param {String} name the task name
- * @returns {Task}
- */
-
 
 exports.getTaskStatus = getTaskStatus;
-
-var emptyTask = function emptyTask(name) {
-  return {
-    title: name,
-    startedAt: null,
-    pauses: [],
-    stoppedAt: null
-  };
-};
-
-exports.emptyTask = emptyTask;
 
 var saveTask = function saveTask(value) {
   return _db.db.get('tasks').find({
@@ -25714,7 +25722,7 @@ exports.saveTask = saveTask;
 var loadTask = function loadTask(title) {
   return _db.db.get('tasks').find({
     title: title
-  }).value() || emptyTask(title);
+  }).value() || (0, _emptyTask.emptyTask)(title);
 };
 
 exports.loadTask = loadTask;
@@ -25755,4 +25763,4 @@ var stopTask = updateTask(function () {
   };
 });
 exports.stopTask = stopTask;
-},{"./dashboard/isOdd":"PAGD","./database/db":"ms86"}]},{},["rzbf"], null)
+},{"./dashboard/isOdd":"PAGD","./database/db":"ms86","./emptyTask":"9Ix2"}]},{},["rzbf"], null)

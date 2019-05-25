@@ -118,5 +118,26 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"9Ix2":[function(require,module,exports) {
+"use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.emptyTask = void 0;
+
+/**
+ * Creates a new empty task from scratch
+ * @param {String} name the task name
+ * @returns {Task}
+ */
+var emptyTask = function emptyTask(name) {
+  return {
+    title: name,
+    startedAt: null,
+    pauses: [],
+    stoppedAt: null
+  };
+};
+
+exports.emptyTask = emptyTask;
 },{}]},{},["9Ix2"], null)
