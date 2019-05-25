@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { distanceInWordsToNow, differenceInMinutes } from 'date-fns';
 import styled from 'styled-components';
 import { calculateRunningTime } from '../timeUtils';
@@ -43,3 +44,11 @@ export const Task = ({ startedAt, stoppedAt, pauses, title }) => {
         </Root>
     );
 };
+
+Task.propTypes={
+    startedAt:PropTypes.string.number,
+    stoppedAt:PropTypes.string.number,
+    pauses:PropTypes.arrayOf(PropTypes.number),
+    title:PropTypes.string.isRequired,
+};
+
