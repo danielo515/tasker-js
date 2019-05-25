@@ -42774,6 +42774,7 @@ var stop = function stop(title) {
 };
 
 function App() {
+  console.log('Load app');
   return _react.default.createElement(_Paper.default, {
     className: "App-header"
   }, !tasks.length ? _react.default.createElement(_Typography.default, null, " No tasks yet") : tasks.map(function (task) {
