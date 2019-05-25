@@ -28,7 +28,7 @@ class TaskerAdapter<T> implements iTaskerAdapter<T>  {
         }
 
     read():T{
-        tk.flash('About to read from database');
+        tk.flash('Reading from database');
         try {
             const data = tk.readFile(this.source);
             return this.deserialize(data);
@@ -40,7 +40,7 @@ class TaskerAdapter<T> implements iTaskerAdapter<T>  {
     }
     write(data):void{
         tk.writeFile(this.source,this.serialize(data),false);
-        tk.flash('Database write complete')
+        tk.flash('DB write complete!')
     }
 }
 

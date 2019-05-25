@@ -1,21 +1,14 @@
-// @ts-check
 
 import TaskerAdapter from './taskerAdapter';
 import lowDb from 'lowdb';
-import { emptyTask } from '../tasks';
-
+import { emptyTask } from '../emptyTask';
+import { fakeTasker } from './fakeTasker';
 
 let tasks;
 if (!window.tk) {
     // browser fake mode
     const taskNames = ['work', 'eating', 'workout', 'programming'];
-    window.tk = {
-        global: () => { },
-        readFile: () => void 0,
-        writeFile: () => void 0,
-        flash: console.info,
-        flashLong: console.info,
-    };
+    fakeTasker();
     tasks = [require('../../fixtures/fakeTask').running, ...taskNames.slice(1).map(emptyTask)];
 }
 

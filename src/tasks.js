@@ -1,9 +1,9 @@
 // @ts-check
-import safeParse from './util/safeParse';
 import { isOdd } from './dashboard/isOdd';
+import {db} from './database/db';
+import { emptyTask } from './emptyTask';
 
-const readObj = (name, fallback) => safeParse(tk.global(name), fallback);
-const saveJson = (name, value) => tk.setGlobal(name, JSON.stringify(value));
+// const readObj = (name, fallback) => safeParse(tk.global(name), fallback);
 
 /**
  * 
@@ -28,35 +28,21 @@ export const getTaskStatus = ({ startedAt, stoppedAt, pauses }) => {
     return 'not-started';
 };
 
-/**
- * Creates a new empty task from scratch
- * @param {String} name the task name
- * @returns {Task}
- */
-export const emptyTask = (name) => (
-    {
-        title: name,
-        startedAt: null,
-        pauses: [],
-        stoppedAt: null,
-    }
-);
+export const saveTask = (value) => db.get('tasks').find({title:value.title}).assign(value).write();
 
 /**
  * Loads a task from the storage or returns a default one
- * @param {String} name the name of the task to load
+ * @param {String} title the name of the task to load
  * @returns {Task} the task from memory or empty task if it was not found or invalid
  */
-export const loadTask = name => readObj(
-    `TASK_${name}`,
-    emptyTask(name));
+export const loadTask = title => db.get('tasks').find({title}).value() || emptyTask(title);
 
 export const updateTask = updater => name => {
     try {
         const task = loadTask(name);
         const newFields = updater(task);
         const newTask = { ...task, ...newFields };
-        saveJson(`TASK_${name}`, newTask);
+        saveTask(newTask);
         return newTask;
     } catch (error) {
         tk.flash(`Error updating task ${name}:\n ${error.toString}`);
