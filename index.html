@@ -44787,12 +44787,12 @@ function App(_ref) {
   return _react.default.createElement(_Paper.default, {
     className: "App-header"
   }, !tasks.length ? _react.default.createElement(_Typography.default, null, " No tasks yet") : (0, _lodash.map)(tasks, function (task) {
-    return console.log(task);
-  }, _react.default.createElement(_Task.Task, _extends({}, task, {
-    key: task.title,
-    onStart: start(task.title),
-    onStop: stop(task.title)
-  }))));
+    return _react.default.createElement(_Task.Task, _extends({}, task, {
+      key: task.title,
+      onStart: start(task.title),
+      onStop: stop(task.title)
+    }));
+  }));
 } // function App() {
 //     return (
 //         <Grid container spacing={2} className="App-header">
