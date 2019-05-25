@@ -44786,7 +44786,7 @@ function App(_ref) {
       stop = _ref.stop;
   return _react.default.createElement(_Paper.default, {
     className: "App-header"
-  }, !Object.keys(tasks.length) ? _react.default.createElement(_Typography.default, null, " No tasks yet") : (0, _lodash.map)(tasks, function (task) {
+  }, !Object.keys(tasks).length ? _react.default.createElement(_Typography.default, null, " No tasks yet") : (0, _lodash.map)(tasks, function (task) {
     return _react.default.createElement(_Task.Task, _extends({}, task, {
       key: task.title,
       onStart: start(task.title),
