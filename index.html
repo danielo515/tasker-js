@@ -22649,6 +22649,8 @@ function () {
   }
 
   TaskerAdapter.prototype.read = function () {
+    tk.flash('About to read from database');
+
     try {
       var data = tk.readFile(this.source);
       return data != 'undefined' ? this.deserialize(data) : this.defaultValue;
