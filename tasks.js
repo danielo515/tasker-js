@@ -155,7 +155,7 @@ function () {
   }
 
   TaskerAdapter.prototype.read = function () {
-    tk.flash('About to read from database');
+    tk.flash('Reading from database');
 
     try {
       var data = tk.readFile(this.source);
@@ -169,7 +169,7 @@ function () {
 
   TaskerAdapter.prototype.write = function (data) {
     tk.writeFile(this.source, this.serialize(data), false);
-    tk.flash('Database write complete');
+    tk.flash('DB write complete!');
   };
 
   return TaskerAdapter;
@@ -25684,7 +25684,9 @@ var emptyTask = function emptyTask(name) {
 exports.emptyTask = emptyTask;
 
 var saveTask = function saveTask(value) {
-  return _db.db.get('tasks').push(value).write();
+  return _db.db.get('tasks').find({
+    title: value.title
+  }).assign(value).write();
 };
 /**
  * Loads a task from the storage or returns a default one
