@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-export function fakeTasker() {
+export function fakeTasker() {    
+    if(process.env.NODE_ENV === 'test') return;
     window.tk = {
         global: () => { },
         readFile: () => void 0,

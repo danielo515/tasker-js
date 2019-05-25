@@ -5,6 +5,7 @@ import { Task } from './Task';
 import {db} from '../database/db';
 import Paper  from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import { startTask, stopTask } from '../tasks';
 
 const tasks = db.get('tasks').value();
 
@@ -14,7 +15,11 @@ function App() {
             {!tasks.length ? <Typography> No tasks yet</Typography>
                 :
                 tasks.map(task =>
-                    <Task {...task} key={task.title}></Task>
+                    <Task {...task} 
+                        key={task.title} 
+                        onStart={()=> startTask(task.title)}
+                        onStop={()=> stopTask(task.title)}
+                    ></Task>
                 )}
         </Paper>
     );

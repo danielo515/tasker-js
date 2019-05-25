@@ -9,6 +9,8 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
+import  Button from '@material-ui/core/Button';
 
 const Root = styled.div`
     display: flex;
@@ -40,7 +42,7 @@ width: 100%;
 padding-bottom: 0;
 `;
 
-export const Task = ({ startedAt, stoppedAt, pauses, title }) => {
+export const Task = ({ startedAt, stoppedAt, pauses, title, onStart, onStop }) => {
 
     const runningTime = startedAt ? calculateRunningTime(startedAt, stoppedAt, pauses) : '-';
     const status = getTaskStatus({ startedAt, stoppedAt, pauses });
@@ -72,6 +74,12 @@ export const Task = ({ startedAt, stoppedAt, pauses, title }) => {
                     }
                     <Row> {computedPauses.join(' |-| ')} </Row>
                 </ExpansionPanelDetails>
+                <ExpansionPanelActions>
+                    { status === 'running' 
+                        ? <Button onClick={onStop} color="primary" >Stop</Button>
+                        : <Button onClick={onStart} color="primary" >Start</Button> 
+                    }
+                </ExpansionPanelActions>
             </FullExpansion>
         </Root>
     );
@@ -82,5 +90,7 @@ Task.propTypes = {
     stoppedAt: PropTypes.string.number,
     pauses: PropTypes.arrayOf(PropTypes.number),
     title: PropTypes.string.isRequired,
+    onStart: PropTypes.func.isRequired,
+    onStop: PropTypes.func.isRequired,
 };
 

@@ -28,14 +28,26 @@ export const getTaskStatus = ({ startedAt, stoppedAt, pauses }) => {
     return 'not-started';
 };
 
-export const saveTask = (value) => db.get('tasks').find({title:value.title}).assign(value).write();
+export const saveTask = (value) => 
+    db.get('tasks')
+        .find({title:value.title})
+        .assign(value)
+        .write();
 
 /**
  * Loads a task from the storage or returns a default one
  * @param {String} title the name of the task to load
  * @returns {Task} the task from memory or empty task if it was not found or invalid
  */
-export const loadTask = title => db.get('tasks').find({title}).value() || emptyTask(title);
+export const loadTask = title => 
+{
+    const task = db.get('tasks')
+        .find({title})
+        .value();
+    console.log('Load task',title,task);
+    
+    return task || emptyTask(title);
+};
 
 export const updateTask = updater => name => {
     try {

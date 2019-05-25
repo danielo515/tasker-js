@@ -7,4 +7,6 @@ global.tk = {
     flashLong: jest.fn(),
     flash: jest.fn(),
     exit: jest.fn(),
+    readFile: jest.fn(),
+    writeFile: jest.fn(),
 };

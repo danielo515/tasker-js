@@ -1,7 +1,7 @@
 /* eslint-env jest */
+import './__mocks__/tasker';
 import { pauseTask, isPaused, startTask, stopTask } from '../src/tasks';
 import { paused, running } from '../fixtures/fakeTask';
-import './__mocks__/tasker';
 import main from '../src/task-run';
 
 

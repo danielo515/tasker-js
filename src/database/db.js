@@ -5,6 +5,7 @@ import { emptyTask } from '../emptyTask';
 import { fakeTasker } from './fakeTasker';
 
 let tasks;
+
 if (!window.tk) {
     // browser fake mode
     const taskNames = ['work', 'eating', 'workout', 'programming'];
