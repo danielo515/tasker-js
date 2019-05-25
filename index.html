@@ -10201,52 +10201,73 @@ var isOdd = function isOdd(x) {
 };
 
 exports.isOdd = isOdd;
-},{}],"Snw6":[function(require,module,exports) {
+},{}],"cSb6":[function(require,module,exports) {
 "use strict";
 
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var _serialize = function _serialize(d) {
   return JSON.stringify(d, null, 2);
 };
 
 var _deserialize = function _deserialize(str) {
-  return JSON["parse"](str);
+  return JSON['parse'](str);
 };
 
 var TaskerAdapter =
-/** @class */
+/*#__PURE__*/
 function () {
-  function TaskerAdapter(source, options) {
+  function TaskerAdapter(source, _ref) {
+    var _ref$serialize = _ref.serialize,
+        serialize = _ref$serialize === void 0 ? _serialize : _ref$serialize,
+        _ref$deserialize = _ref.deserialize,
+        deserialize = _ref$deserialize === void 0 ? _deserialize : _ref$deserialize,
+        defaultValue = _ref.defaultValue;
+
+    _classCallCheck(this, TaskerAdapter);
+
     this.source = source;
-    this.options = options;
-    this.serialize = options.serialize || _serialize;
-    this.deserialize = options.deserialize || _deserialize;
-    this.defaultValue = options.defaultValue;
+    this.serialize = serialize;
+    this.deserialize = deserialize;
+    this.defaultValue = defaultValue;
   }
 
-  TaskerAdapter.prototype.read = function () {
-    tk.flash('Reading from database');
+  _createClass(TaskerAdapter, [{
+    key: "read",
+    value: function read() {
+      tk.flash('Reading from database');
 
-    try {
-      var data = tk.readFile(this.source);
-      return this.deserialize(data);
-    } catch (error) {
-      tk.flashLong('Database error ' + error.message);
-      this.write(this.defaultValue);
-      return this.defaultValue;
+      try {
+        var data = tk.readFile(this.source);
+        return this.deserialize(data);
+      } catch (error) {
+        tk.flashLong('Database error ' + error.message);
+        this.write(this.defaultValue);
+        return this.defaultValue;
+      }
     }
-  };
-
-  TaskerAdapter.prototype.write = function (data) {
-    tk.writeFile(this.source, this.serialize(data), false);
-    tk.flash('DB write complete!');
-  };
+  }, {
+    key: "write",
+    value: function write(data) {
+      tk.writeFile(this.source, this.serialize(data), false);
+      tk.flash('DB write complete!');
+    }
+  }]);
 
   return TaskerAdapter;
 }();
 
-exports["default"] = TaskerAdapter;
+var _default = TaskerAdapter;
+exports.default = _default;
 },{}],"yh9p":[function(require,module,exports) {
 'use strict'
 
@@ -29495,6 +29516,7 @@ exports.fakeTasker = fakeTasker;
 
 /* eslint-disable no-console */
 function fakeTasker() {
+  if ("production" === 'test') return;
   window.tk = {
     global: function global() {},
     readFile: function readFile() {
@@ -29585,7 +29607,7 @@ var db = (0, _lowdb.default)(new _taskerAdapter.default('Documents/tasks-db.json
   }
 }));
 exports.db = db;
-},{"./taskerAdapter":"Snw6","lowdb":"rpNd","../emptyTask":"9Ix2","./fakeTasker":"0chG","../../fixtures/fakeTask":"p+TI"}],"rzbf":[function(require,module,exports) {
+},{"./taskerAdapter":"cSb6","lowdb":"rpNd","../emptyTask":"9Ix2","./fakeTasker":"0chG","../../fixtures/fakeTask":"p+TI"}],"rzbf":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29652,9 +29674,12 @@ var saveTask = function saveTask(value) {
 exports.saveTask = saveTask;
 
 var loadTask = function loadTask(title) {
-  return _db.db.get('tasks').find({
+  var task = _db.db.get('tasks').find({
     title: title
-  }).value() || (0, _emptyTask.emptyTask)(title);
+  }).value();
+
+  console.log('Load task', title, task);
+  return task || (0, _emptyTask.emptyTask)(title);
 };
 
 exports.loadTask = loadTask;
@@ -42767,15 +42792,20 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 var tasks = _db.db.get('tasks').value();
 
+var start = function start(title) {
+  return function () {
+    (0, _tasks.startTask)(title);
+    tasks = _db.db.get('tasks').value();
+  };
+};
+
 function App() {
   return _react.default.createElement(_Paper.default, {
     className: "App-header"
   }, !tasks.length ? _react.default.createElement(_Typography.default, null, " No tasks yet") : tasks.map(function (task) {
     return _react.default.createElement(_Task.Task, _extends({}, task, {
       key: task.title,
-      onStart: function onStart() {
-        return (0, _tasks.startTask)(task.title);
-      },
+      onStart: start(task.title),
       onStop: function onStop() {
         return (0, _tasks.stopTask)(task.title);
       }
