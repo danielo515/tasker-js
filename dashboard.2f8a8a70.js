@@ -22459,7 +22459,7 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _dateFns = require("date-fns");
 
-var _styledComponents = _interopRequireWildcard(require("styled-components"));
+var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _timeUtils = require("../timeUtils");
 
@@ -22474,8 +22474,6 @@ var _ExpansionPanelDetails = _interopRequireDefault(require("@material-ui/core/E
 var _ExpansionPanelSummary = _interopRequireDefault(require("@material-ui/core/ExpansionPanelSummary"));
 
 var _ExpandMore = _interopRequireDefault(require("@material-ui/icons/ExpandMore"));
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
