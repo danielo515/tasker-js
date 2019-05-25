@@ -22863,7 +22863,10 @@ var Task = function Task(_ref2) {
   return _react.default.createElement(Root, null, _react.default.createElement(_ExpansionPanel.default, null, _react.default.createElement(_ExpansionPanelSummary.default, {
     expandIcon: _react.default.createElement(_ExpandMore.default, null),
     "aria-controls": "panel1c-content"
-  }, _react.default.createElement(Colum, null, _react.default.createElement(Header, null, title)), _react.default.createElement(Colum, null, _react.default.createElement(SecondaryHeader, null, " ", status, " "))), _react.default.createElement(_ExpansionPanelDetails.default, null, _react.default.createElement(Row, null, " ", _react.default.createElement(_Typography.default, null, "Started:"), " ", startedAt ? (0, _dateFns.distanceInWordsToNow)(startedAt) + ' ago' : '-'), _react.default.createElement(Row, null, " Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-', " "), _react.default.createElement(Row, null, " Running: ", runningTime, " ")), _react.default.createElement(_ExpansionPanelDetails.default, null, lastPause && _react.default.createElement(Row, null, " Last pause: ", lastPause, " ago "), _react.default.createElement(Row, null, " ", computedPauses.join(' |-| '), " "))));
+  }, _react.default.createElement(Colum, null, _react.default.createElement(Header, null, title)), _react.default.createElement(Colum, null, _react.default.createElement(SecondaryHeader, null, " ", status, " "))), _react.default.createElement(_ExpansionPanelDetails.default, null, _react.default.createElement(Row, null, " ", _react.default.createElement(RowContent, {
+    title: "Started",
+    text: startedAt ? (0, _dateFns.distanceInWordsToNow)(startedAt) + ' ago' : '-'
+  })), _react.default.createElement(Row, null, " Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-', " "), _react.default.createElement(Row, null, " Running: ", runningTime, " ")), _react.default.createElement(_ExpansionPanelDetails.default, null, lastPause && _react.default.createElement(Row, null, " Last pause: ", lastPause, " ago "), _react.default.createElement(Row, null, " ", computedPauses.join(' |-| '), " "))));
 };
 
 exports.Task = Task;
