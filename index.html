@@ -42799,6 +42799,13 @@ var start = function start(title) {
   };
 };
 
+var stop = function stop(title) {
+  return function () {
+    (0, _tasks.stopTask)(title);
+    tasks = _db.db.get('tasks').value();
+  };
+};
+
 function App() {
   return _react.default.createElement(_Paper.default, {
     className: "App-header"
@@ -42806,9 +42813,7 @@ function App() {
     return _react.default.createElement(_Task.Task, _extends({}, task, {
       key: task.title,
       onStart: start(task.title),
-      onStop: function onStop() {
-        return (0, _tasks.stopTask)(task.title);
-      }
+      onStop: stop(task.title)
     }));
   }));
 } // function App() {
