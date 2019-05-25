@@ -42755,6 +42755,7 @@ var start = function start(title) {
   return function () {
     (0, _tasks.startTask)(title);
     tasks = _db.db.get('tasks').value();
+    console.log('Re-read tasks', tasks);
   };
 };
 
