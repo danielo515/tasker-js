@@ -28932,7 +28932,8 @@ var pauseTask = updateTask(function (_ref2) {
 exports.pauseTask = pauseTask;
 var startTask = updateTask(function () {
   return {
-    startedAt: Date.now()
+    startedAt: Date.now(),
+    stoppedAt: null
   };
 });
 exports.startTask = startTask;
