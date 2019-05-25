@@ -44842,7 +44842,10 @@ function tasksReducer() {
 
   var _ref = arguments.length > 1 ? arguments[1] : undefined,
       type = _ref.type,
-      task = _ref.payload.task;
+      _ref$payload = _ref.payload;
+
+  _ref$payload = _ref$payload === void 0 ? {} : _ref$payload;
+  var task = _ref$payload.task;
 
   switch (type) {
     case 'update':
