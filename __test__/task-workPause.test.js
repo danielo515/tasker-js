@@ -1,19 +1,19 @@
 /* eslint-env jest */
-import { pauseTask } from '../src/tasks';
-import { running } from '../fixtures/fakeTask';   
+import { pauseTask, isPaused } from '../src/tasks';
+import { paused } from '../fixtures/fakeTask';
+import './__mocks__/tasker';
 
-global.tk = {
-    flashLong: jest.fn(),
-    exit: jest.fn()
-};
 
 jest.mock('../src/tasks');
-pauseTask.mockReturnValue(running);
+pauseTask.mockReturnValue(paused);
+isPaused.mockReturnValue(true);
 
-describe ('Execute work task', () => {
+
+describe('Execute work task', () => {
     require('../src/task-workPause');
     it('should call flashWith the proper minutes if there is a pause', () => {
-        expect(tk.flashLong).toHaveBeenCalledWith('98 minutes');
-    }); 
+        expect(pauseTask).toHaveBeenCalled();
+        expect(tk.flashLong).toHaveBeenCalledWith(expect.stringContaining(' minutes'));
+    });
 
 });
