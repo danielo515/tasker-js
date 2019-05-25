@@ -22519,6 +22519,16 @@ var _ExpandMore = _interopRequireDefault(require("@material-ui/icons/ExpandMore"
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n  flex-basis: 50%;\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject4() {
   var data = _taggedTemplateLiteral(["\n  color: grey;\n"]);
 
@@ -22569,6 +22579,8 @@ var Header = _styledComponents.default.span(_templateObject3());
 
 var SecondaryHeader = _styledComponents.default.span(_templateObject4());
 
+var Colum = _styledComponents.default.span(_templateObject5());
+
 var Task = function Task(_ref) {
   var startedAt = _ref.startedAt,
       stoppedAt = _ref.stoppedAt,
@@ -22590,7 +22602,7 @@ var Task = function Task(_ref) {
   return _react.default.createElement(Root, null, _react.default.createElement(_ExpansionPanel.default, null, _react.default.createElement(_ExpansionPanelSummary.default, {
     expandIcon: _react.default.createElement(_ExpandMore.default, null),
     "aria-controls": "panel1c-content"
-  }, _react.default.createElement(Header, null, title), _react.default.createElement(SecondaryHeader, null, " ", status, " ")), _react.default.createElement(_ExpansionPanelDetails.default, null, _react.default.createElement(Row, null, " Started: ", startedAt ? (0, _dateFns.distanceInWordsToNow)(startedAt) + ' ago' : '-'), _react.default.createElement(Row, null, " Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-', " "), _react.default.createElement(Row, null, " Running: ", runningTime, " "), lastPause && _react.default.createElement(Row, null, " Last pause: ", lastPause, " ago "), _react.default.createElement(Row, null, " ", computedPauses.join(' |-| '), " "))));
+  }, _react.default.createElement(Colum, null, _react.default.createElement(Header, null, title)), _react.default.createElement(Colum, null, _react.default.createElement(SecondaryHeader, null, " ", status, " "))), _react.default.createElement(_ExpansionPanelDetails.default, null, _react.default.createElement(Row, null, " Started: ", startedAt ? (0, _dateFns.distanceInWordsToNow)(startedAt) + ' ago' : '-'), _react.default.createElement(Row, null, " Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-', " "), _react.default.createElement(Row, null, " Running: ", runningTime, " "), lastPause && _react.default.createElement(Row, null, " Last pause: ", lastPause, " ago "), _react.default.createElement(Row, null, " ", computedPauses.join(' |-| '), " "))));
 };
 
 exports.Task = Task;
