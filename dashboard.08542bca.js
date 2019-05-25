@@ -29554,8 +29554,6 @@ var _fakeTasker = require("./fakeTasker");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var tasks;
-
 if (!window.tk) {
   // browser fake mode
   (0, _fakeTasker.fakeTasker)();
@@ -29563,7 +29561,7 @@ if (!window.tk) {
 
 var db = (0, _lowdb.default)(new _taskerAdapter.default('Documents/tasks-db.json', {
   defaultValue: {
-    tasks: tasks || []
+    tasks: []
   }
 }));
 exports.db = db;
