@@ -44783,13 +44783,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var start = function start(title) {
   return function () {
-    return (0, _tasks.startTask)(title);
+    return {
+      type: 'update',
+      payload: {
+        task: (0, _tasks.startTask)(title)
+      }
+    };
   };
 };
 
 var stop = function stop(title) {
   return function () {
-    return (0, _tasks.stopTask)(title);
+    return {
+      type: 'update',
+      payload: {
+        task: (0, _tasks.stopTask)(title)
+      }
+    };
   };
 };
 
