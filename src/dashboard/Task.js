@@ -22,6 +22,12 @@ text-transform: capitalize;
 color: green;
 `;
 
+const statusEmoji = {
+    stopped:'🛑',
+    paused:'☕️',
+    running:'🏃‍♂️',
+    'not-started':null,
+};
 
 export const Task = ({ startedAt, stoppedAt, pauses, title }) => {
 
@@ -33,7 +39,7 @@ export const Task = ({ startedAt, stoppedAt, pauses, title }) => {
     return (
         <Root>
             <Header>{title}</Header>
-            <Row> Status: {status} </Row>
+            <Row> Status: {status} {statusEmoji[status]}</Row>
             <Row> Started: { startedAt ? distanceInWordsToNow(startedAt) + ' ago' : '-'}</Row>
             <Row> Finished: {stoppedAt ? distanceInWordsToNow(stoppedAt) : '-'} </Row>
             <Row> Running Time: {runningTime} </Row>
