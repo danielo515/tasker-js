@@ -25636,7 +25636,7 @@ exports.db = db;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.emptyTask = exports.getTaskStatus = exports.isPaused = void 0;
+exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.saveTask = exports.emptyTask = exports.getTaskStatus = exports.isPaused = void 0;
 
 var _isOdd = require("./dashboard/isOdd");
 
@@ -25708,6 +25708,8 @@ var saveTask = function saveTask(value) {
  * @returns {Task} the task from memory or empty task if it was not found or invalid
  */
 
+
+exports.saveTask = saveTask;
 
 var loadTask = function loadTask(title) {
   return _db.db.get('tasks').find({
