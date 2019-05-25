@@ -25746,7 +25746,6 @@ var loadTask = function loadTask(title) {
     title: title
   }).value();
 
-  console.log('Load task', title, task);
   return task || (0, _emptyTask.emptyTask)(title);
 };
 
