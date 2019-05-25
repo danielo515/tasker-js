@@ -117,33 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"PX3D":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.readArr = exports.default = void 0;
-
-var safeParse = function safeParse(str) {
-  var defaultVal = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-  try {
-    return JSON.parse(str);
-  } catch (error) {
-    return defaultVal;
-  }
-};
-
-var _default = safeParse;
-exports.default = _default;
-
-var readArr = function readArr(name) {
-  return safeParse(tk.global(name), []);
-};
-
-exports.readArr = readArr;
-},{}],"PAGD":[function(require,module,exports) {
+})({"PAGD":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25650,22 +25624,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.emptyTask = exports.getTaskStatus = exports.isPaused = void 0;
 
-var _safeParse = _interopRequireDefault(require("./util/safeParse"));
-
 var _isOdd = require("./dashboard/isOdd");
 
 var _db = require("./database/db");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 // const readObj = (name, fallback) => safeParse(tk.global(name), fallback);
-var saveTask = function saveTask(value) {
-  return _db.db.get('tasks').push(value).write();
-};
+
 /**
  * 
  * @typedef  Task
@@ -25674,8 +25642,6 @@ var saveTask = function saveTask(value) {
  * @property {Number|null} stoppedAt
  * @property {[Number]|[]} pauses
  */
-
-
 var isPaused = function isPaused(pauses) {
   return pauses.length && (0, _isOdd.isOdd)(pauses.length);
 };
@@ -25714,14 +25680,18 @@ var emptyTask = function emptyTask(name) {
     stoppedAt: null
   };
 };
+
+exports.emptyTask = emptyTask;
+
+var saveTask = function saveTask(value) {
+  return _db.db.get('tasks').push(value).write();
+};
 /**
  * Loads a task from the storage or returns a default one
  * @param {String} title the name of the task to load
  * @returns {Task} the task from memory or empty task if it was not found or invalid
  */
 
-
-exports.emptyTask = emptyTask;
 
 var loadTask = function loadTask(title) {
   return _db.db.get('tasks').find({
@@ -25767,7 +25737,7 @@ var stopTask = updateTask(function () {
   };
 });
 exports.stopTask = stopTask;
-},{"./util/safeParse":"PX3D","./dashboard/isOdd":"PAGD","./database/db":"ms86"}],"+qIH":[function(require,module,exports) {
+},{"./dashboard/isOdd":"PAGD","./database/db":"ms86"}],"+qIH":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
