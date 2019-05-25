@@ -44870,7 +44870,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var initialState = (0, _lodash.keyBy)(_db.db.get('tasks').value(), 'title');
 
 function tasksReducer() {
-  var store = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 
   var _ref = arguments.length > 1 ? arguments[1] : undefined,
       type = _ref.type,
@@ -44878,10 +44878,10 @@ function tasksReducer() {
 
   switch (type) {
     case 'update':
-      return _objectSpread({}, store, _defineProperty({}, task.title, task));
+      return _objectSpread({}, state, _defineProperty({}, task.title, task));
 
     default:
-      return store;
+      return state;
   }
 }
 
