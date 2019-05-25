@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 
 // const devMode = process.env.NODE_ENV !== 'production';
 
-const taskNames = ['work','eating','workout'];
+const taskNames = ['work','eating','workout', 'programming'];
 let tasks;
 if (!window.tk) {
     window.tk = { global: () => {} };

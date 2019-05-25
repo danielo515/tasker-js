@@ -1,16 +1,11 @@
 import { pauseTask, isPaused, startTask, stopTask } from './tasks';
 import { differenceInMinutes } from 'date-fns';
+import { ensureLocal, fail } from '../util/fail';
 
-const fail = msg => {
-    tk.flashLong(msg);
-    tk.exit();
-};
+const taskName = ensureLocal('task','Please set local var. "task" with the task name');
+const action = ensureLocal('action','Please set a local var. "action" with one of: start,stop,pause');
 
-const taskName = tk.local('task ');
-if(!taskName) fail('Please set a local variable with task name called task');
-
-const action = tk.local('action');
-if(!action) fail('Please set a local variable with the action (start,stop,pause)');
+tk.flashLong(`About to ${action} task ${taskName}`);
 
 switch (action) {
 case 'start':
@@ -20,7 +15,7 @@ case 'stop':
     stopTask(taskName);
     break;
 case 'pause':{
-    const task = pauseTask('work');
+    const task = pauseTask(taskName);
     const {pauses} = task;
     if(isPaused(pauses)){
         const a = pauses[pauses.length-2];
