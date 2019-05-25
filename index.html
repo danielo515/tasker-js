@@ -42757,6 +42757,8 @@ var _Paper = _interopRequireDefault(require("@material-ui/core/Paper"));
 
 var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
 
+var _tasks = require("../tasks");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -42768,7 +42770,10 @@ function App() {
     className: "App-header"
   }, !tasks.length ? _react.default.createElement(_Typography.default, null, " No tasks yet") : tasks.map(function (task) {
     return _react.default.createElement(_Task.Task, _extends({}, task, {
-      key: task.title
+      key: task.title,
+      onStart: function onStart() {
+        return (0, _tasks.startTask)(task.title);
+      }
     }));
   }));
 } // function App() {
@@ -42785,7 +42790,7 @@ function App() {
 
 var _default = App;
 exports.default = _default;
-},{"react":"1n8/","./App.css":"CMr0","./Task":"V/1Z","../database/db":"ms86","@material-ui/core/Paper":"76mt","@material-ui/core/Typography":"/pi2"}],"pZkM":[function(require,module,exports) {
+},{"react":"1n8/","./App.css":"CMr0","./Task":"V/1Z","../database/db":"ms86","@material-ui/core/Paper":"76mt","@material-ui/core/Typography":"/pi2","../tasks":"rzbf"}],"pZkM":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
