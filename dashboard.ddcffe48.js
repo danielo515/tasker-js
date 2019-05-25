@@ -29553,7 +29553,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 // const readObj = (name, fallback) => safeParse(tk.global(name), fallback);
-var saveJson = function saveJson(name, value) {
+var saveTask = function saveTask(value) {
   return _db.db.get('tasks').push(value).write();
 };
 /**
@@ -29606,15 +29606,17 @@ var emptyTask = function emptyTask(name) {
 };
 /**
  * Loads a task from the storage or returns a default one
- * @param {String} name the name of the task to load
+ * @param {String} title the name of the task to load
  * @returns {Task} the task from memory or empty task if it was not found or invalid
  */
 
 
 exports.emptyTask = emptyTask;
 
-var loadTask = function loadTask(name) {
-  return readObj("TASK_".concat(name), emptyTask(name));
+var loadTask = function loadTask(title) {
+  return _db.db.get('tasks').find({
+    title: title
+  }).value() || emptyTask(title);
 };
 
 exports.loadTask = loadTask;
@@ -29627,7 +29629,7 @@ var updateTask = function updateTask(updater) {
 
       var newTask = _objectSpread({}, task, newFields);
 
-      saveJson(newTask);
+      saveTask(newTask);
       return newTask;
     } catch (error) {
       tk.flash("Error updating task ".concat(name, ":\n ").concat(error.toString));
