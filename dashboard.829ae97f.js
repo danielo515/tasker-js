@@ -42731,6 +42731,9 @@ function App() {
       key: task.title,
       onStart: function onStart() {
         return (0, _tasks.startTask)(task.title);
+      },
+      onStop: function onStop() {
+        return (0, _tasks.stopTask)(task.title);
       }
     }));
   }));
