@@ -29464,29 +29464,6 @@ var emptyTask = function emptyTask(name) {
 };
 
 exports.emptyTask = emptyTask;
-},{}],"0chG":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.fakeTasker = fakeTasker;
-
-/* eslint-disable no-console */
-function fakeTasker() {
-  if ("production" === 'test') return;
-  window.tk = {
-    global: function global() {},
-    readFile: function readFile() {
-      return void 0;
-    },
-    writeFile: function writeFile() {
-      return void 0;
-    },
-    flash: console.info,
-    flashLong: console.info
-  };
-}
 },{}],"p+TI":[function(require,module,exports) {
 "use strict";
 
@@ -29524,7 +29501,44 @@ var tasks = {
   work: paused
 };
 exports.tasks = tasks;
-},{"date-fns":"cWQX"}],"ms86":[function(require,module,exports) {
+},{"date-fns":"cWQX"}],"0chG":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fakeTasker = fakeTasker;
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+/* eslint-disable no-console */
+function fakeTasker() {
+  if ("production" === 'test') return;
+  var taskNames = ['work', 'eating', 'workout', 'programming'];
+
+  var emptyTask = require('../emptyTask').default;
+
+  window.tk = {
+    global: function global() {},
+    readFile: function readFile() {
+      return JSON.stringify({
+        tasks: [require('../../fixtures/fakeTask').running].concat(_toConsumableArray(taskNames.slice(1).map(emptyTask)))
+      });
+    },
+    writeFile: function writeFile() {
+      return void 0;
+    },
+    flash: console.info,
+    flashLong: console.info
+  };
+}
+},{"../emptyTask":"9Ix2","../../fixtures/fakeTask":"p+TI"}],"ms86":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29536,27 +29550,15 @@ var _taskerAdapter = _interopRequireDefault(require("./taskerAdapter"));
 
 var _lowdb = _interopRequireDefault(require("lowdb"));
 
-var _emptyTask = require("../emptyTask");
-
 var _fakeTasker = require("./fakeTasker");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 var tasks;
 
 if (!window.tk) {
   // browser fake mode
-  var taskNames = ['work', 'eating', 'workout', 'programming'];
   (0, _fakeTasker.fakeTasker)();
-  tasks = [require('../../fixtures/fakeTask').running].concat(_toConsumableArray(taskNames.slice(1).map(_emptyTask.emptyTask)));
 }
 
 var db = (0, _lowdb.default)(new _taskerAdapter.default('Documents/tasks-db.json', {
@@ -29565,7 +29567,7 @@ var db = (0, _lowdb.default)(new _taskerAdapter.default('Documents/tasks-db.json
   }
 }));
 exports.db = db;
-},{"./taskerAdapter":"cSb6","lowdb":"rpNd","../emptyTask":"9Ix2","./fakeTasker":"0chG","../../fixtures/fakeTask":"p+TI"}],"rzbf":[function(require,module,exports) {
+},{"./taskerAdapter":"cSb6","lowdb":"rpNd","./fakeTasker":"0chG"}],"rzbf":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
