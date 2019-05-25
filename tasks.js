@@ -25632,7 +25632,7 @@ function fakeTasker() {
   if ("production" === 'test') return;
   var taskNames = ['work', 'eating', 'workout', 'programming'];
 
-  var emptyTask = require('../emptyTask').default;
+  var emptyTask = require('../emptyTask').emptyTask;
 
   window.tk = {
     global: function global() {},
