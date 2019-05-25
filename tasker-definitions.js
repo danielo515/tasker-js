@@ -1,4 +1,4 @@
-// v1 tv4.3u4m
+// v1 tv5.7.2
 function alarmVol(a1,a2,a3){return true;}
 function audioRecord(a1,a2,a3,a4){return true;}
 function audioRecordStop(){return true;}
@@ -11,6 +11,7 @@ function callDivert(a1,a2,a3){return true;}
 function callRevert(a1){return true;}
 function callVol(a1,a2,a3){return true;}
 function carMode(a1){return true;}
+function clearKey(a1){return true;}
 function composeEmail(a1,a2,a3){return true;}
 function composeMMS(a1,a2,a3,a4){return true;}
 function composeSMS(a1,a2){return true;}
@@ -18,6 +19,8 @@ function convert(a1,a2){return ' ';}
 function createDir(a1,a2,a3){return true;}
 function createScene(a1){return true;}
 function cropImage(a1,a2,a3,a4){return true;}
+function decryptDir(a1,a2,a3){return true;}
+function decryptFile(a1,a2,a3){return true;}
 function deleteDir(a1,a2,a3){return true;}
 function deleteFile(a1,a2,a3){return true;}
 function destroyScene(a1){return true;}
@@ -36,6 +39,9 @@ function elemTextSize(a1,a2,a3){return true;}
 function elemVisibility(a1,a2,a3,a4){return true;}
 function endCall(){return true;}
 function enableProfile(a1,a2){return true;}
+function encryptDir(a1,a2,a3,a4){return true;}
+function encryptFile(a1,a2,a3,a4){return true;}
+function enterKey(a1,a2,a3,a4,a5,a6,a7){return true;}
 function exit(){}
 function flash(a1){}
 function flashLong(a1){}
@@ -60,6 +66,7 @@ function musicBack(a1){return true;}
 function musicPlay(a1,a2,a3,a4){return true;}
 function musicSkip(a1){return true;}
 function musicStop(){return true;}
+function navigationBar(a1,a2,a3){return true;}
 function nightMode(a1){return true;}
 function notificationVol(a1,a2,a3){return true;}
 function performTask(a1,a2,a3,a4){return true;}
@@ -72,7 +79,7 @@ function resizeImage(a1,a2){return true;}
 function ringerVol(a1,a2,a3){return true;}
 function rotateImage(a1,a2){return true;}
 function saveImage(a1,a2,a3){return true;}
-function say(a1,a2,a3,a4,a5,a6){return true;}
+function say(a1,a2,a3,a4,a5,a6,a7,a8){return true;}
 function scanCard(a1){return true;}
 function sendIntent(a1,a2,a3,a4,a5,a6,a7,a8){return true;}
 function sendSMS(a1,a2,a3){return true;}
