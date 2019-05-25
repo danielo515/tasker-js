@@ -44732,6 +44732,8 @@ var _Paper = _interopRequireDefault(require("@material-ui/core/Paper"));
 
 var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
 
+var _lodash = require("lodash");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -44742,7 +44744,7 @@ function App(_ref) {
       stop = _ref.stop;
   return _react.default.createElement(_Paper.default, {
     className: "App-header"
-  }, !tasks.length ? _react.default.createElement(_Typography.default, null, " No tasks yet") : tasks.map(function (task) {
+  }, !tasks.length ? _react.default.createElement(_Typography.default, null, " No tasks yet") : (0, _lodash.map)(tasks, function (task) {
     return _react.default.createElement(_Task.Task, _extends({}, task, {
       key: task.title,
       onStart: start(task.title),
@@ -44763,7 +44765,7 @@ function App(_ref) {
 
 var _default = App;
 exports.default = _default;
-},{"react":"1n8/","./App.css":"CMr0","./Task":"V/1Z","@material-ui/core/Paper":"76mt","@material-ui/core/Typography":"/pi2"}],"czDv":[function(require,module,exports) {
+},{"react":"1n8/","./App.css":"CMr0","./Task":"V/1Z","@material-ui/core/Paper":"76mt","@material-ui/core/Typography":"/pi2","lodash":"B1iE"}],"czDv":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
