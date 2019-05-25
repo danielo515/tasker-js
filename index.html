@@ -10419,6 +10419,13 @@ var Row = _styledComponents.default.p(_templateObject2());
 
 var Header = _styledComponents.default.h2(_templateObject3());
 
+var statusEmoji = {
+  stopped: '🛑',
+  paused: '☕️',
+  running: '🏃‍♂️',
+  'not-started': null
+};
+
 var Task = function Task(_ref) {
   var startedAt = _ref.startedAt,
       stoppedAt = _ref.stoppedAt,
@@ -10437,7 +10444,7 @@ var Task = function Task(_ref) {
     var b = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : now;
     return (0, _dateFns.differenceInMinutes)(a, b);
   })(pauses);
-  return _react.default.createElement(Root, null, _react.default.createElement(Header, null, title), _react.default.createElement(Row, null, " Status: ", status, " "), _react.default.createElement(Row, null, " Started: ", startedAt ? (0, _dateFns.distanceInWordsToNow)(startedAt) + ' ago' : '-'), _react.default.createElement(Row, null, " Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-', " "), _react.default.createElement(Row, null, " Running Time: ", runningTime, " "), lastPause && _react.default.createElement(Row, null, " Last pause: ", lastPause, " ago "), _react.default.createElement(Row, null, " ", computedPauses.join(' |-| '), " "));
+  return _react.default.createElement(Root, null, _react.default.createElement(Header, null, title), _react.default.createElement(Row, null, " Status: ", status, " ", statusEmoji[status]), _react.default.createElement(Row, null, " Started: ", startedAt ? (0, _dateFns.distanceInWordsToNow)(startedAt) + ' ago' : '-'), _react.default.createElement(Row, null, " Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-', " "), _react.default.createElement(Row, null, " Running Time: ", runningTime, " "), lastPause && _react.default.createElement(Row, null, " Last pause: ", lastPause, " ago "), _react.default.createElement(Row, null, " ", computedPauses.join(' |-| '), " "));
 };
 
 exports.Task = Task;
