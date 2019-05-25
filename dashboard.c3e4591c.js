@@ -22634,7 +22634,9 @@ if (!window.tk) {
 }
 
 function App() {
-  return _react.default.createElement(_Paper.default, null, tasks.map(function (task) {
+  return _react.default.createElement(_Paper.default, {
+    className: "App-header"
+  }, tasks.map(function (task) {
     return _react.default.createElement(_Task.Task, _extends({}, task, {
       key: task.title
     }));
