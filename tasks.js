@@ -19399,6 +19399,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fakeTasker = fakeTasker;
 
+/* eslint-disable no-console */
 function fakeTasker() {
   window.tk = {
     global: function global() {},
