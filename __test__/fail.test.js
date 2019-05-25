@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import './__mocks__/tasker';
-import {fail, ensureLocal} from '../util/fail';
+import {fail, ensureLocal} from '../src/util/fail';
 
 describe ('Fail helper', () => {
 

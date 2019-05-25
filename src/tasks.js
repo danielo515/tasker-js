@@ -1,6 +1,6 @@
 // @ts-check
-import safeParse from '../util/safeParse';
-import LogErrors from '../util/errLog';
+import safeParse from './util/safeParse';
+import LogErrors from './util/errLog';
 import { isOdd } from './dashboard/isOdd';
 
 const readObj = (name, fallback) => safeParse(tk.global(name), fallback);

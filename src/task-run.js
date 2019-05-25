@@ -1,6 +1,6 @@
 import { pauseTask, isPaused, startTask, stopTask } from './tasks';
 import { differenceInMinutes } from 'date-fns';
-import { ensureLocal, fail } from '../util/fail';
+import { ensureLocal, fail } from './util/fail';
 
 const taskName = ensureLocal('task','Please set local var. "task" with the task name');
 const action = ensureLocal('action','Please set a local var. "action" with one of: start,stop,pause');
