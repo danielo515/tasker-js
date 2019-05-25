@@ -35,6 +35,11 @@ const Colum = styled.span`
   flex-basis: 50%;
 `;
 
+const FullExpansion = styled(ExpansionPanel)`
+width: 100%;
+padding-bottom: 0;
+`;
+
 export const Task = ({ startedAt, stoppedAt, pauses, title }) => {
 
     const runningTime = startedAt ? calculateRunningTime(startedAt, stoppedAt, pauses) : '-';
@@ -44,7 +49,7 @@ export const Task = ({ startedAt, stoppedAt, pauses, title }) => {
     const computedPauses = mapInPairs((a = now, b = now) => differenceInMinutes(a, b))(pauses);
     return (
         <Root>
-            <ExpansionPanel>
+            <FullExpansion>
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1c-content"
@@ -67,7 +72,7 @@ export const Task = ({ startedAt, stoppedAt, pauses, title }) => {
                     }
                     <Row> {computedPauses.join(' |-| ')} </Row>
                 </ExpansionPanelDetails>
-            </ExpansionPanel>
+            </FullExpansion>
         </Root>
     );
 };
