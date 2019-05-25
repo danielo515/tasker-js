@@ -22478,7 +22478,7 @@ var _ExpandMore = _interopRequireDefault(require("@material-ui/icons/ExpandMore"
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  color: grey;\n  flex-grow: 2;\n"]);
+  var data = _taggedTemplateLiteral(["\n  color: grey;\n  flex-grow: 2;\n  text-align: left;\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -22488,7 +22488,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\ntext-transform: capitalize;\ncolor: green;\n"]);
+  var data = _taggedTemplateLiteral(["\n    text-transform: capitalize;\n    color: green;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
