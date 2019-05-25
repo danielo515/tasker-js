@@ -29527,6 +29527,7 @@ function fakeTasker() {
   window.tk = {
     global: function global() {},
     readFile: function readFile() {
+      console.log('Database read');
       return JSON.stringify({
         tasks: [require('../../fixtures/fakeTask').running].concat(_toConsumableArray(taskNames.slice(1).map(emptyTask)))
       });
