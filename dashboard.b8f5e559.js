@@ -10309,104 +10309,97 @@ var stopTask = updateTask(function () {
   };
 });
 exports.stopTask = stopTask;
-},{"./util/safeParse":"PX3D","./dashboard/isOdd":"PAGD"}],"V/1Z":[function(require,module,exports) {
-"use strict";
+},{"./util/safeParse":"PX3D","./dashboard/isOdd":"PAGD"}],"3dLy":[function(require,module,exports) {
+function _extends() {
+  module.exports = _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Task = void 0;
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
 
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _dateFns = require("date-fns");
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _timeUtils = require("../timeUtils");
-
-var _mapInPairs = require("../util/mapInPairs");
-
-var _tasks = require("../tasks");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\ntext-transform: capitalize;\ncolor: green;\n"]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
+    return target;
   };
 
-  return data;
+  return _extends.apply(this, arguments);
 }
 
-function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  padding: 0 0 0 15px;\n  margin: 0;\n"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
+module.exports = _extends;
+},{}],"OUZ9":[function(require,module,exports) {
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
 }
 
-function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n    display: flex;\n    flex-direction: column;\n    align-items: flex-start;\n    padding: 1em;\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
+module.exports = _arrayWithHoles;
+},{}],"OMTj":[function(require,module,exports) {
+function _iterableToArray(iter) {
+  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
 }
 
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+module.exports = _iterableToArray;
+},{}],"Rom6":[function(require,module,exports) {
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+}
 
-var Root = _styledComponents.default.div(_templateObject());
+module.exports = _nonIterableRest;
+},{}],"564k":[function(require,module,exports) {
+var arrayWithHoles = require("./arrayWithHoles");
 
-var Row = _styledComponents.default.p(_templateObject2());
+var iterableToArray = require("./iterableToArray");
 
-var Header = _styledComponents.default.h2(_templateObject3());
+var nonIterableRest = require("./nonIterableRest");
 
-var statusEmoji = {
-  stopped: '🛑',
-  paused: '☕️',
-  running: '🏃‍♂️',
-  'not-started': null
-};
+function _toArray(arr) {
+  return arrayWithHoles(arr) || iterableToArray(arr) || nonIterableRest();
+}
 
-var Task = function Task(_ref) {
-  var startedAt = _ref.startedAt,
-      stoppedAt = _ref.stoppedAt,
-      pauses = _ref.pauses,
-      title = _ref.title;
-  var runningTime = startedAt ? (0, _timeUtils.calculateRunningTime)(startedAt, stoppedAt, pauses) : 0;
-  var status = (0, _tasks.getTaskStatus)({
-    startedAt: startedAt,
-    stoppedAt: stoppedAt,
-    pauses: pauses
-  });
-  var lastPause = pauses.length ? (0, _dateFns.distanceInWordsToNow)(pauses[pauses.length - 1]) : null;
-  var now = Date.now();
-  var computedPauses = (0, _mapInPairs.mapInPairs)(function () {
-    var a = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : now;
-    var b = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : now;
-    return (0, _dateFns.differenceInMinutes)(a, b);
-  })(pauses);
-  return _react.default.createElement(Root, null, _react.default.createElement(Header, null, title), _react.default.createElement(Row, null, " Status: ", status, " ", statusEmoji[status]), _react.default.createElement(Row, null, " Started: ", startedAt ? (0, _dateFns.distanceInWordsToNow)(startedAt) + ' ago' : '-'), _react.default.createElement(Row, null, " Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-', " "), _react.default.createElement(Row, null, " Running Time: ", runningTime, " "), lastPause && _react.default.createElement(Row, null, " Last pause: ", lastPause, " ago "), _react.default.createElement(Row, null, " ", computedPauses.join(' |-| '), " "));
-};
+module.exports = _toArray;
+},{"./arrayWithHoles":"OUZ9","./iterableToArray":"OMTj","./nonIterableRest":"Rom6"}],"9vK/":[function(require,module,exports) {
+function _iterableToArrayLimit(arr, i) {
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
 
-exports.Task = Task;
-Task.propTypes = {
-  startedAt: _propTypes.default.string.number,
-  stoppedAt: _propTypes.default.string.number,
-  pauses: _propTypes.default.arrayOf(_propTypes.default.number),
-  title: _propTypes.default.string.isRequired
-};
-},{"react":"1n8/","prop-types":"5D9O","date-fns":"cWQX","styled-components":"tFSs","../timeUtils":"9n5r","../util/mapInPairs":"fpUY","../tasks":"rzbf"}],"t2zx":[function(require,module,exports) {
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+module.exports = _iterableToArrayLimit;
+},{}],"69HE":[function(require,module,exports) {
+var arrayWithHoles = require("./arrayWithHoles");
+
+var iterableToArrayLimit = require("./iterableToArrayLimit");
+
+var nonIterableRest = require("./nonIterableRest");
+
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || nonIterableRest();
+}
+
+module.exports = _slicedToArray;
+},{"./arrayWithHoles":"OUZ9","./iterableToArrayLimit":"9vK/","./nonIterableRest":"Rom6"}],"t2zx":[function(require,module,exports) {
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
@@ -10446,27 +10439,7 @@ function _objectWithoutProperties(source, excluded) {
 }
 
 module.exports = _objectWithoutProperties;
-},{"./objectWithoutPropertiesLoose":"t2zx"}],"3dLy":[function(require,module,exports) {
-function _extends() {
-  module.exports = _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
-
-module.exports = _extends;
-},{}],"WLGK":[function(require,module,exports) {
+},{"./objectWithoutPropertiesLoose":"t2zx"}],"WLGK":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10882,7 +10855,1702 @@ var _getDisplayName = _interopRequireDefault(require("./getDisplayName"));
 var _ponyfillGlobal = _interopRequireDefault(require("./ponyfillGlobal"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./chainPropTypes":"6cGc","./elementAcceptingRef":"klap","./elementTypeAcceptingRef":"NXkN","./exactProp":"yjqW","./getDisplayName":"fBUN","./ponyfillGlobal":"UbX4"}],"XOCG":[function(require,module,exports) {
+},{"./chainPropTypes":"6cGc","./elementAcceptingRef":"klap","./elementTypeAcceptingRef":"NXkN","./exactProp":"yjqW","./getDisplayName":"fBUN","./ponyfillGlobal":"UbX4"}],"SpjQ":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _extends;
+
+function _extends() {
+  exports.default = _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+},{}],"3Vab":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _objectWithoutPropertiesLoose;
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+},{}],"S11h":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _inheritsLoose;
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+},{}],"SpGf":[function(require,module,exports) {
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+module.exports = _interopRequireDefault;
+},{}],"ULai":[function(require,module,exports) {
+"use strict";
+
+exports.__esModule = true;
+exports.default = hasClass;
+
+function hasClass(element, className) {
+  if (element.classList) return !!className && element.classList.contains(className);else return (" " + (element.className.baseVal || element.className) + " ").indexOf(" " + className + " ") !== -1;
+}
+
+module.exports = exports["default"];
+},{}],"NQzu":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+exports.__esModule = true;
+exports.default = addClass;
+
+var _hasClass = _interopRequireDefault(require("./hasClass"));
+
+function addClass(element, className) {
+  if (element.classList) element.classList.add(className);else if (!(0, _hasClass.default)(element, className)) if (typeof element.className === 'string') element.className = element.className + ' ' + className;else element.setAttribute('class', (element.className && element.className.baseVal || '') + ' ' + className);
+}
+
+module.exports = exports["default"];
+},{"@babel/runtime/helpers/interopRequireDefault":"SpGf","./hasClass":"ULai"}],"hW4d":[function(require,module,exports) {
+'use strict';
+
+function replaceClassName(origClass, classToRemove) {
+  return origClass.replace(new RegExp('(^|\\s)' + classToRemove + '(?:\\s|$)', 'g'), '$1').replace(/\s+/g, ' ').replace(/^\s*|\s*$/g, '');
+}
+
+module.exports = function removeClass(element, className) {
+  if (element.classList) element.classList.remove(className);else if (typeof element.className === 'string') element.className = replaceClassName(element.className, className);else element.setAttribute('class', replaceClassName(element.className && element.className.baseVal || '', className));
+};
+},{}],"BvlO":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.classNamesShape = exports.timeoutsShape = void 0;
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var timeoutsShape = "production" !== 'production' ? _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.shape({
+  enter: _propTypes.default.number,
+  exit: _propTypes.default.number,
+  appear: _propTypes.default.number
+}).isRequired]) : null;
+exports.timeoutsShape = timeoutsShape;
+var classNamesShape = "production" !== 'production' ? _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.shape({
+  enter: _propTypes.default.string,
+  exit: _propTypes.default.string,
+  active: _propTypes.default.string
+}), _propTypes.default.shape({
+  enter: _propTypes.default.string,
+  enterDone: _propTypes.default.string,
+  enterActive: _propTypes.default.string,
+  exit: _propTypes.default.string,
+  exitDone: _propTypes.default.string,
+  exitActive: _propTypes.default.string
+})]) : null;
+exports.classNamesShape = classNamesShape;
+},{"prop-types":"5D9O"}],"FWuc":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = _react.default.createContext(null);
+
+exports.default = _default;
+},{"react":"1n8/"}],"eTro":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.EXITING = exports.ENTERED = exports.ENTERING = exports.EXITED = exports.UNMOUNTED = void 0;
+
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutPropertiesLoose"));
+
+var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inheritsLoose"));
+
+var PropTypes = _interopRequireWildcard(require("prop-types"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactDom = _interopRequireDefault(require("react-dom"));
+
+var _PropTypes = require("./utils/PropTypes");
+
+var _TransitionGroupContext = _interopRequireDefault(require("./TransitionGroupContext"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UNMOUNTED = 'unmounted';
+exports.UNMOUNTED = UNMOUNTED;
+var EXITED = 'exited';
+exports.EXITED = EXITED;
+var ENTERING = 'entering';
+exports.ENTERING = ENTERING;
+var ENTERED = 'entered';
+exports.ENTERED = ENTERED;
+var EXITING = 'exiting';
+/**
+ * The Transition component lets you describe a transition from one component
+ * state to another _over time_ with a simple declarative API. Most commonly
+ * it's used to animate the mounting and unmounting of a component, but can also
+ * be used to describe in-place transition states as well.
+ *
+ * ---
+ *
+ * **Note**: `Transition` is a platform-agnostic base component. If you're using
+ * transitions in CSS, you'll probably want to use
+ * [`CSSTransition`](https://reactcommunity.org/react-transition-group/css-transition)
+ * instead. It inherits all the features of `Transition`, but contains
+ * additional features necessary to play nice with CSS transitions (hence the
+ * name of the component).
+ *
+ * ---
+ *
+ * By default the `Transition` component does not alter the behavior of the
+ * component it renders, it only tracks "enter" and "exit" states for the
+ * components. It's up to you to give meaning and effect to those states. For
+ * example we can add styles to a component when it enters or exits:
+ *
+ * ```jsx
+ * import { Transition } from 'react-transition-group';
+ *
+ * const duration = 300;
+ *
+ * const defaultStyle = {
+ *   transition: `opacity ${duration}ms ease-in-out`,
+ *   opacity: 0,
+ * }
+ *
+ * const transitionStyles = {
+ *   entering: { opacity: 1 },
+ *   entered:  { opacity: 1 },
+ *   exiting:  { opacity: 0 },
+ *   exited:  { opacity: 0 },
+ * };
+ *
+ * const Fade = ({ in: inProp }) => (
+ *   <Transition in={inProp} timeout={duration}>
+ *     {state => (
+ *       <div style={{
+ *         ...defaultStyle,
+ *         ...transitionStyles[state]
+ *       }}>
+ *         I'm a fade Transition!
+ *       </div>
+ *     )}
+ *   </Transition>
+ * );
+ * ```
+ *
+ * There are 4 main states a Transition can be in:
+ *  - `'entering'`
+ *  - `'entered'`
+ *  - `'exiting'`
+ *  - `'exited'`
+ *
+ * Transition state is toggled via the `in` prop. When `true` the component
+ * begins the "Enter" stage. During this stage, the component will shift from
+ * its current transition state, to `'entering'` for the duration of the
+ * transition and then to the `'entered'` stage once it's complete. Let's take
+ * the following example (we'll use the
+ * [useState](https://reactjs.org/docs/hooks-reference.html#usestate) hook):
+ *
+ * ```jsx
+ * function App() {
+ *   const [inProp, setInProp] = useState(false);
+ *   return (
+ *     <div>
+ *       <Transition in={inProp} timeout={500}>
+ *         {state => (
+ *           // ...
+ *         )}
+ *       </Transition>
+ *       <button onClick={() => setInProp(true)}>
+ *         Click to Enter
+ *       </button>
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * When the button is clicked the component will shift to the `'entering'` state
+ * and stay there for 500ms (the value of `timeout`) before it finally switches
+ * to `'entered'`.
+ *
+ * When `in` is `false` the same thing happens except the state moves from
+ * `'exiting'` to `'exited'`.
+ */
+
+exports.EXITING = EXITING;
+
+var Transition =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inheritsLoose2.default)(Transition, _React$Component);
+
+  function Transition(props, context) {
+    var _this;
+
+    _this = _React$Component.call(this, props, context) || this;
+    var parentGroup = context; // In the context of a TransitionGroup all enters are really appears
+
+    var appear = parentGroup && !parentGroup.isMounting ? props.enter : props.appear;
+    var initialStatus;
+    _this.appearStatus = null;
+
+    if (props.in) {
+      if (appear) {
+        initialStatus = EXITED;
+        _this.appearStatus = ENTERING;
+      } else {
+        initialStatus = ENTERED;
+      }
+    } else {
+      if (props.unmountOnExit || props.mountOnEnter) {
+        initialStatus = UNMOUNTED;
+      } else {
+        initialStatus = EXITED;
+      }
+    }
+
+    _this.state = {
+      status: initialStatus
+    };
+    _this.nextCallback = null;
+    return _this;
+  }
+
+  Transition.getDerivedStateFromProps = function getDerivedStateFromProps(_ref, prevState) {
+    var nextIn = _ref.in;
+
+    if (nextIn && prevState.status === UNMOUNTED) {
+      return {
+        status: EXITED
+      };
+    }
+
+    return null;
+  }; // getSnapshotBeforeUpdate(prevProps) {
+  //   let nextStatus = null
+  //   if (prevProps !== this.props) {
+  //     const { status } = this.state
+  //     if (this.props.in) {
+  //       if (status !== ENTERING && status !== ENTERED) {
+  //         nextStatus = ENTERING
+  //       }
+  //     } else {
+  //       if (status === ENTERING || status === ENTERED) {
+  //         nextStatus = EXITING
+  //       }
+  //     }
+  //   }
+  //   return { nextStatus }
+  // }
+
+
+  var _proto = Transition.prototype;
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.updateStatus(true, this.appearStatus);
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
+    var nextStatus = null;
+
+    if (prevProps !== this.props) {
+      var status = this.state.status;
+
+      if (this.props.in) {
+        if (status !== ENTERING && status !== ENTERED) {
+          nextStatus = ENTERING;
+        }
+      } else {
+        if (status === ENTERING || status === ENTERED) {
+          nextStatus = EXITING;
+        }
+      }
+    }
+
+    this.updateStatus(false, nextStatus);
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    this.cancelNextCallback();
+  };
+
+  _proto.getTimeouts = function getTimeouts() {
+    var timeout = this.props.timeout;
+    var exit, enter, appear;
+    exit = enter = appear = timeout;
+
+    if (timeout != null && typeof timeout !== 'number') {
+      exit = timeout.exit;
+      enter = timeout.enter; // TODO: remove fallback for next major
+
+      appear = timeout.appear !== undefined ? timeout.appear : enter;
+    }
+
+    return {
+      exit: exit,
+      enter: enter,
+      appear: appear
+    };
+  };
+
+  _proto.updateStatus = function updateStatus(mounting, nextStatus) {
+    if (mounting === void 0) {
+      mounting = false;
+    }
+
+    if (nextStatus !== null) {
+      // nextStatus will always be ENTERING or EXITING.
+      this.cancelNextCallback();
+
+      var node = _reactDom.default.findDOMNode(this);
+
+      if (nextStatus === ENTERING) {
+        this.performEnter(node, mounting);
+      } else {
+        this.performExit(node);
+      }
+    } else if (this.props.unmountOnExit && this.state.status === EXITED) {
+      this.setState({
+        status: UNMOUNTED
+      });
+    }
+  };
+
+  _proto.performEnter = function performEnter(node, mounting) {
+    var _this2 = this;
+
+    var enter = this.props.enter;
+    var appearing = this.context ? this.context.isMounting : mounting;
+    var timeouts = this.getTimeouts();
+    var enterTimeout = appearing ? timeouts.appear : timeouts.enter; // no enter animation skip right to ENTERED
+    // if we are mounting and running this it means appear _must_ be set
+
+    if (!mounting && !enter) {
+      this.safeSetState({
+        status: ENTERED
+      }, function () {
+        _this2.props.onEntered(node);
+      });
+      return;
+    }
+
+    this.props.onEnter(node, appearing);
+    this.safeSetState({
+      status: ENTERING
+    }, function () {
+      _this2.props.onEntering(node, appearing);
+
+      _this2.onTransitionEnd(node, enterTimeout, function () {
+        _this2.safeSetState({
+          status: ENTERED
+        }, function () {
+          _this2.props.onEntered(node, appearing);
+        });
+      });
+    });
+  };
+
+  _proto.performExit = function performExit(node) {
+    var _this3 = this;
+
+    var exit = this.props.exit;
+    var timeouts = this.getTimeouts(); // no exit animation skip right to EXITED
+
+    if (!exit) {
+      this.safeSetState({
+        status: EXITED
+      }, function () {
+        _this3.props.onExited(node);
+      });
+      return;
+    }
+
+    this.props.onExit(node);
+    this.safeSetState({
+      status: EXITING
+    }, function () {
+      _this3.props.onExiting(node);
+
+      _this3.onTransitionEnd(node, timeouts.exit, function () {
+        _this3.safeSetState({
+          status: EXITED
+        }, function () {
+          _this3.props.onExited(node);
+        });
+      });
+    });
+  };
+
+  _proto.cancelNextCallback = function cancelNextCallback() {
+    if (this.nextCallback !== null) {
+      this.nextCallback.cancel();
+      this.nextCallback = null;
+    }
+  };
+
+  _proto.safeSetState = function safeSetState(nextState, callback) {
+    // This shouldn't be necessary, but there are weird race conditions with
+    // setState callbacks and unmounting in testing, so always make sure that
+    // we can cancel any pending setState callbacks after we unmount.
+    callback = this.setNextCallback(callback);
+    this.setState(nextState, callback);
+  };
+
+  _proto.setNextCallback = function setNextCallback(callback) {
+    var _this4 = this;
+
+    var active = true;
+
+    this.nextCallback = function (event) {
+      if (active) {
+        active = false;
+        _this4.nextCallback = null;
+        callback(event);
+      }
+    };
+
+    this.nextCallback.cancel = function () {
+      active = false;
+    };
+
+    return this.nextCallback;
+  };
+
+  _proto.onTransitionEnd = function onTransitionEnd(node, timeout, handler) {
+    this.setNextCallback(handler);
+    var doesNotHaveTimeoutOrListener = timeout == null && !this.props.addEndListener;
+
+    if (!node || doesNotHaveTimeoutOrListener) {
+      setTimeout(this.nextCallback, 0);
+      return;
+    }
+
+    if (this.props.addEndListener) {
+      this.props.addEndListener(node, this.nextCallback);
+    }
+
+    if (timeout != null) {
+      setTimeout(this.nextCallback, timeout);
+    }
+  };
+
+  _proto.render = function render() {
+    var status = this.state.status;
+
+    if (status === UNMOUNTED) {
+      return null;
+    }
+
+    var _this$props = this.props,
+        children = _this$props.children,
+        childProps = (0, _objectWithoutPropertiesLoose2.default)(_this$props, ["children"]); // filter props for Transtition
+
+    delete childProps.in;
+    delete childProps.mountOnEnter;
+    delete childProps.unmountOnExit;
+    delete childProps.appear;
+    delete childProps.enter;
+    delete childProps.exit;
+    delete childProps.timeout;
+    delete childProps.addEndListener;
+    delete childProps.onEnter;
+    delete childProps.onEntering;
+    delete childProps.onEntered;
+    delete childProps.onExit;
+    delete childProps.onExiting;
+    delete childProps.onExited;
+
+    if (typeof children === 'function') {
+      // allows for nested Transitions
+      return _react.default.createElement(_TransitionGroupContext.default.Provider, {
+        value: null
+      }, children(status, childProps));
+    }
+
+    var child = _react.default.Children.only(children);
+
+    return (// allows for nested Transitions
+      _react.default.createElement(_TransitionGroupContext.default.Provider, {
+        value: null
+      }, _react.default.cloneElement(child, childProps))
+    );
+  };
+
+  return Transition;
+}(_react.default.Component);
+
+Transition.contextType = _TransitionGroupContext.default;
+Transition.propTypes = "production" !== "production" ? {
+  /**
+   * A `function` child can be used instead of a React element. This function is
+   * called with the current transition status (`'entering'`, `'entered'`,
+   * `'exiting'`, `'exited'`, `'unmounted'`), which can be used to apply context
+   * specific props to a component.
+   *
+   * ```jsx
+   * <Transition in={this.state.in} timeout={150}>
+   *   {state => (
+   *     <MyComponent className={`fade fade-${state}`} />
+   *   )}
+   * </Transition>
+   * ```
+   */
+  children: PropTypes.oneOfType([PropTypes.func.isRequired, PropTypes.element.isRequired]).isRequired,
+
+  /**
+   * Show the component; triggers the enter or exit states
+   */
+  in: PropTypes.bool,
+
+  /**
+   * By default the child component is mounted immediately along with
+   * the parent `Transition` component. If you want to "lazy mount" the component on the
+   * first `in={true}` you can set `mountOnEnter`. After the first enter transition the component will stay
+   * mounted, even on "exited", unless you also specify `unmountOnExit`.
+   */
+  mountOnEnter: PropTypes.bool,
+
+  /**
+   * By default the child component stays mounted after it reaches the `'exited'` state.
+   * Set `unmountOnExit` if you'd prefer to unmount the component after it finishes exiting.
+   */
+  unmountOnExit: PropTypes.bool,
+
+  /**
+   * Normally a component is not transitioned if it is shown when the `<Transition>` component mounts.
+   * If you want to transition on the first mount set `appear` to `true`, and the
+   * component will transition in as soon as the `<Transition>` mounts.
+   *
+   * > Note: there are no specific "appear" states. `appear` only adds an additional `enter` transition.
+   */
+  appear: PropTypes.bool,
+
+  /**
+   * Enable or disable enter transitions.
+   */
+  enter: PropTypes.bool,
+
+  /**
+   * Enable or disable exit transitions.
+   */
+  exit: PropTypes.bool,
+
+  /**
+   * The duration of the transition, in milliseconds.
+   * Required unless `addEndListener` is provided.
+   *
+   * You may specify a single timeout for all transitions:
+   *
+   * ```jsx
+   * timeout={500}
+   * ```
+   *
+   * or individually:
+   *
+   * ```jsx
+   * timeout={{
+   *  appear: 500,
+   *  enter: 300,
+   *  exit: 500,
+   * }}
+   * ```
+   *
+   * - `appear` defaults to the value of `enter`
+   * - `enter` defaults to `0`
+   * - `exit` defaults to `0`
+   *
+   * @type {number | { enter?: number, exit?: number, appear?: number }}
+   */
+  timeout: function timeout(props) {
+    var pt = _PropTypes.timeoutsShape;
+    if (!props.addEndListener) pt = pt.isRequired;
+
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    return pt.apply(void 0, [props].concat(args));
+  },
+
+  /**
+   * Add a custom transition end trigger. Called with the transitioning
+   * DOM node and a `done` callback. Allows for more fine grained transition end
+   * logic. **Note:** Timeouts are still used as a fallback if provided.
+   *
+   * ```jsx
+   * addEndListener={(node, done) => {
+   *   // use the css transitionend event to mark the finish of a transition
+   *   node.addEventListener('transitionend', done, false);
+   * }}
+   * ```
+   */
+  addEndListener: PropTypes.func,
+
+  /**
+   * Callback fired before the "entering" status is applied. An extra parameter
+   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool) -> void
+   */
+  onEnter: PropTypes.func,
+
+  /**
+   * Callback fired after the "entering" status is applied. An extra parameter
+   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool)
+   */
+  onEntering: PropTypes.func,
+
+  /**
+   * Callback fired after the "entered" status is applied. An extra parameter
+   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool) -> void
+   */
+  onEntered: PropTypes.func,
+
+  /**
+   * Callback fired before the "exiting" status is applied.
+   *
+   * @type Function(node: HtmlElement) -> void
+   */
+  onExit: PropTypes.func,
+
+  /**
+   * Callback fired after the "exiting" status is applied.
+   *
+   * @type Function(node: HtmlElement) -> void
+   */
+  onExiting: PropTypes.func,
+
+  /**
+   * Callback fired after the "exited" status is applied.
+   *
+   * @type Function(node: HtmlElement) -> void
+   */
+  onExited: PropTypes.func // Name the function so it is clearer in the documentation
+
+} : {};
+
+function noop() {}
+
+Transition.defaultProps = {
+  in: false,
+  mountOnEnter: false,
+  unmountOnExit: false,
+  appear: false,
+  enter: true,
+  exit: true,
+  onEnter: noop,
+  onEntering: noop,
+  onEntered: noop,
+  onExit: noop,
+  onExiting: noop,
+  onExited: noop
+};
+Transition.UNMOUNTED = 0;
+Transition.EXITED = 1;
+Transition.ENTERING = 2;
+Transition.ENTERED = 3;
+Transition.EXITING = 4;
+var _default = Transition;
+exports.default = _default;
+},{"@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"3Vab","@babel/runtime/helpers/esm/inheritsLoose":"S11h","prop-types":"5D9O","react":"1n8/","react-dom":"NKHc","./utils/PropTypes":"BvlO","./TransitionGroupContext":"FWuc"}],"9dt+":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
+
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutPropertiesLoose"));
+
+var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inheritsLoose"));
+
+var PropTypes = _interopRequireWildcard(require("prop-types"));
+
+var _addClass2 = _interopRequireDefault(require("dom-helpers/class/addClass"));
+
+var _removeClass = _interopRequireDefault(require("dom-helpers/class/removeClass"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _Transition = _interopRequireDefault(require("./Transition"));
+
+var _PropTypes = require("./utils/PropTypes");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _addClass = function addClass(node, classes) {
+  return node && classes && classes.split(' ').forEach(function (c) {
+    return (0, _addClass2.default)(node, c);
+  });
+};
+
+var removeClass = function removeClass(node, classes) {
+  return node && classes && classes.split(' ').forEach(function (c) {
+    return (0, _removeClass.default)(node, c);
+  });
+};
+/**
+ * A transition component inspired by the excellent
+ * [ng-animate](http://www.nganimate.org/) library, you should use it if you're
+ * using CSS transitions or animations. It's built upon the
+ * [`Transition`](https://reactcommunity.org/react-transition-group/transition)
+ * component, so it inherits all of its props.
+ *
+ * `CSSTransition` applies a pair of class names during the `appear`, `enter`,
+ * and `exit` states of the transition. The first class is applied and then a
+ * second `*-active` class in order to activate the CSSS transition. After the
+ * transition, matching `*-done` class names are applied to persist the
+ * transition state.
+ *
+ * ```jsx
+ * function App() {
+ *   const [inProp, setInProp] = useState(false);
+ *   return (
+ *     <div>
+ *       <CSSTransition in={inProp} timeout={200} classNames="my-node">
+ *         <div>
+ *           {"I'll receive my-node-* classes"}
+ *         </div>
+ *       </CSSTransition>
+ *       <button type="button" onClick={() => setInProp(true)}>
+ *         Click to Enter
+ *       </button>
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * When the `in` prop is set to `true`, the child component will first receive
+ * the class `example-enter`, then the `example-enter-active` will be added in
+ * the next tick. `CSSTransition` [forces a
+ * reflow](https://github.com/reactjs/react-transition-group/blob/5007303e729a74be66a21c3e2205e4916821524b/src/CSSTransition.js#L208-L215)
+ * between before adding the `example-enter-active`. This is an important trick
+ * because it allows us to transition between `example-enter` and
+ * `example-enter-active` even though they were added immediately one after
+ * another. Most notably, this is what makes it possible for us to animate
+ * _appearance_.
+ *
+ * ```css
+ * .my-node-enter {
+ *   opacity: 0;
+ * }
+ * .my-node-enter-active {
+ *   opacity: 1;
+ *   transition: opacity 200ms;
+ * }
+ * .my-node-exit {
+ *   opacity: 1;
+ * }
+ * .my-node-exit-active {
+ *   opacity: 0;
+ *   transition: opacity 200ms;
+ * }
+ * ```
+ *
+ * `*-active` classes represent which styles you want to animate **to**.
+ */
+
+
+var CSSTransition =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inheritsLoose2.default)(CSSTransition, _React$Component);
+
+  function CSSTransition() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+    _this.appliedClasses = {
+      appear: {},
+      enter: {},
+      exit: {}
+    };
+
+    _this.onEnter = function (node, appearing) {
+      _this.removeClasses(node, 'exit');
+
+      _this.addClass(node, appearing ? 'appear' : 'enter', 'base');
+
+      if (_this.props.onEnter) {
+        _this.props.onEnter(node, appearing);
+      }
+    };
+
+    _this.onEntering = function (node, appearing) {
+      var type = appearing ? 'appear' : 'enter';
+
+      _this.addClass(node, type, 'active');
+
+      if (_this.props.onEntering) {
+        _this.props.onEntering(node, appearing);
+      }
+    };
+
+    _this.onEntered = function (node, appearing) {
+      var type = appearing ? 'appear' : 'enter';
+
+      _this.removeClasses(node, type);
+
+      _this.addClass(node, type, 'done');
+
+      if (_this.props.onEntered) {
+        _this.props.onEntered(node, appearing);
+      }
+    };
+
+    _this.onExit = function (node) {
+      _this.removeClasses(node, 'appear');
+
+      _this.removeClasses(node, 'enter');
+
+      _this.addClass(node, 'exit', 'base');
+
+      if (_this.props.onExit) {
+        _this.props.onExit(node);
+      }
+    };
+
+    _this.onExiting = function (node) {
+      _this.addClass(node, 'exit', 'active');
+
+      if (_this.props.onExiting) {
+        _this.props.onExiting(node);
+      }
+    };
+
+    _this.onExited = function (node) {
+      _this.removeClasses(node, 'exit');
+
+      _this.addClass(node, 'exit', 'done');
+
+      if (_this.props.onExited) {
+        _this.props.onExited(node);
+      }
+    };
+
+    _this.getClassNames = function (type) {
+      var classNames = _this.props.classNames;
+      var isStringClassNames = typeof classNames === 'string';
+      var prefix = isStringClassNames && classNames ? classNames + "-" : '';
+      var baseClassName = isStringClassNames ? "" + prefix + type : classNames[type];
+      var activeClassName = isStringClassNames ? baseClassName + "-active" : classNames[type + "Active"];
+      var doneClassName = isStringClassNames ? baseClassName + "-done" : classNames[type + "Done"];
+      return {
+        baseClassName: baseClassName,
+        activeClassName: activeClassName,
+        doneClassName: doneClassName
+      };
+    };
+
+    return _this;
+  }
+
+  var _proto = CSSTransition.prototype;
+
+  _proto.addClass = function addClass(node, type, phase) {
+    var className = this.getClassNames(type)[phase + "ClassName"];
+
+    if (type === 'appear' && phase === 'done') {
+      className += " " + this.getClassNames('enter').doneClassName;
+    } // This is for to force a repaint,
+    // which is necessary in order to transition styles when adding a class name.
+
+
+    if (phase === 'active') {
+      /* eslint-disable no-unused-expressions */
+      node && node.scrollTop;
+    }
+
+    this.appliedClasses[type][phase] = className;
+
+    _addClass(node, className);
+  };
+
+  _proto.removeClasses = function removeClasses(node, type) {
+    var _this$appliedClasses$ = this.appliedClasses[type],
+        baseClassName = _this$appliedClasses$.base,
+        activeClassName = _this$appliedClasses$.active,
+        doneClassName = _this$appliedClasses$.done;
+    this.appliedClasses[type] = {};
+
+    if (baseClassName) {
+      removeClass(node, baseClassName);
+    }
+
+    if (activeClassName) {
+      removeClass(node, activeClassName);
+    }
+
+    if (doneClassName) {
+      removeClass(node, doneClassName);
+    }
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        _ = _this$props.classNames,
+        props = (0, _objectWithoutPropertiesLoose2.default)(_this$props, ["classNames"]);
+    return _react.default.createElement(_Transition.default, (0, _extends2.default)({}, props, {
+      onEnter: this.onEnter,
+      onEntered: this.onEntered,
+      onEntering: this.onEntering,
+      onExit: this.onExit,
+      onExiting: this.onExiting,
+      onExited: this.onExited
+    }));
+  };
+
+  return CSSTransition;
+}(_react.default.Component);
+
+CSSTransition.defaultProps = {
+  classNames: ''
+};
+CSSTransition.propTypes = "production" !== "production" ? (0, _extends2.default)({}, _Transition.default.propTypes, {
+  /**
+   * The animation classNames applied to the component as it enters, exits or
+   * has finished the transition. A single name can be provided and it will be
+   * suffixed for each stage: e.g.
+   *
+   * `classNames="fade"` applies `fade-enter`, `fade-enter-active`,
+   * `fade-enter-done`, `fade-exit`, `fade-exit-active`, `fade-exit-done`,
+   * `fade-appear`, `fade-appear-active`, and `fade-appear-done`.
+   *
+   * **Note**: `fade-appear-done` and `fade-enter-done` will _both_ be applied.
+   * This allows you to define different behavior for when appearing is done and
+   * when regular entering is done, using selectors like
+   * `.fade-enter-done:not(.fade-appear-done)`. For example, you could apply an
+   * epic entrance animation when element first appears in the DOM using
+   * [Animate.css](https://daneden.github.io/animate.css/). Otherwise you can
+   * simply use `fade-enter-done` for defining both cases.
+   *
+   * Each individual classNames can also be specified independently like:
+   *
+   * ```js
+   * classNames={{
+   *  appear: 'my-appear',
+   *  appearActive: 'my-active-appear',
+   *  appearDone: 'my-done-appear',
+   *  enter: 'my-enter',
+   *  enterActive: 'my-active-enter',
+   *  enterDone: 'my-done-enter',
+   *  exit: 'my-exit',
+   *  exitActive: 'my-active-exit',
+   *  exitDone: 'my-done-exit',
+   * }}
+   * ```
+   *
+   * If you want to set these classes using CSS Modules:
+   *
+   * ```js
+   * import styles from './styles.css';
+   * ```
+   *
+   * you might want to use camelCase in your CSS file, that way could simply
+   * spread them instead of listing them one by one:
+   *
+   * ```js
+   * classNames={{ ...styles }}
+   * ```
+   *
+   * @type {string | {
+   *  appear?: string,
+   *  appearActive?: string,
+   *  appearDone?: string,
+   *  enter?: string,
+   *  enterActive?: string,
+   *  enterDone?: string,
+   *  exit?: string,
+   *  exitActive?: string,
+   *  exitDone?: string,
+   * }}
+   */
+  classNames: _PropTypes.classNamesShape,
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'enter' or 'appear' class is
+   * applied.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool)
+   */
+  onEnter: PropTypes.func,
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'enter-active' or
+   * 'appear-active' class is applied.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool)
+   */
+  onEntering: PropTypes.func,
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'enter' or
+   * 'appear' classes are **removed** and the `done` class is added to the DOM node.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool)
+   */
+  onEntered: PropTypes.func,
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'exit' class is
+   * applied.
+   *
+   * @type Function(node: HtmlElement)
+   */
+  onExit: PropTypes.func,
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'exit-active' is applied.
+   *
+   * @type Function(node: HtmlElement)
+   */
+  onExiting: PropTypes.func,
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'exit' classes
+   * are **removed** and the `exit-done` class is added to the DOM node.
+   *
+   * @type Function(node: HtmlElement)
+   */
+  onExited: PropTypes.func
+}) : {};
+var _default = CSSTransition;
+exports.default = _default;
+},{"@babel/runtime/helpers/esm/extends":"SpjQ","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"3Vab","@babel/runtime/helpers/esm/inheritsLoose":"S11h","prop-types":"5D9O","dom-helpers/class/addClass":"NQzu","dom-helpers/class/removeClass":"hW4d","react":"1n8/","./Transition":"eTro","./utils/PropTypes":"BvlO"}],"bk0i":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _assertThisInitialized;
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+},{}],"uFw4":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getChildMapping = getChildMapping;
+exports.mergeChildMappings = mergeChildMappings;
+exports.getInitialChildMapping = getInitialChildMapping;
+exports.getNextChildMapping = getNextChildMapping;
+
+var _react = require("react");
+
+/**
+ * Given `this.props.children`, return an object mapping key to child.
+ *
+ * @param {*} children `this.props.children`
+ * @return {object} Mapping of key to child
+ */
+function getChildMapping(children, mapFn) {
+  var mapper = function mapper(child) {
+    return mapFn && (0, _react.isValidElement)(child) ? mapFn(child) : child;
+  };
+
+  var result = Object.create(null);
+  if (children) _react.Children.map(children, function (c) {
+    return c;
+  }).forEach(function (child) {
+    // run the map function here instead so that the key is the computed one
+    result[child.key] = mapper(child);
+  });
+  return result;
+}
+/**
+ * When you're adding or removing children some may be added or removed in the
+ * same render pass. We want to show *both* since we want to simultaneously
+ * animate elements in and out. This function takes a previous set of keys
+ * and a new set of keys and merges them with its best guess of the correct
+ * ordering. In the future we may expose some of the utilities in
+ * ReactMultiChild to make this easy, but for now React itself does not
+ * directly have this concept of the union of prevChildren and nextChildren
+ * so we implement it here.
+ *
+ * @param {object} prev prev children as returned from
+ * `ReactTransitionChildMapping.getChildMapping()`.
+ * @param {object} next next children as returned from
+ * `ReactTransitionChildMapping.getChildMapping()`.
+ * @return {object} a key set that contains all keys in `prev` and all keys
+ * in `next` in a reasonable order.
+ */
+
+
+function mergeChildMappings(prev, next) {
+  prev = prev || {};
+  next = next || {};
+
+  function getValueForKey(key) {
+    return key in next ? next[key] : prev[key];
+  } // For each key of `next`, the list of keys to insert before that key in
+  // the combined list
+
+
+  var nextKeysPending = Object.create(null);
+  var pendingKeys = [];
+
+  for (var prevKey in prev) {
+    if (prevKey in next) {
+      if (pendingKeys.length) {
+        nextKeysPending[prevKey] = pendingKeys;
+        pendingKeys = [];
+      }
+    } else {
+      pendingKeys.push(prevKey);
+    }
+  }
+
+  var i;
+  var childMapping = {};
+
+  for (var nextKey in next) {
+    if (nextKeysPending[nextKey]) {
+      for (i = 0; i < nextKeysPending[nextKey].length; i++) {
+        var pendingNextKey = nextKeysPending[nextKey][i];
+        childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
+      }
+    }
+
+    childMapping[nextKey] = getValueForKey(nextKey);
+  } // Finally, add the keys which didn't appear before any key in `next`
+
+
+  for (i = 0; i < pendingKeys.length; i++) {
+    childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
+  }
+
+  return childMapping;
+}
+
+function getProp(child, prop, props) {
+  return props[prop] != null ? props[prop] : child.props[prop];
+}
+
+function getInitialChildMapping(props, onExited) {
+  return getChildMapping(props.children, function (child) {
+    return (0, _react.cloneElement)(child, {
+      onExited: onExited.bind(null, child),
+      in: true,
+      appear: getProp(child, 'appear', props),
+      enter: getProp(child, 'enter', props),
+      exit: getProp(child, 'exit', props)
+    });
+  });
+}
+
+function getNextChildMapping(nextProps, prevChildMapping, onExited) {
+  var nextChildMapping = getChildMapping(nextProps.children);
+  var children = mergeChildMappings(prevChildMapping, nextChildMapping);
+  Object.keys(children).forEach(function (key) {
+    var child = children[key];
+    if (!(0, _react.isValidElement)(child)) return;
+    var hasPrev = key in prevChildMapping;
+    var hasNext = key in nextChildMapping;
+    var prevChild = prevChildMapping[key];
+    var isLeaving = (0, _react.isValidElement)(prevChild) && !prevChild.props.in; // item is new (entering)
+
+    if (hasNext && (!hasPrev || isLeaving)) {
+      // console.log('entering', key)
+      children[key] = (0, _react.cloneElement)(child, {
+        onExited: onExited.bind(null, child),
+        in: true,
+        exit: getProp(child, 'exit', nextProps),
+        enter: getProp(child, 'enter', nextProps)
+      });
+    } else if (!hasNext && hasPrev && !isLeaving) {
+      // item is old (exiting)
+      // console.log('leaving', key)
+      children[key] = (0, _react.cloneElement)(child, {
+        in: false
+      });
+    } else if (hasNext && hasPrev && (0, _react.isValidElement)(prevChild)) {
+      // item hasn't changed transition states
+      // copy over the last transition props;
+      // console.log('unchanged', key)
+      children[key] = (0, _react.cloneElement)(child, {
+        onExited: onExited.bind(null, child),
+        in: prevChild.props.in,
+        exit: getProp(child, 'exit', nextProps),
+        enter: getProp(child, 'enter', nextProps)
+      });
+    }
+  });
+  return children;
+}
+},{"react":"1n8/"}],"Mfmy":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutPropertiesLoose"));
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
+
+var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inheritsLoose"));
+
+var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/assertThisInitialized"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _TransitionGroupContext = _interopRequireDefault(require("./TransitionGroupContext"));
+
+var _ChildMapping = require("./utils/ChildMapping");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var values = Object.values || function (obj) {
+  return Object.keys(obj).map(function (k) {
+    return obj[k];
+  });
+};
+
+var defaultProps = {
+  component: 'div',
+  childFactory: function childFactory(child) {
+    return child;
+  }
+  /**
+   * The `<TransitionGroup>` component manages a set of transition components
+   * (`<Transition>` and `<CSSTransition>`) in a list. Like with the transition
+   * components, `<TransitionGroup>` is a state machine for managing the mounting
+   * and unmounting of components over time.
+   *
+   * Consider the example below. As items are removed or added to the TodoList the
+   * `in` prop is toggled automatically by the `<TransitionGroup>`.
+   *
+   * Note that `<TransitionGroup>`  does not define any animation behavior!
+   * Exactly _how_ a list item animates is up to the individual transition
+   * component. This means you can mix and match animations across different list
+   * items.
+   */
+
+};
+
+var TransitionGroup =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inheritsLoose2.default)(TransitionGroup, _React$Component);
+
+  function TransitionGroup(props, context) {
+    var _this;
+
+    _this = _React$Component.call(this, props, context) || this;
+
+    var handleExited = _this.handleExited.bind((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this))); // Initial children should all be entering, dependent on appear
+
+
+    _this.state = {
+      contextValue: {
+        isMounting: true
+      },
+      handleExited: handleExited,
+      firstRender: true
+    };
+    return _this;
+  }
+
+  var _proto = TransitionGroup.prototype;
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.mounted = true;
+    this.setState({
+      contextValue: {
+        isMounting: false
+      }
+    });
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    this.mounted = false;
+  };
+
+  TransitionGroup.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, _ref) {
+    var prevChildMapping = _ref.children,
+        handleExited = _ref.handleExited,
+        firstRender = _ref.firstRender;
+    return {
+      children: firstRender ? (0, _ChildMapping.getInitialChildMapping)(nextProps, handleExited) : (0, _ChildMapping.getNextChildMapping)(nextProps, prevChildMapping, handleExited),
+      firstRender: false
+    };
+  };
+
+  _proto.handleExited = function handleExited(child, node) {
+    var currentChildMapping = (0, _ChildMapping.getChildMapping)(this.props.children);
+    if (child.key in currentChildMapping) return;
+
+    if (child.props.onExited) {
+      child.props.onExited(node);
+    }
+
+    if (this.mounted) {
+      this.setState(function (state) {
+        var children = (0, _extends2.default)({}, state.children);
+        delete children[child.key];
+        return {
+          children: children
+        };
+      });
+    }
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        Component = _this$props.component,
+        childFactory = _this$props.childFactory,
+        props = (0, _objectWithoutPropertiesLoose2.default)(_this$props, ["component", "childFactory"]);
+    var contextValue = this.state.contextValue;
+    var children = values(this.state.children).map(childFactory);
+    delete props.appear;
+    delete props.enter;
+    delete props.exit;
+
+    if (Component === null) {
+      return _react.default.createElement(_TransitionGroupContext.default.Provider, {
+        value: contextValue
+      }, children);
+    }
+
+    return _react.default.createElement(_TransitionGroupContext.default.Provider, {
+      value: contextValue
+    }, _react.default.createElement(Component, props, children));
+  };
+
+  return TransitionGroup;
+}(_react.default.Component);
+
+TransitionGroup.propTypes = "production" !== "production" ? {
+  /**
+   * `<TransitionGroup>` renders a `<div>` by default. You can change this
+   * behavior by providing a `component` prop.
+   * If you use React v16+ and would like to avoid a wrapping `<div>` element
+   * you can pass in `component={null}`. This is useful if the wrapping div
+   * borks your css styles.
+   */
+  component: _propTypes.default.any,
+
+  /**
+   * A set of `<Transition>` components, that are toggled `in` and out as they
+   * leave. the `<TransitionGroup>` will inject specific transition props, so
+   * remember to spread them through if you are wrapping the `<Transition>` as
+   * with our `<Fade>` example.
+   *
+   * While this component is meant for multiple `Transition` or `CSSTransition`
+   * children, sometimes you may want to have a single transition child with
+   * content that you want to be transitioned out and in when you change it
+   * (e.g. routes, images etc.) In that case you can change the `key` prop of
+   * the transition child as you change its content, this will cause
+   * `TransitionGroup` to transition the child out and back in.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * A convenience prop that enables or disables appear animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  appear: _propTypes.default.bool,
+
+  /**
+   * A convenience prop that enables or disables enter animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  enter: _propTypes.default.bool,
+
+  /**
+   * A convenience prop that enables or disables exit animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  exit: _propTypes.default.bool,
+
+  /**
+   * You may need to apply reactive updates to a child as it is exiting.
+   * This is generally done by using `cloneElement` however in the case of an exiting
+   * child the element has already been removed and not accessible to the consumer.
+   *
+   * If you do need to update a child as it leaves you can provide a `childFactory`
+   * to wrap every child, even the ones that are leaving.
+   *
+   * @type Function(child: ReactElement) -> ReactElement
+   */
+  childFactory: _propTypes.default.func
+} : {};
+TransitionGroup.defaultProps = defaultProps;
+var _default = TransitionGroup;
+exports.default = _default;
+},{"@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"3Vab","@babel/runtime/helpers/esm/extends":"SpjQ","@babel/runtime/helpers/esm/inheritsLoose":"S11h","@babel/runtime/helpers/esm/assertThisInitialized":"bk0i","prop-types":"5D9O","react":"1n8/","./TransitionGroupContext":"FWuc","./utils/ChildMapping":"uFw4"}],"P6n+":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutPropertiesLoose"));
+
+var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inheritsLoose"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactDom = require("react-dom");
+
+var _TransitionGroup = _interopRequireDefault(require("./TransitionGroup"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The `<ReplaceTransition>` component is a specialized `Transition` component
+ * that animates between two children.
+ *
+ * ```jsx
+ * <ReplaceTransition in>
+ *   <Fade><div>I appear first</div></Fade>
+ *   <Fade><div>I replace the above</div></Fade>
+ * </ReplaceTransition>
+ * ```
+ */
+var ReplaceTransition =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inheritsLoose2.default)(ReplaceTransition, _React$Component);
+
+  function ReplaceTransition() {
+    var _this;
+
+    for (var _len = arguments.length, _args = new Array(_len), _key = 0; _key < _len; _key++) {
+      _args[_key] = arguments[_key];
+    }
+
+    _this = _React$Component.call.apply(_React$Component, [this].concat(_args)) || this;
+
+    _this.handleEnter = function () {
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      return _this.handleLifecycle('onEnter', 0, args);
+    };
+
+    _this.handleEntering = function () {
+      for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        args[_key3] = arguments[_key3];
+      }
+
+      return _this.handleLifecycle('onEntering', 0, args);
+    };
+
+    _this.handleEntered = function () {
+      for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+        args[_key4] = arguments[_key4];
+      }
+
+      return _this.handleLifecycle('onEntered', 0, args);
+    };
+
+    _this.handleExit = function () {
+      for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+        args[_key5] = arguments[_key5];
+      }
+
+      return _this.handleLifecycle('onExit', 1, args);
+    };
+
+    _this.handleExiting = function () {
+      for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+        args[_key6] = arguments[_key6];
+      }
+
+      return _this.handleLifecycle('onExiting', 1, args);
+    };
+
+    _this.handleExited = function () {
+      for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
+        args[_key7] = arguments[_key7];
+      }
+
+      return _this.handleLifecycle('onExited', 1, args);
+    };
+
+    return _this;
+  }
+
+  var _proto = ReplaceTransition.prototype;
+
+  _proto.handleLifecycle = function handleLifecycle(handler, idx, originalArgs) {
+    var _child$props;
+
+    var children = this.props.children;
+
+    var child = _react.default.Children.toArray(children)[idx];
+
+    if (child.props[handler]) (_child$props = child.props)[handler].apply(_child$props, originalArgs);
+    if (this.props[handler]) this.props[handler]((0, _reactDom.findDOMNode)(this));
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        children = _this$props.children,
+        inProp = _this$props.in,
+        props = (0, _objectWithoutPropertiesLoose2.default)(_this$props, ["children", "in"]);
+
+    var _React$Children$toArr = _react.default.Children.toArray(children),
+        first = _React$Children$toArr[0],
+        second = _React$Children$toArr[1];
+
+    delete props.onEnter;
+    delete props.onEntering;
+    delete props.onEntered;
+    delete props.onExit;
+    delete props.onExiting;
+    delete props.onExited;
+    return _react.default.createElement(_TransitionGroup.default, props, inProp ? _react.default.cloneElement(first, {
+      key: 'first',
+      onEnter: this.handleEnter,
+      onEntering: this.handleEntering,
+      onEntered: this.handleEntered
+    }) : _react.default.cloneElement(second, {
+      key: 'second',
+      onEnter: this.handleExit,
+      onEntering: this.handleExiting,
+      onEntered: this.handleExited
+    }));
+  };
+
+  return ReplaceTransition;
+}(_react.default.Component);
+
+ReplaceTransition.propTypes = "production" !== "production" ? {
+  in: _propTypes.default.bool.isRequired,
+  children: function children(props, propName) {
+    if (_react.default.Children.count(props[propName]) !== 2) return new Error("\"" + propName + "\" must be exactly two transition components.");
+    return null;
+  }
+} : {};
+var _default = ReplaceTransition;
+exports.default = _default;
+},{"@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"3Vab","@babel/runtime/helpers/esm/inheritsLoose":"S11h","prop-types":"5D9O","react":"1n8/","react-dom":"NKHc","./TransitionGroup":"Mfmy"}],"ORBw":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "CSSTransition", {
+  enumerable: true,
+  get: function () {
+    return _CSSTransition.default;
+  }
+});
+Object.defineProperty(exports, "ReplaceTransition", {
+  enumerable: true,
+  get: function () {
+    return _ReplaceTransition.default;
+  }
+});
+Object.defineProperty(exports, "TransitionGroup", {
+  enumerable: true,
+  get: function () {
+    return _TransitionGroup.default;
+  }
+});
+Object.defineProperty(exports, "Transition", {
+  enumerable: true,
+  get: function () {
+    return _Transition.default;
+  }
+});
+
+var _CSSTransition = _interopRequireDefault(require("./CSSTransition"));
+
+var _ReplaceTransition = _interopRequireDefault(require("./ReplaceTransition"));
+
+var _TransitionGroup = _interopRequireDefault(require("./TransitionGroup"));
+
+var _Transition = _interopRequireDefault(require("./Transition"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./CSSTransition":"9dt+","./ReplaceTransition":"P6n+","./TransitionGroup":"Mfmy","./Transition":"eTro"}],"XOCG":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -11122,32 +12790,7 @@ Object.defineProperty(exports, "default", {
 var _getThemeProps = _interopRequireDefault(require("./getThemeProps"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./getThemeProps":"HZrr"}],"SpjQ":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = _extends;
-
-function _extends() {
-  exports.default = _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
-},{}],"QDke":[function(require,module,exports) {
+},{"./getThemeProps":"HZrr"}],"QDke":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11216,34 +12859,6 @@ function _createClass(Constructor, protoProps, staticProps) {
   if (protoProps) _defineProperties(Constructor.prototype, protoProps);
   if (staticProps) _defineProperties(Constructor, staticProps);
   return Constructor;
-}
-},{}],"S11h":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = _inheritsLoose;
-
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  subClass.__proto__ = superClass;
-}
-},{}],"bk0i":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = _assertThisInitialized;
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
 }
 },{}],"buqW":[function(require,module,exports) {
 var global = arguments[3];
@@ -17886,7 +19501,2808 @@ function withStyles(stylesOrCreator, options) {
 
 var _default = withStyles;
 exports.default = _default;
-},{"@babel/runtime/helpers/extends":"3dLy","@material-ui/styles":"66th","./defaultTheme":"REFh"}],"Hmdm":[function(require,module,exports) {
+},{"@babel/runtime/helpers/extends":"3dLy","@material-ui/styles":"66th","./defaultTheme":"REFh"}],"DLys":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getTransitionProps = getTransitionProps;
+exports.reflow = void 0;
+
+var reflow = function reflow(node) {
+  return node.scrollTop;
+};
+
+exports.reflow = reflow;
+
+function getTransitionProps(props, options) {
+  var timeout = props.timeout,
+      _props$style = props.style,
+      style = _props$style === void 0 ? {} : _props$style;
+  return {
+    duration: style.transitionDuration || typeof timeout === 'number' ? timeout : timeout[options.mode],
+    delay: style.transitionDelay
+  };
+}
+},{}],"4ivf":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _clsx = _interopRequireDefault(require("clsx"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _reactTransitionGroup = require("react-transition-group");
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+var _transitions = require("../styles/transitions");
+
+var _utils = require("../transitions/utils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = function styles(theme) {
+  return {
+    /* Styles applied to the container element. */
+    container: {
+      height: 0,
+      overflow: 'hidden',
+      transition: theme.transitions.create('height')
+    },
+
+    /* Styles applied to the container element when the transition has entered. */
+    entered: {
+      height: 'auto',
+      overflow: 'visible'
+    },
+
+    /* Styles applied to the container element when the transition has exited and `collapsedHeight` != 0px. */
+    hidden: {
+      visibility: 'hidden'
+    },
+
+    /* Styles applied to the outer wrapper element. */
+    wrapper: {
+      // Hack to get children with a negative margin to not falsify the height computation.
+      display: 'flex'
+    },
+
+    /* Styles applied to the inner wrapper element. */
+    wrapperInner: {
+      width: '100%'
+    }
+  };
+};
+/**
+ * The Collapse transition is used by the
+ * [Vertical Stepper](/components/steppers/#vertical-stepper) StepContent component.
+ * It uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.
+ */
+
+
+exports.styles = styles;
+
+var Collapse = _react.default.forwardRef(function Collapse(props, ref) {
+  var children = props.children,
+      classes = props.classes,
+      className = props.className,
+      _props$collapsedHeigh = props.collapsedHeight,
+      collapsedHeight = _props$collapsedHeigh === void 0 ? '0px' : _props$collapsedHeigh,
+      _props$component = props.component,
+      Component = _props$component === void 0 ? 'div' : _props$component,
+      inProp = props.in,
+      onEnter = props.onEnter,
+      onEntered = props.onEntered,
+      onEntering = props.onEntering,
+      onExit = props.onExit,
+      onExiting = props.onExiting,
+      style = props.style,
+      theme = props.theme,
+      _props$timeout = props.timeout,
+      timeout = _props$timeout === void 0 ? _transitions.duration.standard : _props$timeout,
+      other = (0, _objectWithoutProperties2.default)(props, ["children", "classes", "className", "collapsedHeight", "component", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExiting", "style", "theme", "timeout"]);
+
+  var timer = _react.default.useRef();
+
+  var wrapperRef = _react.default.useRef(null);
+
+  var autoTransitionDuration = _react.default.useRef();
+
+  _react.default.useEffect(function () {
+    return function () {
+      clearTimeout(timer.current);
+    };
+  }, []);
+
+  var handleEnter = function handleEnter(node) {
+    node.style.height = collapsedHeight;
+
+    if (onEnter) {
+      onEnter(node);
+    }
+  };
+
+  var handleEntering = function handleEntering(node) {
+    var wrapperHeight = wrapperRef.current ? wrapperRef.current.clientHeight : 0;
+
+    var _getTransitionProps = (0, _utils.getTransitionProps)({
+      style: style,
+      timeout: timeout
+    }, {
+      mode: 'enter'
+    }),
+        transitionDuration = _getTransitionProps.duration;
+
+    if (timeout === 'auto') {
+      var duration2 = theme.transitions.getAutoHeightDuration(wrapperHeight);
+      node.style.transitionDuration = "".concat(duration2, "ms");
+      autoTransitionDuration.current = duration2;
+    } else {
+      node.style.transitionDuration = typeof transitionDuration === 'string' ? transitionDuration : "".concat(transitionDuration, "ms");
+    }
+
+    node.style.height = "".concat(wrapperHeight, "px");
+
+    if (onEntering) {
+      onEntering(node);
+    }
+  };
+
+  var handleEntered = function handleEntered(node) {
+    node.style.height = 'auto';
+
+    if (onEntered) {
+      onEntered(node);
+    }
+  };
+
+  var handleExit = function handleExit(node) {
+    var wrapperHeight = wrapperRef.current ? wrapperRef.current.clientHeight : 0;
+    node.style.height = "".concat(wrapperHeight, "px");
+
+    if (onExit) {
+      onExit(node);
+    }
+  };
+
+  var handleExiting = function handleExiting(node) {
+    var wrapperHeight = wrapperRef.current ? wrapperRef.current.clientHeight : 0;
+
+    var _getTransitionProps2 = (0, _utils.getTransitionProps)({
+      style: style,
+      timeout: timeout
+    }, {
+      mode: 'exit'
+    }),
+        transitionDuration = _getTransitionProps2.duration;
+
+    if (timeout === 'auto') {
+      var duration2 = theme.transitions.getAutoHeightDuration(wrapperHeight);
+      node.style.transitionDuration = "".concat(duration2, "ms");
+      autoTransitionDuration.current = duration2;
+    } else {
+      node.style.transitionDuration = typeof transitionDuration === 'string' ? transitionDuration : "".concat(transitionDuration, "ms");
+    }
+
+    node.style.height = collapsedHeight;
+
+    if (onExiting) {
+      onExiting(node);
+    }
+  };
+
+  var addEndListener = function addEndListener(_, next) {
+    if (timeout === 'auto') {
+      timer.current = setTimeout(next, autoTransitionDuration.current || 0);
+    }
+  };
+
+  return _react.default.createElement(_reactTransitionGroup.Transition, (0, _extends2.default)({
+    in: inProp,
+    onEnter: handleEnter,
+    onEntered: handleEntered,
+    onEntering: handleEntering,
+    onExit: handleExit,
+    onExiting: handleExiting,
+    addEndListener: addEndListener,
+    timeout: timeout === 'auto' ? null : timeout
+  }, other), function (state, childProps) {
+    return _react.default.createElement(Component, (0, _extends2.default)({
+      className: (0, _clsx.default)(classes.container, state === 'entered' && classes.entered, state === 'exited' && !inProp && collapsedHeight === '0px' && classes.hidden, className),
+      style: (0, _extends2.default)({
+        minHeight: collapsedHeight
+      }, style),
+      ref: ref
+    }, childProps), _react.default.createElement("div", {
+      className: classes.wrapper,
+      ref: wrapperRef
+    }, _react.default.createElement("div", {
+      className: classes.wrapperInner
+    }, children)));
+  });
+});
+
+"production" !== "production" ? Collapse.propTypes = {
+  /**
+   * The content node to be collapsed.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The height of the container when collapsed.
+   */
+  collapsedHeight: _propTypes.default.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
+  component: _propTypes.default.elementType,
+
+  /**
+   * If `true`, the component will transition in.
+   */
+  in: _propTypes.default.bool,
+
+  /**
+   * @ignore
+   */
+  onEnter: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onEntered: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onEntering: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onExit: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onExiting: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  style: _propTypes.default.object,
+
+  /**
+   * @ignore
+   */
+  theme: _propTypes.default.object.isRequired,
+
+  /**
+   * The duration for the transition, in milliseconds.
+   * You may specify a single timeout for all transitions, or individually with an object.
+   *
+   * Set to 'auto' to automatically calculate transition time based on height.
+   */
+  timeout: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.shape({
+    enter: _propTypes.default.number,
+    exit: _propTypes.default.number
+  }), _propTypes.default.oneOf(['auto'])])
+} : void 0;
+Collapse.muiSupportAuto = true;
+
+var _default = (0, _withStyles.default)(styles, {
+  withTheme: true,
+  name: 'MuiCollapse'
+})(Collapse);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/extends":"3dLy","@babel/runtime/helpers/objectWithoutProperties":"U8F3","react":"1n8/","clsx":"WLGK","prop-types":"5D9O","react-transition-group":"ORBw","../styles/withStyles":"awmK","../styles/transitions":"geVf","../transitions/utils":"DLys"}],"2uPh":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    return _Collapse.default;
+  }
+});
+
+var _Collapse = _interopRequireDefault(require("./Collapse"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./Collapse":"4ivf"}],"oZim":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _clsx = _interopRequireDefault(require("clsx"));
+
+var _warning = _interopRequireDefault(require("warning"));
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = function styles(theme) {
+  var elevations = {};
+  theme.shadows.forEach(function (shadow, index) {
+    elevations["elevation".concat(index)] = {
+      boxShadow: shadow
+    };
+  });
+  return (0, _extends2.default)({
+    /* Styles applied to the root element. */
+    root: {
+      backgroundColor: theme.palette.background.paper,
+      color: theme.palette.text.primary,
+      transition: theme.transitions.create('box-shadow')
+    },
+
+    /* Styles applied to the root element if `square={false}`. */
+    rounded: {
+      borderRadius: theme.shape.borderRadius
+    }
+  }, elevations);
+};
+
+exports.styles = styles;
+
+var Paper = _react.default.forwardRef(function Paper(props, ref) {
+  var classes = props.classes,
+      classNameProp = props.className,
+      _props$component = props.component,
+      Component = _props$component === void 0 ? 'div' : _props$component,
+      _props$square = props.square,
+      square = _props$square === void 0 ? false : _props$square,
+      _props$elevation = props.elevation,
+      elevation = _props$elevation === void 0 ? 1 : _props$elevation,
+      other = (0, _objectWithoutProperties2.default)(props, ["classes", "className", "component", "square", "elevation"]);
+  "production" !== "production" ? (0, _warning.default)(elevation >= 0 && elevation < 25, "Material-UI: this elevation `".concat(elevation, "` is not implemented.")) : void 0;
+  var className = (0, _clsx.default)(classes.root, classes["elevation".concat(elevation)], !square && classes.rounded, classNameProp);
+  return _react.default.createElement(Component, (0, _extends2.default)({
+    className: className,
+    ref: ref
+  }, other));
+});
+
+"production" !== "production" ? Paper.propTypes = {
+  /**
+   * The content of the component.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
+  component: _propTypes.default.elementType,
+
+  /**
+   * Shadow depth, corresponds to `dp` in the spec.
+   * It accepts values between 0 and 24 inclusive.
+   */
+  elevation: _propTypes.default.number,
+
+  /**
+   * If `true`, rounded corners are disabled.
+   */
+  square: _propTypes.default.bool
+} : void 0;
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiPaper'
+})(Paper);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/objectWithoutProperties":"U8F3","@babel/runtime/helpers/extends":"3dLy","react":"1n8/","prop-types":"5D9O","clsx":"WLGK","warning":"XOCG","../styles/withStyles":"awmK"}],"76mt":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    return _Paper.default;
+  }
+});
+
+var _Paper = _interopRequireDefault(require("./Paper"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./Paper":"oZim"}],"8+Va":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _toArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toArray"));
+
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _clsx = _interopRequireDefault(require("clsx"));
+
+var _utils = require("@material-ui/utils");
+
+var _Collapse = _interopRequireDefault(require("../Collapse"));
+
+var _Paper = _interopRequireDefault(require("../Paper"));
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = function styles(theme) {
+  var transition = {
+    duration: theme.transitions.duration.shortest
+  };
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      position: 'relative',
+      transition: theme.transitions.create(['margin'], transition),
+      '&:before': {
+        position: 'absolute',
+        left: 0,
+        top: -1,
+        right: 0,
+        height: 1,
+        content: '""',
+        opacity: 1,
+        backgroundColor: theme.palette.divider,
+        transition: theme.transitions.create(['opacity', 'background-color'], transition)
+      },
+      '&:first-child': {
+        '&:before': {
+          display: 'none'
+        }
+      },
+      '&$expanded': {
+        margin: '16px 0',
+        '&:first-child': {
+          marginTop: 0
+        },
+        '&:last-child': {
+          marginBottom: 0
+        },
+        '&:before': {
+          opacity: 0
+        }
+      },
+      '&$expanded + &': {
+        '&:before': {
+          display: 'none'
+        }
+      },
+      '&$disabled': {
+        backgroundColor: theme.palette.action.disabledBackground
+      }
+    },
+
+    /* Styles applied to the root element if `square={false}`. */
+    rounded: {
+      borderRadius: 0,
+      '&:first-child': {
+        borderTopLeftRadius: theme.shape.borderRadius,
+        borderTopRightRadius: theme.shape.borderRadius
+      },
+      '&:last-child': {
+        borderBottomLeftRadius: theme.shape.borderRadius,
+        borderBottomRightRadius: theme.shape.borderRadius,
+        // Fix a rendering issue on Edge
+        '@supports (-ms-ime-align: auto)': {
+          borderBottomLeftRadius: 0,
+          borderBottomRightRadius: 0
+        }
+      }
+    },
+
+    /* Styles applied to the root element if `expanded={true}`. */
+    expanded: {},
+
+    /* Styles applied to the root element if `disabled={true}`. */
+    disabled: {}
+  };
+};
+
+exports.styles = styles;
+
+var ExpansionPanel = _react.default.forwardRef(function ExpansionPanel(props, ref) {
+  var childrenProp = props.children,
+      classes = props.classes,
+      className = props.className,
+      _props$defaultExpande = props.defaultExpanded,
+      defaultExpanded = _props$defaultExpande === void 0 ? false : _props$defaultExpande,
+      _props$disabled = props.disabled,
+      disabled = _props$disabled === void 0 ? false : _props$disabled,
+      expandedProp = props.expanded,
+      onChange = props.onChange,
+      _props$square = props.square,
+      square = _props$square === void 0 ? false : _props$square,
+      _props$TransitionComp = props.TransitionComponent,
+      TransitionComponent = _props$TransitionComp === void 0 ? _Collapse.default : _props$TransitionComp,
+      TransitionProps = props.TransitionProps,
+      other = (0, _objectWithoutProperties2.default)(props, ["children", "classes", "className", "defaultExpanded", "disabled", "expanded", "onChange", "square", "TransitionComponent", "TransitionProps"]);
+
+  var _React$useRef = _react.default.useRef(expandedProp != null),
+      isControlled = _React$useRef.current;
+
+  var _React$useState = _react.default.useState(defaultExpanded),
+      _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
+      expandedState = _React$useState2[0],
+      setExpandedState = _React$useState2[1];
+
+  var expanded = isControlled ? expandedProp : expandedState;
+
+  var handleChange = function handleChange(event) {
+    if (!isControlled) {
+      setExpandedState(!expanded);
+    }
+
+    if (onChange) {
+      onChange(event, !expanded);
+    }
+  };
+
+  var _React$Children$toArr = _react.default.Children.toArray(childrenProp),
+      _React$Children$toArr2 = (0, _toArray2.default)(_React$Children$toArr),
+      summary = _React$Children$toArr2[0],
+      children = _React$Children$toArr2.slice(1);
+
+  return _react.default.createElement(_Paper.default, (0, _extends2.default)({
+    className: (0, _clsx.default)(classes.root, expanded && classes.expanded, disabled && classes.disabled, !square && classes.rounded, className),
+    ref: ref,
+    square: square
+  }, other), _react.default.cloneElement(summary, {
+    disabled: disabled,
+    expanded: expanded,
+    onChange: handleChange
+  }), _react.default.createElement(TransitionComponent, (0, _extends2.default)({
+    in: expanded,
+    timeout: "auto"
+  }, TransitionProps), _react.default.createElement("div", {
+    "aria-labelledby": summary.props.id,
+    id: summary.props['aria-controls'],
+    role: "region"
+  }, children)));
+});
+
+"production" !== "production" ? ExpansionPanel.propTypes = {
+  /**
+   * The content of the expansion panel.
+   */
+  children: (0, _utils.chainPropTypes)(_propTypes.default.node.isRequired, function (props) {
+    var summary = _react.default.Children.toArray(props.children)[0];
+
+    if (summary.type === _react.default.Fragment) {
+      return new Error("Material-UI: the ExpansionPanel doesn't accept a Fragment as a child. " + 'Consider providing an array instead.');
+    }
+
+    if (!_react.default.isValidElement(summary)) {
+      return new Error('Material-UI: expected the first child of ExpansionPanel to be a valid element.');
+    }
+
+    return null;
+  }),
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * If `true`, expands the panel by default.
+   */
+  defaultExpanded: _propTypes.default.bool,
+
+  /**
+   * If `true`, the panel will be displayed in a disabled state.
+   */
+  disabled: _propTypes.default.bool,
+
+  /**
+   * If `true`, expands the panel, otherwise collapse it.
+   * Setting this prop enables control over the panel.
+   */
+  expanded: _propTypes.default.bool,
+
+  /**
+   * Callback fired when the expand/collapse state is changed.
+   *
+   * @param {object} event The event source of the callback
+   * @param {boolean} expanded The `expanded` state of the panel
+   */
+  onChange: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  square: _propTypes.default.bool,
+
+  /**
+   * The component used for the collapse effect.
+   */
+  TransitionComponent: _propTypes.default.elementType,
+
+  /**
+   * Properties applied to the `Transition` element.
+   */
+  TransitionProps: _propTypes.default.object
+} : void 0;
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiExpansionPanel'
+})(ExpansionPanel);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/extends":"3dLy","@babel/runtime/helpers/toArray":"564k","@babel/runtime/helpers/slicedToArray":"69HE","@babel/runtime/helpers/objectWithoutProperties":"U8F3","react":"1n8/","prop-types":"5D9O","clsx":"WLGK","@material-ui/utils":"gEhD","../Collapse":"2uPh","../Paper":"76mt","../styles/withStyles":"awmK"}],"VT0G":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    return _ExpansionPanel.default;
+  }
+});
+
+var _ExpansionPanel = _interopRequireDefault(require("./ExpansionPanel"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./ExpansionPanel":"8+Va"}],"K1R9":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _clsx = _interopRequireDefault(require("clsx"));
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = {
+  /* Styles applied to the root element. */
+  root: {
+    display: 'flex',
+    padding: '8px 24px 24px'
+  }
+};
+exports.styles = styles;
+
+var ExpansionPanelDetails = _react.default.forwardRef(function ExpansionPanelDetails(props, ref) {
+  var classes = props.classes,
+      className = props.className,
+      other = (0, _objectWithoutProperties2.default)(props, ["classes", "className"]);
+  return _react.default.createElement("div", (0, _extends2.default)({
+    className: (0, _clsx.default)(classes.root, className),
+    ref: ref
+  }, other));
+});
+
+"production" !== "production" ? ExpansionPanelDetails.propTypes = {
+  /**
+   * The content of the expansion panel details.
+   */
+  children: _propTypes.default.node.isRequired,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string
+} : void 0;
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiExpansionPanelDetails'
+})(ExpansionPanelDetails);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/extends":"3dLy","@babel/runtime/helpers/objectWithoutProperties":"U8F3","react":"1n8/","prop-types":"5D9O","clsx":"WLGK","../styles/withStyles":"awmK"}],"gInR":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    return _ExpansionPanelDetails.default;
+  }
+});
+
+var _ExpansionPanelDetails = _interopRequireDefault(require("./ExpansionPanelDetails"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./ExpansionPanelDetails":"K1R9"}],"EFem":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isMuiElement = isMuiElement;
+exports.setRef = setRef;
+exports.useForkRef = useForkRef;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function isMuiElement(element, muiNames) {
+  return _react.default.isValidElement(element) && muiNames.indexOf(element.type.muiName) !== -1;
+}
+
+function setRef(ref, value) {
+  if (typeof ref === 'function') {
+    ref(value);
+  } else if (ref) {
+    ref.current = value;
+  }
+}
+
+function useForkRef(refA, refB) {
+  /**
+   * This will create a new function if the ref props change and are defined.
+   * This means react will call the old forkRef with `null` and the new forkRef
+   * with the ref. Cleanup naturally emerges from this behavior
+   */
+  return _react.default.useMemo(function () {
+    if (refA == null && refB == null) {
+      return null;
+    }
+
+    return function (refValue) {
+      setRef(refA, refValue);
+      setRef(refB, refValue);
+    };
+  }, [refA, refB]);
+}
+},{"react":"1n8/"}],"cOhF":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _utils = require("@material-ui/utils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var useEnhancedEffect = typeof window !== 'undefined' && "production" !== 'test' ? _react.default.useLayoutEffect : _react.default.useEffect;
+/**
+ * NoSsr purposely removes components from the subject of Server Side Rendering (SSR).
+ *
+ * This component can be useful in a variety of situations:
+ * - Escape hatch for broken dependencies not supporting SSR.
+ * - Improve the time-to-first paint on the client by only rendering above the fold.
+ * - Reduce the rendering time on the server.
+ * - Under too heavy server load, you can turn on service degradation.
+ */
+
+function NoSsr(props) {
+  var children = props.children,
+      _props$defer = props.defer,
+      defer = _props$defer === void 0 ? false : _props$defer,
+      _props$fallback = props.fallback,
+      fallback = _props$fallback === void 0 ? null : _props$fallback;
+
+  var _React$useState = _react.default.useState(false),
+      _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
+      mountedState = _React$useState2[0],
+      setMountedState = _React$useState2[1];
+
+  useEnhancedEffect(function () {
+    if (!defer) {
+      setMountedState(true);
+    }
+  }, [defer]);
+
+  _react.default.useEffect(function () {
+    if (defer) {
+      setMountedState(true);
+    }
+  }, [defer]); // We need the Fragment here to force react-docgen to recognise NoSsr as a component.
+
+
+  return _react.default.createElement(_react.default.Fragment, null, mountedState ? children : fallback);
+}
+
+"production" !== "production" ? NoSsr.propTypes = {
+  /**
+   * You can wrap a node.
+   */
+  children: _propTypes.default.node.isRequired,
+
+  /**
+   * If `true`, the component will not only prevent server-side rendering.
+   * It will also defer the rendering of the children into a different screen frame.
+   */
+  defer: _propTypes.default.bool,
+
+  /**
+   * The fallback content to display.
+   */
+  fallback: _propTypes.default.node
+} : void 0;
+
+if ("production" !== 'production') {
+  // eslint-disable-next-line
+  NoSsr['propTypes' + ''] = (0, _utils.exactProp)(NoSsr.propTypes);
+}
+
+var _default = NoSsr;
+exports.default = _default;
+},{"@babel/runtime/helpers/slicedToArray":"69HE","react":"1n8/","prop-types":"5D9O","@material-ui/utils":"gEhD"}],"qvOT":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    return _NoSsr.default;
+  }
+});
+
+var _NoSsr = _interopRequireDefault(require("./NoSsr"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./NoSsr":"cOhF"}],"zY8U":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.prepare = prepare;
+exports.teardown = teardown;
+exports.isFocusVisible = isFocusVisible;
+exports.handleBlurVisible = handleBlurVisible;
+exports.useIsFocusVisible = useIsFocusVisible;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// based on https://github.com/WICG/focus-visible/blob/v4.1.5/src/focus-visible.js
+var hadKeyboardEvent = true;
+var hadFocusVisibleRecently = false;
+var hadFocusVisibleRecentlyTimeout = null;
+var inputTypesWhitelist = {
+  text: true,
+  search: true,
+  url: true,
+  tel: true,
+  email: true,
+  password: true,
+  number: true,
+  date: true,
+  month: true,
+  week: true,
+  time: true,
+  datetime: true,
+  'datetime-local': true
+};
+/**
+ * Computes whether the given element should automatically trigger the
+ * `focus-visible` class being added, i.e. whether it should always match
+ * `:focus-visible` when focused.
+ * @param {Element} node
+ * @return {boolean}
+ */
+
+function focusTriggersKeyboardModality(node) {
+  var type = node.type,
+      tagName = node.tagName;
+
+  if (tagName === 'INPUT' && inputTypesWhitelist[type] && !node.readOnly) {
+    return true;
+  }
+
+  if (tagName === 'TEXTAREA' && !node.readOnly) {
+    return true;
+  }
+
+  if (node.isContentEditable) {
+    return true;
+  }
+
+  return false;
+}
+
+function handleKeyDown() {
+  hadKeyboardEvent = true;
+}
+/**
+ * If at any point a user clicks with a pointing device, ensure that we change
+ * the modality away from keyboard.
+ * This avoids the situation where a user presses a key on an already focused
+ * element, and then clicks on a different element, focusing it with a
+ * pointing device, while we still think we're in keyboard modality.
+ * @param {Event} e
+ */
+
+
+function handlePointerDown() {
+  hadKeyboardEvent = false;
+}
+
+function handleVisibilityChange() {
+  if (this.visibilityState === 'hidden') {
+    // If the tab becomes active again, the browser will handle calling focus
+    // on the element (Safari actually calls it twice).
+    // If this tab change caused a blur on an element with focus-visible,
+    // re-apply the class when the user switches back to the tab.
+    if (hadFocusVisibleRecently) {
+      hadKeyboardEvent = true;
+    }
+  }
+}
+
+function prepare(ownerDocument) {
+  ownerDocument.addEventListener('keydown', handleKeyDown, true);
+  ownerDocument.addEventListener('mousedown', handlePointerDown, true);
+  ownerDocument.addEventListener('pointerdown', handlePointerDown, true);
+  ownerDocument.addEventListener('touchstart', handlePointerDown, true);
+  ownerDocument.addEventListener('visibilitychange', handleVisibilityChange, true);
+}
+
+function teardown(ownerDocument) {
+  ownerDocument.removeEventListener('keydown', handleKeyDown, true);
+  ownerDocument.removeEventListener('mousedown', handlePointerDown, true);
+  ownerDocument.removeEventListener('pointerdown', handlePointerDown, true);
+  ownerDocument.removeEventListener('touchstart', handlePointerDown, true);
+  ownerDocument.removeEventListener('visibilitychange', handleVisibilityChange, true);
+}
+
+function isFocusVisible(event) {
+  var target = event.target;
+
+  try {
+    return target.matches(':focus-visible');
+  } catch (error) {} // browsers not implementing :focus-visible will throw a SyntaxError
+  // we use our own heuristic for those browsers
+  // rethrow might be better if it's not the expected error but do we really
+  // want to crash if focus-visible malfunctioned?
+  // no need for validFocusTarget check. the user does that by attaching it to
+  // focusable events only
+
+
+  return hadKeyboardEvent || focusTriggersKeyboardModality(target);
+}
+/**
+ * Should be called if a blur event is fired on a focus-visible element
+ */
+
+
+function handleBlurVisible() {
+  // To detect a tab/window switch, we look for a blur event followed
+  // rapidly by a visibility change.
+  // If we don't see a visibility change within 100ms, it's probably a
+  // regular focus change.
+  hadFocusVisibleRecently = true;
+  window.clearTimeout(hadFocusVisibleRecentlyTimeout);
+  hadFocusVisibleRecentlyTimeout = window.setTimeout(function () {
+    hadFocusVisibleRecently = false;
+    window.clearTimeout(hadFocusVisibleRecentlyTimeout);
+  }, 100);
+}
+
+function useIsFocusVisible(getOwnerDocument) {
+  _react.default.useEffect(function () {
+    var ownerDocument = getOwnerDocument();
+
+    if (ownerDocument != null) {
+      prepare(ownerDocument);
+    }
+  }, [getOwnerDocument]);
+
+  return {
+    isFocusVisible: isFocusVisible,
+    onBlurVisible: handleBlurVisible
+  };
+}
+},{"react":"1n8/"}],"XfJI":[function(require,module,exports) {
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }
+
+    return arr2;
+  }
+}
+
+module.exports = _arrayWithoutHoles;
+},{}],"wF/n":[function(require,module,exports) {
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance");
+}
+
+module.exports = _nonIterableSpread;
+},{}],"Fhqp":[function(require,module,exports) {
+var arrayWithoutHoles = require("./arrayWithoutHoles");
+
+var iterableToArray = require("./iterableToArray");
+
+var nonIterableSpread = require("./nonIterableSpread");
+
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || nonIterableSpread();
+}
+
+module.exports = _toConsumableArray;
+},{"./arrayWithoutHoles":"XfJI","./iterableToArray":"OMTj","./nonIterableSpread":"wF/n"}],"E7HD":[function(require,module,exports) {
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+module.exports = _assertThisInitialized;
+},{}],"0421":[function(require,module,exports) {
+var _typeof = require("../helpers/typeof");
+
+var assertThisInitialized = require("./assertThisInitialized");
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return assertThisInitialized(self);
+}
+
+module.exports = _possibleConstructorReturn;
+},{"../helpers/typeof":"b9XL","./assertThisInitialized":"E7HD"}],"UJE0":[function(require,module,exports) {
+function _getPrototypeOf(o) {
+  module.exports = _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+module.exports = _getPrototypeOf;
+},{}],"AkAO":[function(require,module,exports) {
+function _setPrototypeOf(o, p) {
+  module.exports = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+module.exports = _setPrototypeOf;
+},{}],"d4H2":[function(require,module,exports) {
+var setPrototypeOf = require("./setPrototypeOf");
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) setPrototypeOf(subClass, superClass);
+}
+
+module.exports = _inherits;
+},{"./setPrototypeOf":"AkAO"}],"wqoB":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _clsx = _interopRequireDefault(require("clsx"));
+
+var _reactTransitionGroup = require("react-transition-group");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @ignore - internal component.
+ */
+function Ripple(props) {
+  var classes = props.classes,
+      className = props.className,
+      _props$pulsate = props.pulsate,
+      pulsate = _props$pulsate === void 0 ? false : _props$pulsate,
+      rippleX = props.rippleX,
+      rippleY = props.rippleY,
+      rippleSize = props.rippleSize,
+      other = (0, _objectWithoutProperties2.default)(props, ["classes", "className", "pulsate", "rippleX", "rippleY", "rippleSize"]);
+
+  var _React$useState = _react.default.useState(false),
+      _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
+      visible = _React$useState2[0],
+      setVisible = _React$useState2[1];
+
+  var _React$useState3 = _react.default.useState(false),
+      _React$useState4 = (0, _slicedToArray2.default)(_React$useState3, 2),
+      leaving = _React$useState4[0],
+      setLeaving = _React$useState4[1];
+
+  var handleEnter = function handleEnter() {
+    setVisible(true);
+  };
+
+  var handleExit = function handleExit() {
+    setLeaving(true);
+  };
+
+  var rippleClassName = (0, _clsx.default)(classes.ripple, visible && classes.rippleVisible, pulsate && classes.ripplePulsate, className);
+  var rippleStyles = {
+    width: rippleSize,
+    height: rippleSize,
+    top: -(rippleSize / 2) + rippleY,
+    left: -(rippleSize / 2) + rippleX
+  };
+  var childClassName = (0, _clsx.default)(classes.child, leaving && classes.childLeaving, pulsate && classes.childPulsate);
+  return _react.default.createElement(_reactTransitionGroup.Transition, (0, _extends2.default)({
+    onEnter: handleEnter,
+    onExit: handleExit
+  }, other), _react.default.createElement("span", {
+    className: rippleClassName,
+    style: rippleStyles
+  }, _react.default.createElement("span", {
+    className: childClassName
+  })));
+}
+
+"production" !== "production" ? Ripple.propTypes = {
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * If `true`, the ripple pulsates, typically indicating the keyboard focus state of an element.
+   */
+  pulsate: _propTypes.default.bool,
+
+  /**
+   * Diameter of the ripple.
+   */
+  rippleSize: _propTypes.default.number,
+
+  /**
+   * Horizontal position of the ripple center.
+   */
+  rippleX: _propTypes.default.number,
+
+  /**
+   * Vertical position of the ripple center.
+   */
+  rippleY: _propTypes.default.number
+} : void 0;
+var _default = Ripple;
+exports.default = _default;
+},{"@babel/runtime/helpers/extends":"3dLy","@babel/runtime/helpers/slicedToArray":"69HE","@babel/runtime/helpers/objectWithoutProperties":"U8F3","react":"1n8/","prop-types":"5D9O","clsx":"WLGK","react-transition-group":"ORBw"}],"gOR6":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = exports.DELAY_RIPPLE = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
+
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf3 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _reactTransitionGroup = require("react-transition-group");
+
+var _clsx = _interopRequireDefault(require("clsx"));
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+var _Ripple = _interopRequireDefault(require("./Ripple"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DURATION = 550;
+var DELAY_RIPPLE = 80;
+exports.DELAY_RIPPLE = DELAY_RIPPLE;
+
+var styles = function styles(theme) {
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      display: 'block',
+      position: 'absolute',
+      overflow: 'hidden',
+      borderRadius: 'inherit',
+      width: '100%',
+      height: '100%',
+      left: 0,
+      top: 0,
+      pointerEvents: 'none',
+      zIndex: 0
+    },
+
+    /* Styles applied to the internal `Ripple` components `ripple` class. */
+    ripple: {
+      opacity: 0,
+      position: 'absolute'
+    },
+
+    /* Styles applied to the internal `Ripple` components `rippleVisible` class. */
+    rippleVisible: {
+      opacity: 0.3,
+      transform: 'scale(1)',
+      animation: "mui-ripple-enter ".concat(DURATION, "ms ").concat(theme.transitions.easing.easeInOut),
+      // Backward compatible logic between JSS v9 and v10.
+      // To remove with the release of Material-UI v4
+      animationName: '$mui-ripple-enter'
+    },
+
+    /* Styles applied to the internal `Ripple` components `ripplePulsate` class. */
+    ripplePulsate: {
+      animationDuration: "".concat(theme.transitions.duration.shorter, "ms")
+    },
+
+    /* Styles applied to the internal `Ripple` components `child` class. */
+    child: {
+      opacity: 1,
+      display: 'block',
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      backgroundColor: 'currentColor'
+    },
+
+    /* Styles applied to the internal `Ripple` components `childLeaving` class. */
+    childLeaving: {
+      opacity: 0,
+      animation: "mui-ripple-exit ".concat(DURATION, "ms ").concat(theme.transitions.easing.easeInOut),
+      // Backward compatible logic between JSS v9 and v10.
+      // To remove with the release of Material-UI v4
+      animationName: '$mui-ripple-exit'
+    },
+
+    /* Styles applied to the internal `Ripple` components `childPulsate` class. */
+    childPulsate: {
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      animation: "mui-ripple-pulsate 2500ms ".concat(theme.transitions.easing.easeInOut, " 200ms infinite"),
+      // Backward compatible logic between JSS v9 and v10.
+      // To remove with the release of Material-UI v4
+      animationName: '$mui-ripple-pulsate'
+    },
+    '@keyframes mui-ripple-enter': {
+      '0%': {
+        transform: 'scale(0)',
+        opacity: 0.1
+      },
+      '100%': {
+        transform: 'scale(1)',
+        opacity: 0.3
+      }
+    },
+    '@keyframes mui-ripple-exit': {
+      '0%': {
+        opacity: 1
+      },
+      '100%': {
+        opacity: 0
+      }
+    },
+    '@keyframes mui-ripple-pulsate': {
+      '0%': {
+        transform: 'scale(1)'
+      },
+      '50%': {
+        transform: 'scale(0.92)'
+      },
+      '100%': {
+        transform: 'scale(1)'
+      }
+    }
+  };
+};
+
+exports.styles = styles;
+
+var TouchRipple =
+/*#__PURE__*/
+function (_React$PureComponent) {
+  (0, _inherits2.default)(TouchRipple, _React$PureComponent);
+
+  function TouchRipple() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    (0, _classCallCheck2.default)(this, TouchRipple);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(TouchRipple)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this.state = {
+      nextKey: 0,
+      ripples: []
+    };
+    _this.container = _react.default.createRef();
+
+    _this.pulsate = function () {
+      _this.start({}, {
+        pulsate: true
+      });
+    };
+
+    _this.start = function () {
+      var event = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var cb = arguments.length > 2 ? arguments[2] : undefined;
+      var _options$pulsate = options.pulsate,
+          pulsate = _options$pulsate === void 0 ? false : _options$pulsate,
+          _options$center = options.center,
+          center = _options$center === void 0 ? _this.props.center || options.pulsate : _options$center,
+          _options$fakeElement = options.fakeElement,
+          fakeElement = _options$fakeElement === void 0 ? false : _options$fakeElement;
+
+      if (event.type === 'mousedown' && _this.ignoringMouseDown) {
+        _this.ignoringMouseDown = false;
+        return;
+      }
+
+      if (event.type === 'touchstart') {
+        _this.ignoringMouseDown = true;
+      }
+
+      var element = fakeElement ? null : _this.container.current;
+      var rect = element ? element.getBoundingClientRect() : {
+        width: 0,
+        height: 0,
+        left: 0,
+        top: 0
+      }; // Get the size of the ripple
+
+      var rippleX;
+      var rippleY;
+      var rippleSize;
+
+      if (center || event.clientX === 0 && event.clientY === 0 || !event.clientX && !event.touches) {
+        rippleX = Math.round(rect.width / 2);
+        rippleY = Math.round(rect.height / 2);
+      } else {
+        var clientX = event.clientX ? event.clientX : event.touches[0].clientX;
+        var clientY = event.clientY ? event.clientY : event.touches[0].clientY;
+        rippleX = Math.round(clientX - rect.left);
+        rippleY = Math.round(clientY - rect.top);
+      }
+
+      if (center) {
+        rippleSize = Math.sqrt((2 * Math.pow(rect.width, 2) + Math.pow(rect.height, 2)) / 3); // For some reason the animation is broken on Mobile Chrome if the size if even.
+
+        if (rippleSize % 2 === 0) {
+          rippleSize += 1;
+        }
+      } else {
+        var sizeX = Math.max(Math.abs((element ? element.clientWidth : 0) - rippleX), rippleX) * 2 + 2;
+        var sizeY = Math.max(Math.abs((element ? element.clientHeight : 0) - rippleY), rippleY) * 2 + 2;
+        rippleSize = Math.sqrt(Math.pow(sizeX, 2) + Math.pow(sizeY, 2));
+      } // Touche devices
+
+
+      if (event.touches) {
+        // Prepare the ripple effect.
+        _this.startTimerCommit = function () {
+          _this.startCommit({
+            pulsate: pulsate,
+            rippleX: rippleX,
+            rippleY: rippleY,
+            rippleSize: rippleSize,
+            cb: cb
+          });
+        }; // Delay the execution of the ripple effect.
+
+
+        _this.startTimer = setTimeout(function () {
+          if (_this.startTimerCommit) {
+            _this.startTimerCommit();
+
+            _this.startTimerCommit = null;
+          }
+        }, DELAY_RIPPLE); // We have to make a tradeoff with this value.
+      } else {
+        _this.startCommit({
+          pulsate: pulsate,
+          rippleX: rippleX,
+          rippleY: rippleY,
+          rippleSize: rippleSize,
+          cb: cb
+        });
+      }
+    };
+
+    _this.startCommit = function (params) {
+      var pulsate = params.pulsate,
+          rippleX = params.rippleX,
+          rippleY = params.rippleY,
+          rippleSize = params.rippleSize,
+          cb = params.cb;
+
+      _this.setState(function (state) {
+        return {
+          nextKey: state.nextKey + 1,
+          ripples: [].concat((0, _toConsumableArray2.default)(state.ripples), [_react.default.createElement(_Ripple.default, {
+            key: state.nextKey,
+            classes: _this.props.classes,
+            timeout: {
+              exit: DURATION,
+              enter: DURATION
+            },
+            pulsate: pulsate,
+            rippleX: rippleX,
+            rippleY: rippleY,
+            rippleSize: rippleSize
+          })])
+        };
+      }, cb);
+    };
+
+    _this.stop = function (event, cb) {
+      clearTimeout(_this.startTimer);
+      var ripples = _this.state.ripples; // The touch interaction occurs too quickly.
+      // We still want to show ripple effect.
+
+      if (event.type === 'touchend' && _this.startTimerCommit) {
+        event.persist();
+
+        _this.startTimerCommit();
+
+        _this.startTimerCommit = null;
+        _this.startTimer = setTimeout(function () {
+          _this.stop(event, cb);
+        });
+        return;
+      }
+
+      _this.startTimerCommit = null;
+
+      if (ripples && ripples.length) {
+        _this.setState({
+          ripples: ripples.slice(1)
+        }, cb);
+      }
+    };
+
+    return _this;
+  }
+
+  (0, _createClass2.default)(TouchRipple, [{
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      clearTimeout(this.startTimer);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          center = _this$props.center,
+          classes = _this$props.classes,
+          className = _this$props.className,
+          other = (0, _objectWithoutProperties2.default)(_this$props, ["center", "classes", "className"]);
+      return _react.default.createElement("span", (0, _extends2.default)({
+        className: (0, _clsx.default)(classes.root, className),
+        ref: this.container
+      }, other), _react.default.createElement(_reactTransitionGroup.TransitionGroup, {
+        component: null,
+        enter: true,
+        exit: true
+      }, this.state.ripples));
+    }
+  }]);
+  return TouchRipple;
+}(_react.default.PureComponent);
+
+"production" !== "production" ? TouchRipple.propTypes = {
+  /**
+   * If `true`, the ripple starts at the center of the component
+   * rather than at the point of interaction.
+   */
+  center: _propTypes.default.bool,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string
+} : void 0;
+TouchRipple.defaultProps = {
+  center: false
+};
+
+var _default = (0, _withStyles.default)(styles, {
+  flip: false,
+  name: 'MuiTouchRipple'
+})(TouchRipple);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/extends":"3dLy","@babel/runtime/helpers/objectWithoutProperties":"U8F3","@babel/runtime/helpers/toConsumableArray":"Fhqp","@babel/runtime/helpers/classCallCheck":"0fcM","@babel/runtime/helpers/createClass":"P8NW","@babel/runtime/helpers/possibleConstructorReturn":"0421","@babel/runtime/helpers/getPrototypeOf":"UJE0","@babel/runtime/helpers/inherits":"d4H2","react":"1n8/","prop-types":"5D9O","react-transition-group":"ORBw","clsx":"WLGK","../styles/withStyles":"awmK","./Ripple":"wqoB"}],"UfHt":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _reactDom = _interopRequireDefault(require("react-dom"));
+
+var _clsx = _interopRequireDefault(require("clsx"));
+
+var _utils = require("@material-ui/utils");
+
+var _reactHelpers = require("../utils/reactHelpers");
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+var _NoSsr = _interopRequireDefault(require("../NoSsr"));
+
+var _focusVisible = require("../utils/focusVisible");
+
+var _TouchRipple = _interopRequireDefault(require("./TouchRipple"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = {
+  /* Styles applied to the root element. */
+  root: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    // Remove grey highlight
+    WebkitTapHighlightColor: 'transparent',
+    backgroundColor: 'transparent',
+    // Reset default value
+    // We disable the focus ring for mouse, touch and keyboard users.
+    outline: 'none',
+    border: 0,
+    margin: 0,
+    // Remove the margin in Safari
+    borderRadius: 0,
+    padding: 0,
+    // Remove the padding in Firefox
+    cursor: 'pointer',
+    userSelect: 'none',
+    verticalAlign: 'middle',
+    '-moz-appearance': 'none',
+    // Reset
+    '-webkit-appearance': 'none',
+    // Reset
+    textDecoration: 'none',
+    // So we take precedent over the style of a native <a /> element.
+    color: 'inherit',
+    '&::-moz-focus-inner': {
+      borderStyle: 'none' // Remove Firefox dotted outline.
+
+    },
+    '&$disabled': {
+      pointerEvents: 'none',
+      // Disable link interactions
+      cursor: 'default'
+    }
+  },
+
+  /* Styles applied to the root element if `disabled={true}`. */
+  disabled: {},
+
+  /* Styles applied to the root element if keyboard focused. */
+  focusVisible: {}
+};
+exports.styles = styles;
+var useEnhancedEffect = typeof window !== 'undefined' ? _react.default.useLayoutEffect : _react.default.useEffect;
+/**
+ * https://github.com/facebook/react/issues/14099#issuecomment-440013892
+ *
+ * @param {function} fn
+ */
+
+function useEventCallback(fn) {
+  var ref = _react.default.useRef(fn);
+
+  useEnhancedEffect(function () {
+    ref.current = fn;
+  });
+  return _react.default.useCallback(function (event) {
+    return (0, ref.current)(event);
+  }, []);
+}
+/**
+ * `ButtonBase` contains as few styles as possible.
+ * It aims to be a simple building block for creating a button.
+ * It contains a load of style reset and some focus/ripple logic.
+ */
+
+
+var ButtonBase = _react.default.forwardRef(function ButtonBase(props, ref) {
+  var action = props.action,
+      buttonRefProp = props.buttonRef,
+      _props$centerRipple = props.centerRipple,
+      centerRipple = _props$centerRipple === void 0 ? false : _props$centerRipple,
+      children = props.children,
+      classes = props.classes,
+      classNameProp = props.className,
+      _props$component = props.component,
+      component = _props$component === void 0 ? 'button' : _props$component,
+      disabled = props.disabled,
+      _props$disableRipple = props.disableRipple,
+      disableRipple = _props$disableRipple === void 0 ? false : _props$disableRipple,
+      _props$disableTouchRi = props.disableTouchRipple,
+      disableTouchRipple = _props$disableTouchRi === void 0 ? false : _props$disableTouchRi,
+      _props$focusRipple = props.focusRipple,
+      focusRipple = _props$focusRipple === void 0 ? false : _props$focusRipple,
+      focusVisibleClassName = props.focusVisibleClassName,
+      onBlur = props.onBlur,
+      onClick = props.onClick,
+      onFocus = props.onFocus,
+      onFocusVisible = props.onFocusVisible,
+      onKeyDown = props.onKeyDown,
+      onKeyUp = props.onKeyUp,
+      onMouseDown = props.onMouseDown,
+      onMouseLeave = props.onMouseLeave,
+      onMouseUp = props.onMouseUp,
+      onTouchEnd = props.onTouchEnd,
+      onTouchMove = props.onTouchMove,
+      onTouchStart = props.onTouchStart,
+      _props$tabIndex = props.tabIndex,
+      tabIndex = _props$tabIndex === void 0 ? 0 : _props$tabIndex,
+      TouchRippleProps = props.TouchRippleProps,
+      _props$type = props.type,
+      type = _props$type === void 0 ? 'button' : _props$type,
+      other = (0, _objectWithoutProperties2.default)(props, ["action", "buttonRef", "centerRipple", "children", "classes", "className", "component", "disabled", "disableRipple", "disableTouchRipple", "focusRipple", "focusVisibleClassName", "onBlur", "onClick", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseDown", "onMouseLeave", "onMouseUp", "onTouchEnd", "onTouchMove", "onTouchStart", "tabIndex", "TouchRippleProps", "type"]);
+
+  var buttonRef = _react.default.useRef(null);
+
+  function getButtonNode() {
+    // #StrictMode ready
+    return _reactDom.default.findDOMNode(buttonRef.current);
+  }
+
+  var rippleRef = _react.default.useRef(null);
+
+  var _React$useState = _react.default.useState(false),
+      _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
+      focusVisible = _React$useState2[0],
+      setFocusVisible = _React$useState2[1];
+
+  if (disabled && focusVisible) {
+    setFocusVisible(false);
+  }
+
+  var getOwnerDocument = _react.default.useCallback(function () {
+    var button = getButtonNode();
+
+    if (button == null) {
+      throw new Error(["Material-UI: expected an Element but found ".concat(button, "."), 'Please check your console for additional warnings and try fixing those.', 'If the error persists please file an issue.'].join(' '));
+    }
+
+    return button.ownerDocument;
+  }, []);
+
+  var _useIsFocusVisible = (0, _focusVisible.useIsFocusVisible)(getOwnerDocument),
+      isFocusVisible = _useIsFocusVisible.isFocusVisible,
+      onBlurVisible = _useIsFocusVisible.onBlurVisible;
+
+  _react.default.useImperativeHandle(action, function () {
+    return {
+      focusVisible: function focusVisible() {
+        setFocusVisible(true);
+        buttonRef.current.focus();
+      }
+    };
+  }, []);
+
+  _react.default.useEffect(function () {
+    if (focusVisible && focusRipple && !disableRipple) {
+      rippleRef.current.pulsate();
+    }
+  }, [disableRipple, focusRipple, focusVisible]);
+
+  function useRippleHandler(rippleAction, eventCallback) {
+    var skipRippleAction = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : disableTouchRipple;
+    return useEventCallback(function (event) {
+      if (eventCallback) {
+        eventCallback(event);
+      }
+
+      var ignore = event.defaultPrevented || skipRippleAction;
+
+      if (!ignore && rippleRef.current) {
+        rippleRef.current[rippleAction](event);
+      }
+
+      return true;
+    });
+  }
+
+  var handleMouseDown = useRippleHandler('start', onMouseDown);
+  var handleMouseUp = useRippleHandler('stop', onMouseUp);
+  var handleMouseLeave = useRippleHandler('stop', function (event) {
+    if (focusVisible) {
+      event.preventDefault();
+    }
+
+    if (onMouseLeave) {
+      onMouseLeave(event);
+    }
+  });
+  var handleTouchStart = useRippleHandler('start', onTouchStart);
+  var handleTouchEnd = useRippleHandler('stop', onTouchEnd);
+  var handleTouchMove = useRippleHandler('stop', onTouchMove);
+  var handleBlur = useRippleHandler('stop', function (event) {
+    if (focusVisible) {
+      onBlurVisible(event);
+      setFocusVisible(false);
+    }
+
+    if (onBlur) {
+      onBlur(event);
+    }
+  }, false);
+  var handleFocus = useEventCallback(function (event) {
+    if (disabled) {
+      return;
+    } // Fix for https://github.com/facebook/react/issues/7769
+
+
+    if (!buttonRef.current) {
+      buttonRef.current = event.currentTarget;
+    }
+
+    if (isFocusVisible(event)) {
+      setFocusVisible(true);
+
+      if (onFocusVisible) {
+        onFocusVisible(event);
+      }
+    }
+
+    if (onFocus) {
+      onFocus(event);
+    }
+  });
+
+  var keydownRef = _react.default.useRef(false);
+
+  var handleKeyDown = useEventCallback(function (event) {
+    // Check if key is already down to avoid repeats being counted as multiple activations
+    if (focusRipple && !keydownRef.current && focusVisible && rippleRef.current && event.key === ' ') {
+      keydownRef.current = true;
+      event.persist();
+      rippleRef.current.stop(event, function () {
+        rippleRef.current.start(event);
+      });
+    }
+
+    if (onKeyDown) {
+      onKeyDown(event);
+    }
+
+    var button = getButtonNode(); // Keyboard accessibility for non interactive elements
+
+    if (event.target === event.currentTarget && component && component !== 'button' && (event.key === ' ' || event.key === 'Enter') && !(button.tagName === 'A' && button.href)) {
+      event.preventDefault();
+
+      if (onClick) {
+        onClick(event);
+      }
+    }
+  });
+  var handleKeyUp = useEventCallback(function (event) {
+    if (focusRipple && event.key === ' ' && rippleRef.current && focusVisible) {
+      keydownRef.current = false;
+      event.persist();
+      rippleRef.current.stop(event, function () {
+        rippleRef.current.pulsate(event);
+      });
+    }
+
+    if (onKeyUp) {
+      onKeyUp(event);
+    }
+  });
+  var className = (0, _clsx.default)(classes.root, classNameProp, focusVisible && [classes.focusVisible, focusVisibleClassName], disabled && classes.disabled);
+  var ComponentProp = component;
+
+  if (ComponentProp === 'button' && other.href) {
+    ComponentProp = 'a';
+  }
+
+  var buttonProps = {};
+
+  if (ComponentProp === 'button') {
+    buttonProps.type = type;
+    buttonProps.disabled = disabled;
+  } else {
+    buttonProps.role = 'button';
+    buttonProps['aria-disabled'] = disabled;
+  }
+
+  var handleUserRef = (0, _reactHelpers.useForkRef)(buttonRefProp, ref);
+  var handleRef = (0, _reactHelpers.useForkRef)(handleUserRef, buttonRef);
+  return _react.default.createElement(ComponentProp, (0, _extends2.default)({
+    className: className,
+    onBlur: handleBlur,
+    onClick: onClick,
+    onFocus: handleFocus,
+    onKeyDown: handleKeyDown,
+    onKeyUp: handleKeyUp,
+    onMouseDown: handleMouseDown,
+    onMouseLeave: handleMouseLeave,
+    onMouseUp: handleMouseUp,
+    onTouchEnd: handleTouchEnd,
+    onTouchMove: handleTouchMove,
+    onTouchStart: handleTouchStart,
+    ref: handleRef,
+    tabIndex: disabled ? -1 : tabIndex
+  }, buttonProps, other), children, !disableRipple && !disabled ? _react.default.createElement(_NoSsr.default, null, _react.default.createElement(_TouchRipple.default, (0, _extends2.default)({
+    ref: rippleRef,
+    center: centerRipple
+  }, TouchRippleProps))) : null);
+});
+
+"production" !== "production" ? ButtonBase.propTypes = {
+  /**
+   * Callback fired when the component mounts.
+   * This is useful when you want to trigger an action programmatically.
+   * It currently only supports `focusVisible()` action.
+   *
+   * @param {object} actions This object contains all possible actions
+   * that can be triggered programmatically.
+   */
+  action: _propTypes.default.func,
+
+  /**
+   * Use that property to pass a ref callback to the native button component.
+   * @deprecated Use `ref` instead
+   */
+  buttonRef: _propTypes.default.oneOfType([_propTypes.default.func, _propTypes.default.object]),
+
+  /**
+   * If `true`, the ripples will be centered.
+   * They won't start at the cursor interaction position.
+   */
+  centerRipple: _propTypes.default.bool,
+
+  /**
+   * The content of the component.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
+  component: _utils.elementTypeAcceptingRef,
+
+  /**
+   * If `true`, the base button will be disabled.
+   */
+  disabled: _propTypes.default.bool,
+
+  /**
+   * If `true`, the ripple effect will be disabled.
+   *
+   * ⚠️ Without a ripple there is no styling for :focus-visible by default. Be sure
+   * to highlight the element by applying separate styles with the `focusVisibleClassName`.
+   */
+  disableRipple: _propTypes.default.bool,
+
+  /**
+   * If `true`, the touch ripple effect will be disabled.
+   */
+  disableTouchRipple: _propTypes.default.bool,
+
+  /**
+   * If `true`, the base button will have a keyboard focus ripple.
+   * `disableRipple` must also be `false`.
+   */
+  focusRipple: _propTypes.default.bool,
+
+  /**
+   * This property can help a person know which element has the keyboard focus.
+   * The class name will be applied when the element gain the focus through a keyboard interaction.
+   * It's a polyfill for the [CSS :focus-visible selector](https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo).
+   * The rationale for using this feature [is explained here](https://github.com/WICG/focus-visible/blob/master/explainer.md).
+   * A [polyfill can be used](https://github.com/WICG/focus-visible) to apply a `focus-visible` class to other components
+   * if needed.
+   */
+  focusVisibleClassName: _propTypes.default.string,
+
+  /**
+   * @ignore
+   */
+  onBlur: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onClick: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onFocus: _propTypes.default.func,
+
+  /**
+   * Callback fired when the component is focused with a keyboard.
+   * We trigger a `onFocus` callback too.
+   */
+  onFocusVisible: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onKeyDown: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onKeyUp: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onMouseDown: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onMouseLeave: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onMouseUp: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onTouchEnd: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onTouchMove: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onTouchStart: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  role: _propTypes.default.string,
+
+  /**
+   * @ignore
+   */
+  tabIndex: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
+
+  /**
+   * Properties applied to the `TouchRipple` element.
+   */
+  TouchRippleProps: _propTypes.default.object,
+
+  /**
+   * Used to control the button's purpose.
+   * This property passes the value to the `type` attribute of the native button component.
+   */
+  type: _propTypes.default.oneOf(['submit', 'reset', 'button'])
+} : void 0;
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiButtonBase'
+})(ButtonBase);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/extends":"3dLy","@babel/runtime/helpers/slicedToArray":"69HE","@babel/runtime/helpers/objectWithoutProperties":"U8F3","react":"1n8/","prop-types":"5D9O","react-dom":"NKHc","clsx":"WLGK","@material-ui/utils":"gEhD","../utils/reactHelpers":"EFem","../styles/withStyles":"awmK","../NoSsr":"qvOT","../utils/focusVisible":"zY8U","./TouchRipple":"gOR6"}],"VX66":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    return _ButtonBase.default;
+  }
+});
+
+var _ButtonBase = _interopRequireDefault(require("./ButtonBase"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./ButtonBase":"UfHt"}],"OP6V":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.capitalize = capitalize;
+exports.createChainedFunction = createChainedFunction;
+
+var _warning = _interopRequireDefault(require("warning"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// It should to be noted that this function isn't equivalent to `text-transform: capitalize`.
+//
+// A strict capitalization should uppercase the first letter of each word a the sentence.
+// We only handle the first word.
+function capitalize(string) {
+  if ("production" !== 'production' && typeof string !== 'string') {
+    throw new Error('Material-UI: capitalize(string) expects a string argument.');
+  }
+
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+/**
+ * Safe chained function
+ *
+ * Will only create a new function if needed,
+ * otherwise will pass back existing functions or null.
+ *
+ * @param {function} functions to chain
+ * @returns {function|null}
+ */
+
+
+function createChainedFunction() {
+  for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
+    funcs[_key] = arguments[_key];
+  }
+
+  return funcs.reduce(function (acc, func) {
+    if (func == null) {
+      return acc;
+    }
+
+    "production" !== "production" ? (0, _warning.default)(typeof func === 'function', 'Material-UI: invalid Argument Type, must only provide functions, undefined, or null.') : void 0;
+    return function chainedFunction() {
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      acc.apply(this, args);
+      func.apply(this, args);
+    };
+  }, function () {});
+}
+},{"warning":"XOCG"}],"66WI":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _clsx = _interopRequireDefault(require("clsx"));
+
+var _utils = require("@material-ui/utils");
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+var _colorManipulator = require("../styles/colorManipulator");
+
+var _ButtonBase = _interopRequireDefault(require("../ButtonBase"));
+
+var _helpers = require("../utils/helpers");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = function styles(theme) {
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      textAlign: 'center',
+      flex: '0 0 auto',
+      fontSize: theme.typography.pxToRem(24),
+      padding: 12,
+      borderRadius: '50%',
+      overflow: 'visible',
+      // Explicitly set the default value to solve a bug on IE 11.
+      color: theme.palette.action.active,
+      transition: theme.transitions.create('background-color', {
+        duration: theme.transitions.duration.shortest
+      }),
+      '&:hover': {
+        backgroundColor: (0, _colorManipulator.fade)(theme.palette.action.active, theme.palette.action.hoverOpacity),
+        // Reset on touch devices, it doesn't add specificity
+        '@media (hover: none)': {
+          backgroundColor: 'transparent'
+        }
+      },
+      '&$disabled': {
+        backgroundColor: 'transparent',
+        color: theme.palette.action.disabled
+      }
+    },
+
+    /* Styles applied to the root element if `edge="start"`. */
+    edgeStart: {
+      marginLeft: -12,
+      '$sizeSmall&': {
+        marginLeft: -3
+      }
+    },
+
+    /* Styles applied to the root element if `edge="end"`. */
+    edgeEnd: {
+      marginRight: -12,
+      '$sizeSmall&': {
+        marginRight: -3
+      }
+    },
+
+    /* Styles applied to the root element if `color="inherit"`. */
+    colorInherit: {
+      color: 'inherit'
+    },
+
+    /* Styles applied to the root element if `color="primary"`. */
+    colorPrimary: {
+      color: theme.palette.primary.main,
+      '&:hover': {
+        backgroundColor: (0, _colorManipulator.fade)(theme.palette.primary.main, theme.palette.action.hoverOpacity),
+        // Reset on touch devices, it doesn't add specificity
+        '@media (hover: none)': {
+          backgroundColor: 'transparent'
+        }
+      }
+    },
+
+    /* Styles applied to the root element if `color="secondary"`. */
+    colorSecondary: {
+      color: theme.palette.secondary.main,
+      '&:hover': {
+        backgroundColor: (0, _colorManipulator.fade)(theme.palette.secondary.main, theme.palette.action.hoverOpacity),
+        // Reset on touch devices, it doesn't add specificity
+        '@media (hover: none)': {
+          backgroundColor: 'transparent'
+        }
+      }
+    },
+
+    /* Styles applied to the root element if `disabled={true}`. */
+    disabled: {},
+
+    /* Styles applied to the root element if `size="small"`. */
+    sizeSmall: {
+      padding: 3,
+      fontSize: theme.typography.pxToRem(18)
+    },
+
+    /* Styles applied to the children container element. */
+    label: {
+      width: '100%',
+      display: 'flex',
+      alignItems: 'inherit',
+      justifyContent: 'inherit'
+    }
+  };
+};
+/**
+ * Refer to the [Icons](/components/icons/) section of the documentation
+ * regarding the available icon options.
+ */
+
+
+exports.styles = styles;
+
+var IconButton = _react.default.forwardRef(function IconButton(props, ref) {
+  var _props$edge = props.edge,
+      edge = _props$edge === void 0 ? false : _props$edge,
+      children = props.children,
+      classes = props.classes,
+      className = props.className,
+      _props$color = props.color,
+      color = _props$color === void 0 ? 'default' : _props$color,
+      _props$disabled = props.disabled,
+      disabled = _props$disabled === void 0 ? false : _props$disabled,
+      _props$size = props.size,
+      size = _props$size === void 0 ? 'medium' : _props$size,
+      other = (0, _objectWithoutProperties2.default)(props, ["edge", "children", "classes", "className", "color", "disabled", "size"]);
+  return _react.default.createElement(_ButtonBase.default, (0, _extends2.default)({
+    className: (0, _clsx.default)(classes.root, color !== 'default' && classes["color".concat((0, _helpers.capitalize)(color))], disabled && classes.disabled, size !== 'medium' && classes["size".concat((0, _helpers.capitalize)(size))], edge === 'start' && classes.edgeStart, edge === 'end' && classes.edgeEnd, className),
+    centerRipple: true,
+    focusRipple: true,
+    disabled: disabled,
+    ref: ref
+  }, other), _react.default.createElement("span", {
+    className: classes.label
+  }, children));
+});
+
+"production" !== "production" ? IconButton.propTypes = {
+  /**
+   * The icon element.
+   */
+  children: (0, _utils.chainPropTypes)(_propTypes.default.node, function (props) {
+    var found = _react.default.Children.toArray(props.children).some(function (child) {
+      return _react.default.isValidElement(child) && child.props.onClick;
+    });
+
+    if (found) {
+      return new Error(['Material-UI: you are providing an onClick event listener ' + 'to a child of a button element.', 'Firefox will never trigger the event.', 'You should move the onClick listener to the parent button element.', 'https://github.com/mui-org/material-ui/issues/13957'].join('\n'));
+    }
+
+    return null;
+  }),
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The color of the component. It supports those theme colors that make sense for this component.
+   */
+  color: _propTypes.default.oneOf(['default', 'inherit', 'primary', 'secondary']),
+
+  /**
+   * If `true`, the button will be disabled.
+   */
+  disabled: _propTypes.default.bool,
+
+  /**
+   * If given, uses a negative margin to counteract the padding on one
+   * side (this is often helpful for aligning the left or right
+   * side of the icon with content above or below, without ruining the border
+   * size and shape).
+   */
+  edge: _propTypes.default.oneOf(['start', 'end', false]),
+
+  /**
+   * The size of the button.
+   * `small` is equivalent to the dense button styling.
+   */
+  size: _propTypes.default.oneOf(['small', 'medium'])
+} : void 0;
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiIconButton'
+})(IconButton);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/extends":"3dLy","@babel/runtime/helpers/objectWithoutProperties":"U8F3","react":"1n8/","prop-types":"5D9O","clsx":"WLGK","@material-ui/utils":"gEhD","../styles/withStyles":"awmK","../styles/colorManipulator":"7agu","../ButtonBase":"VX66","../utils/helpers":"OP6V"}],"e+0N":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    return _IconButton.default;
+  }
+});
+
+var _IconButton = _interopRequireDefault(require("./IconButton"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./IconButton":"66WI"}],"k5HL":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _clsx = _interopRequireDefault(require("clsx"));
+
+var _ButtonBase = _interopRequireDefault(require("../ButtonBase"));
+
+var _IconButton = _interopRequireDefault(require("../IconButton"));
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = function styles(theme) {
+  var transition = {
+    duration: theme.transitions.duration.shortest
+  };
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      display: 'flex',
+      minHeight: 8 * 6,
+      transition: theme.transitions.create(['min-height', 'background-color'], transition),
+      padding: '0 24px 0 24px',
+      '&:hover:not($disabled)': {
+        cursor: 'pointer'
+      },
+      '&$expanded': {
+        minHeight: 64
+      },
+      '&$focused': {
+        backgroundColor: theme.palette.grey[300]
+      },
+      '&$disabled': {
+        opacity: 0.38
+      }
+    },
+
+    /* Styles applied to the root element, children wrapper element and `IconButton` component if `expanded={true}`. */
+    expanded: {},
+
+    /* Styles applied to the root and children wrapper elements when focused. */
+    focused: {},
+
+    /* Styles applied to the root element if `disabled={true}`. */
+    disabled: {},
+
+    /* Styles applied to the children wrapper element. */
+    content: {
+      display: 'flex',
+      flexGrow: 1,
+      transition: theme.transitions.create(['margin'], transition),
+      margin: '12px 0',
+      '&$expanded': {
+        margin: '20px 0'
+      }
+    },
+
+    /* Styles applied to the `IconButton` component when `expandIcon` is supplied. */
+    expandIcon: {
+      transform: 'rotate(0deg)',
+      transition: theme.transitions.create('transform', transition),
+      '&:hover': {
+        // Disable the hover effect for the IconButton,
+        // because a hover effect should apply to the entire Expand button and
+        // not only to the IconButton.
+        backgroundColor: 'transparent'
+      },
+      '&$expanded': {
+        transform: 'rotate(180deg)'
+      }
+    }
+  };
+};
+
+exports.styles = styles;
+
+var ExpansionPanelSummary = _react.default.forwardRef(function ExpansionPanelSummary(props, ref) {
+  var children = props.children,
+      classes = props.classes,
+      className = props.className,
+      _props$disabled = props.disabled,
+      disabled = _props$disabled === void 0 ? false : _props$disabled,
+      expanded = props.expanded,
+      expandIcon = props.expandIcon,
+      IconButtonProps = props.IconButtonProps,
+      onBlur = props.onBlur,
+      onChange = props.onChange,
+      onClick = props.onClick,
+      onFocusVisible = props.onFocusVisible,
+      other = (0, _objectWithoutProperties2.default)(props, ["children", "classes", "className", "disabled", "expanded", "expandIcon", "IconButtonProps", "onBlur", "onChange", "onClick", "onFocusVisible"]);
+
+  var _React$useState = _react.default.useState(false),
+      _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
+      focusedState = _React$useState2[0],
+      setFocusedState = _React$useState2[1];
+
+  var handleFocusVisible = function handleFocusVisible(event) {
+    setFocusedState(true);
+
+    if (onFocusVisible) {
+      onFocusVisible(event);
+    }
+  };
+
+  var handleBlur = function handleBlur(event) {
+    setFocusedState(false);
+
+    if (onBlur) {
+      onBlur(event);
+    }
+  };
+
+  var handleChange = function handleChange(event) {
+    if (onChange) {
+      onChange(event);
+    }
+
+    if (onClick) {
+      onClick(event);
+    }
+  };
+
+  return _react.default.createElement(_ButtonBase.default, (0, _extends2.default)({
+    focusRipple: false,
+    disableRipple: true,
+    disabled: disabled,
+    component: "div",
+    "aria-expanded": expanded,
+    className: (0, _clsx.default)(classes.root, disabled && classes.disabled, expanded && classes.expanded, focusedState && classes.focused, className),
+    onFocusVisible: handleFocusVisible,
+    onBlur: handleBlur,
+    onClick: handleChange,
+    ref: ref
+  }, other), _react.default.createElement("div", {
+    className: (0, _clsx.default)(classes.content, expanded && classes.expanded)
+  }, children), expandIcon && _react.default.createElement(_IconButton.default, (0, _extends2.default)({
+    disabled: disabled,
+    className: (0, _clsx.default)(classes.expandIcon, expanded && classes.expanded),
+    edge: "end",
+    component: "div",
+    tabIndex: -1,
+    "aria-hidden": true
+  }, IconButtonProps), expandIcon));
+});
+
+"production" !== "production" ? ExpansionPanelSummary.propTypes = {
+  /**
+   * The content of the expansion panel summary.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * @ignore
+   * If `true`, the summary will be displayed in a disabled state.
+   */
+  disabled: _propTypes.default.bool,
+
+  /**
+   * @ignore
+   * If `true`, expands the summary, otherwise collapse it.
+   */
+  expanded: _propTypes.default.bool,
+
+  /**
+   * The icon to display as the expand indicator.
+   */
+  expandIcon: _propTypes.default.node,
+
+  /**
+   * Properties applied to the `IconButton` element wrapping the expand icon.
+   */
+  IconButtonProps: _propTypes.default.object,
+
+  /**
+   * @ignore
+   */
+  onBlur: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onChange: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onClick: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onFocusVisible: _propTypes.default.func
+} : void 0;
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiExpansionPanelSummary'
+})(ExpansionPanelSummary);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/extends":"3dLy","@babel/runtime/helpers/slicedToArray":"69HE","@babel/runtime/helpers/objectWithoutProperties":"U8F3","react":"1n8/","prop-types":"5D9O","clsx":"WLGK","../ButtonBase":"VX66","../IconButton":"e+0N","../styles/withStyles":"awmK"}],"MGbU":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    return _ExpansionPanelSummary.default;
+  }
+});
+
+var _ExpansionPanelSummary = _interopRequireDefault(require("./ExpansionPanelSummary"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./ExpansionPanelSummary":"k5HL"}],"V/1Z":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Task = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _dateFns = require("date-fns");
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _timeUtils = require("../timeUtils");
+
+var _mapInPairs = require("../util/mapInPairs");
+
+var _tasks = require("../tasks");
+
+var _ExpansionPanel = _interopRequireDefault(require("@material-ui/core/ExpansionPanel"));
+
+var _ExpansionPanelDetails = _interopRequireDefault(require("@material-ui/core/ExpansionPanelDetails"));
+
+var _ExpansionPanelSummary = _interopRequireDefault(require("@material-ui/core/ExpansionPanelSummary"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\ntext-transform: capitalize;\ncolor: green;\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  padding: 0 0 0 15px;\n  margin: 0;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n    display: flex;\n    flex-direction: column;\n    align-items: flex-start;\n    padding: 1em;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var Root = _styledComponents.default.div(_templateObject());
+
+var Row = _styledComponents.default.p(_templateObject2());
+
+var Header = _styledComponents.default.span(_templateObject3());
+
+var statusEmoji = {
+  stopped: '🛑',
+  paused: '☕️',
+  running: '🏃‍♂️',
+  'not-started': null
+};
+
+var Task = function Task(_ref) {
+  var startedAt = _ref.startedAt,
+      stoppedAt = _ref.stoppedAt,
+      pauses = _ref.pauses,
+      title = _ref.title;
+  var runningTime = startedAt ? (0, _timeUtils.calculateRunningTime)(startedAt, stoppedAt, pauses) : 0;
+  var status = (0, _tasks.getTaskStatus)({
+    startedAt: startedAt,
+    stoppedAt: stoppedAt,
+    pauses: pauses
+  });
+  var lastPause = pauses.length ? (0, _dateFns.distanceInWordsToNow)(pauses[pauses.length - 1]) : null;
+  var now = Date.now();
+  var computedPauses = (0, _mapInPairs.mapInPairs)(function () {
+    var a = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : now;
+    var b = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : now;
+    return (0, _dateFns.differenceInMinutes)(a, b);
+  })(pauses);
+  return _react.default.createElement(Root, null, _react.default.createElement(_ExpansionPanel.default, null, _react.default.createElement(_ExpansionPanelSummary.default, null, _react.default.createElement(Header, null, title), _react.default.createElement(Row, null, " Status: ", status, " ", statusEmoji[status])), _react.default.createElement(_ExpansionPanelDetails.default, null, _react.default.createElement(Row, null, " Started: ", startedAt ? (0, _dateFns.distanceInWordsToNow)(startedAt) + ' ago' : '-'), _react.default.createElement(Row, null, " Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-', " "), _react.default.createElement(Row, null, " Running Time: ", runningTime, " "), lastPause && _react.default.createElement(Row, null, " Last pause: ", lastPause, " ago "), _react.default.createElement(Row, null, " ", computedPauses.join(' |-| '), " "))));
+};
+
+exports.Task = Task;
+Task.propTypes = {
+  startedAt: _propTypes.default.string.number,
+  stoppedAt: _propTypes.default.string.number,
+  pauses: _propTypes.default.arrayOf(_propTypes.default.number),
+  title: _propTypes.default.string.isRequired
+};
+},{"react":"1n8/","prop-types":"5D9O","date-fns":"cWQX","styled-components":"tFSs","../timeUtils":"9n5r","../util/mapInPairs":"fpUY","../tasks":"rzbf","@material-ui/core/ExpansionPanel":"VT0G","@material-ui/core/ExpansionPanelDetails":"gInR","@material-ui/core/ExpansionPanelSummary":"MGbU"}],"Hmdm":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
