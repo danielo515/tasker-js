@@ -22478,7 +22478,7 @@ var _ExpandMore = _interopRequireDefault(require("@material-ui/icons/ExpandMore"
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  color: grey;\n  flex-basis: 33.33%;\n"]);
+  var data = _taggedTemplateLiteral(["\n  color: grey;\n  flex-basis: 66.66%;\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
