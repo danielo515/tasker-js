@@ -19391,7 +19391,28 @@ module.exports = function (adapter) {
 
   return db.read();
 };
-},{"lodash":"B1iE","is-promise":"ZcPk"}],"bjhr":[function(require,module,exports) {
+},{"lodash":"B1iE","is-promise":"ZcPk"}],"0chG":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fakeTasker = fakeTasker;
+
+function fakeTasker() {
+  window.tk = {
+    global: function global() {},
+    readFile: function readFile() {
+      return void 0;
+    },
+    writeFile: function writeFile() {
+      return void 0;
+    },
+    flash: console.info,
+    flashLong: console.info
+  };
+}
+},{}],"bjhr":[function(require,module,exports) {
 var MILLISECONDS_IN_MINUTE = 60000
 
 /**
@@ -25581,6 +25602,8 @@ var _lowdb = _interopRequireDefault(require("lowdb"));
 
 var _tasks = require("../tasks");
 
+var _fakeTasker = require("./fakeTasker");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
@@ -25596,17 +25619,7 @@ var tasks;
 if (!window.tk) {
   // browser fake mode
   var taskNames = ['work', 'eating', 'workout', 'programming'];
-  window.tk = {
-    global: function global() {},
-    readFile: function readFile() {
-      return void 0;
-    },
-    writeFile: function writeFile() {
-      return void 0;
-    },
-    flash: console.info,
-    flashLong: console.info
-  };
+  (0, _fakeTasker.fakeTasker)();
   tasks = [require('../../fixtures/fakeTask').running].concat(_toConsumableArray(taskNames.slice(1).map(_tasks.emptyTask)));
 }
 
@@ -25616,7 +25629,7 @@ var db = (0, _lowdb.default)(new _taskerAdapter.default('Documents/tasks-db.json
   }
 }));
 exports.db = db;
-},{"./taskerAdapter":"Snw6","lowdb":"rpNd","../tasks":"rzbf","../../fixtures/fakeTask":"p+TI"}],"rzbf":[function(require,module,exports) {
+},{"./taskerAdapter":"Snw6","lowdb":"rpNd","../tasks":"rzbf","./fakeTasker":"0chG","../../fixtures/fakeTask":"p+TI"}],"rzbf":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
