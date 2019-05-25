@@ -41915,7 +41915,8 @@ if (!window.tk) {
     },
     writeFile: function writeFile() {
       return void 0;
-    }
+    },
+    flash: console.info
   };
   tasks = [require('../../fixtures/fakeTask').running].concat(_toConsumableArray(taskNames.slice(1).map(_tasks.emptyTask)));
 }
