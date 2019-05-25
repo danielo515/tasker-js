@@ -18394,129 +18394,7 @@ Object.defineProperty(exports, "default", {
 var _Grid = _interopRequireDefault(require("./Grid"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Grid":"hjYL"}],"oZim":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = exports.styles = void 0;
-
-var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
-
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _clsx = _interopRequireDefault(require("clsx"));
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var styles = function styles(theme) {
-  var elevations = {};
-  theme.shadows.forEach(function (shadow, index) {
-    elevations["elevation".concat(index)] = {
-      boxShadow: shadow
-    };
-  });
-  return (0, _extends2.default)({
-    /* Styles applied to the root element. */
-    root: {
-      backgroundColor: theme.palette.background.paper,
-      color: theme.palette.text.primary,
-      transition: theme.transitions.create('box-shadow')
-    },
-
-    /* Styles applied to the root element if `square={false}`. */
-    rounded: {
-      borderRadius: theme.shape.borderRadius
-    }
-  }, elevations);
-};
-
-exports.styles = styles;
-
-var Paper = _react.default.forwardRef(function Paper(props, ref) {
-  var classes = props.classes,
-      classNameProp = props.className,
-      _props$component = props.component,
-      Component = _props$component === void 0 ? 'div' : _props$component,
-      _props$square = props.square,
-      square = _props$square === void 0 ? false : _props$square,
-      _props$elevation = props.elevation,
-      elevation = _props$elevation === void 0 ? 1 : _props$elevation,
-      other = (0, _objectWithoutProperties2.default)(props, ["classes", "className", "component", "square", "elevation"]);
-  "production" !== "production" ? (0, _warning.default)(elevation >= 0 && elevation < 25, "Material-UI: this elevation `".concat(elevation, "` is not implemented.")) : void 0;
-  var className = (0, _clsx.default)(classes.root, classes["elevation".concat(elevation)], !square && classes.rounded, classNameProp);
-  return _react.default.createElement(Component, (0, _extends2.default)({
-    className: className,
-    ref: ref
-  }, other));
-});
-
-"production" !== "production" ? Paper.propTypes = {
-  /**
-   * The content of the component.
-   */
-  children: _propTypes.default.node,
-
-  /**
-   * Override or extend the styles applied to the component.
-   * See [CSS API](#css) below for more details.
-   */
-  classes: _propTypes.default.object.isRequired,
-
-  /**
-   * @ignore
-   */
-  className: _propTypes.default.string,
-
-  /**
-   * The component used for the root node.
-   * Either a string to use a DOM element or a component.
-   */
-  component: _propTypes.default.elementType,
-
-  /**
-   * Shadow depth, corresponds to `dp` in the spec.
-   * It accepts values between 0 and 24 inclusive.
-   */
-  elevation: _propTypes.default.number,
-
-  /**
-   * If `true`, rounded corners are disabled.
-   */
-  square: _propTypes.default.bool
-} : void 0;
-
-var _default = (0, _withStyles.default)(styles, {
-  name: 'MuiPaper'
-})(Paper);
-
-exports.default = _default;
-},{"@babel/runtime/helpers/objectWithoutProperties":"U8F3","@babel/runtime/helpers/extends":"3dLy","react":"1n8/","prop-types":"5D9O","clsx":"WLGK","warning":"XOCG","../styles/withStyles":"awmK"}],"76mt":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function () {
-    return _Paper.default;
-  }
-});
-
-var _Paper = _interopRequireDefault(require("./Paper"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Paper":"oZim"}],"p+TI":[function(require,module,exports) {
+},{"./Grid":"hjYL"}],"p+TI":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18571,8 +18449,6 @@ var _tasks = require("../tasks");
 
 var _Grid = _interopRequireDefault(require("@material-ui/core/Grid"));
 
-var _Paper = _interopRequireDefault(require("@material-ui/core/Paper"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
@@ -18605,13 +18481,13 @@ function App() {
     return _react.default.createElement(_Grid.default, {
       item: true,
       key: task.title
-    }, _react.default.createElement(_Paper.default, null, _react.default.createElement(_Task.Task, task)));
+    }, _react.default.createElement(_Task.Task, task));
   }));
 }
 
 var _default = App;
 exports.default = _default;
-},{"react":"1n8/","./App.css":"CMr0","./Task":"V/1Z","../tasks":"rzbf","@material-ui/core/Grid":"5xZh","@material-ui/core/Paper":"76mt","../../fixtures/fakeTask":"p+TI"}],"pZkM":[function(require,module,exports) {
+},{"react":"1n8/","./App.css":"CMr0","./Task":"V/1Z","../tasks":"rzbf","@material-ui/core/Grid":"5xZh","../../fixtures/fakeTask":"p+TI"}],"pZkM":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
