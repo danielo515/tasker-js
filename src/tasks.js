@@ -12,7 +12,7 @@ const saveJson = (name, value) => tk.setGlobal(name, JSON.stringify(value));
  * @property {String} title
  * @property {Number|null} startedAt
  * @property {Number|null} stoppedAt
- * @property {[Number]} pauses
+ * @property {[Number]|[]} pauses
  */
 
 export const isPaused = (pauses) => pauses.length && isOdd(pauses.length);
@@ -29,6 +29,11 @@ export const getTaskStatus = ({ startedAt, stoppedAt, pauses }) => {
     return 'not-started';
 };
 
+/**
+ * Creates a new empty task from scratch
+ * @param {String} name the task name
+ * @returns {Task}
+ */
 export const emptyTask = (name) => (
     {
         title: name,
