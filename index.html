@@ -22872,17 +22872,23 @@ var Root = _styledComponents.default.div(_templateObject());
 
 var Row = _styledComponents.default.p(_templateObject2());
 
+var RowContent = function RowContent(_ref) {
+  var title = _ref.title,
+      value = _ref.value;
+  return _react.default.createElement("div", null, _react.default.createElement(_Typography.default, null, " ", title, " "), _react.default.createElement(_Typography.default, null, " ", value, " "));
+};
+
 var Header = _styledComponents.default.span(_templateObject3());
 
 var SecondaryHeader = _styledComponents.default.span(_templateObject4());
 
 var Colum = _styledComponents.default.span(_templateObject5());
 
-var Task = function Task(_ref) {
-  var startedAt = _ref.startedAt,
-      stoppedAt = _ref.stoppedAt,
-      pauses = _ref.pauses,
-      title = _ref.title;
+var Task = function Task(_ref2) {
+  var startedAt = _ref2.startedAt,
+      stoppedAt = _ref2.stoppedAt,
+      pauses = _ref2.pauses,
+      title = _ref2.title;
   var runningTime = startedAt ? (0, _timeUtils.calculateRunningTime)(startedAt, stoppedAt, pauses) : '-';
   var status = (0, _tasks.getTaskStatus)({
     startedAt: startedAt,
