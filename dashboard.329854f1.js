@@ -10383,7 +10383,7 @@ var Task = function Task(_ref) {
       stoppedAt = _ref.stoppedAt,
       pauses = _ref.pauses,
       title = _ref.title;
-  var runningTime = (0, _timeUtils.calculateRunningTime)(startedAt, stoppedAt, pauses);
+  var runningTime = startedAt ? (0, _timeUtils.calculateRunningTime)(startedAt, stoppedAt, pauses) : 0;
   var status = (0, _tasks.getTaskStatus)({
     startedAt: startedAt,
     stoppedAt: stoppedAt,
