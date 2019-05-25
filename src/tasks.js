@@ -1,6 +1,5 @@
 // @ts-check
 import safeParse from './util/safeParse';
-import LogErrors from './util/errLog';
 import { isOdd } from './dashboard/isOdd';
 
 const readObj = (name, fallback) => safeParse(tk.global(name), fallback);
@@ -70,7 +69,3 @@ export const pauseTask = updateTask(({ pauses }) => (
 
 export const startTask = updateTask(() => ({ startedAt: Date.now() }));
 export const stopTask = updateTask(() => ({ stoppedAt: Date.now() }));
-
-window.pauseTask = LogErrors(pauseTask);
-window.startTask = LogErrors(startTask);
-window.stopTask = LogErrors(stopTask);

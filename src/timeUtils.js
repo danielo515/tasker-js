@@ -1,3 +1,4 @@
+// @ts-check
 import distanceInWords from 'date-fns/distance_in_words';
 import differenceInMilliseconds from 'date-fns/difference_in_milliseconds';
 import  subMilliseconds  from 'date-fns/sub_milliseconds';
@@ -11,8 +12,9 @@ export const calculatePauseTime = (pauses = []) => {
     return pauseTime;
 };
 
-export const calculateRunningTime = (start, stop, pauses) => {
+export const calculateRunningTime = (start, finish, pauses) => {
     const discount = calculatePauseTime(pauses);
-    const adjustedStop = subMilliseconds(stop || Date.now(), discount);
+    // to get the actual running time we make finish date closer to the start one by subtracting pause time.
+    const adjustedStop = subMilliseconds(finish || Date.now(), discount);
     return distanceInWords(start, adjustedStop, { includeSeconds: true });
 };
