@@ -42799,19 +42799,21 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-var tasks = _db.db.get('tasks').value();
+var atom = {
+  tasks: _db.db.get('tasks').value()
+};
 
 var start = function start(title) {
   return function () {
     (0, _tasks.startTask)(title);
-    tasks = _toConsumableArray(_db.db.get('tasks').value());
+    atom.tasks = _toConsumableArray(_db.db.get('tasks').value());
   };
 };
 
 var stop = function stop(title) {
   return function () {
     (0, _tasks.stopTask)(title);
-    tasks = _toConsumableArray(_db.db.get('tasks').value());
+    atom.tasks = _toConsumableArray(_db.db.get('tasks').value());
   };
 };
 
@@ -42819,7 +42821,7 @@ function App() {
   console.log('Load app');
   return _react.default.createElement(_Paper.default, {
     className: "App-header"
-  }, !tasks.length ? _react.default.createElement(_Typography.default, null, " No tasks yet") : tasks.map(function (task) {
+  }, !atom.tasks.length ? _react.default.createElement(_Typography.default, null, " No tasks yet") : atom.tasks.map(function (task) {
     return _react.default.createElement(_Task.Task, _extends({}, task, {
       key: task.title,
       onStart: start(task.title),
