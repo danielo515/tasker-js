@@ -44777,31 +44777,7 @@ var _tasks = require("../tasks");
 
 var _App = _interopRequireDefault(require("./App"));
 
-var _redux = require("redux");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var start = function start(title) {
-  return function () {
-    return {
-      type: 'update',
-      payload: {
-        task: (0, _tasks.startTask)(title)
-      }
-    };
-  };
-};
-
-var stop = function stop(title) {
-  return function () {
-    return {
-      type: 'update',
-      payload: {
-        task: (0, _tasks.stopTask)(title)
-      }
-    };
-  };
-};
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
@@ -44809,15 +44785,39 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-var mapDispatchToProps = (0, _redux.bindActionCreators)({
-  start: start,
-  stop: stop
-});
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  var start = function start(title) {
+    return function () {
+      return dispatch({
+        type: 'update',
+        payload: {
+          task: (0, _tasks.startTask)(title)
+        }
+      });
+    };
+  };
+
+  var stop = function stop(title) {
+    return function () {
+      return dispatch({
+        type: 'update',
+        payload: {
+          task: (0, _tasks.stopTask)(title)
+        }
+      });
+    };
+  };
+
+  return {
+    start: start,
+    stop: stop
+  };
+};
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_App.default);
 
 exports.default = _default;
-},{"react-redux":"jYI/","../tasks":"rzbf","./App":"yWfa","redux":"aV+f"}],"dla6":[function(require,module,exports) {
+},{"react-redux":"jYI/","../tasks":"rzbf","./App":"yWfa"}],"dla6":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
