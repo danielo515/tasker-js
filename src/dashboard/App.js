@@ -2,26 +2,20 @@
 import React from 'react';
 import './App.css';
 import { Task } from './Task';
-import { loadTask } from '../tasks';
+import {db} from '../database/db';
 import Paper  from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
-// const devMode = process.env.NODE_ENV !== 'production';
-
-const taskNames = ['work', 'eating', 'workout', 'programming'];
-let tasks;
-if (!window.tk) {
-    window.tk = { global: () => { } };
-    tasks = [require('../../fixtures/fakeTask').running, ...taskNames.slice(1).map(loadTask)];
-} else {
-    tasks = taskNames.map(loadTask);
-}
+const tasks = db.get('tasks').value();
 
 function App() {
     return (
         <Paper className='App-header'>
-            {tasks.map(task =>
-                <Task {...task} key={task.title}></Task>
-            )}
+            {!tasks.length ? <Typography> No tasks yet</Typography>
+                :
+                tasks.map(task =>
+                    <Task {...task} key={task.title}></Task>
+                )}
         </Paper>
     );
 }
