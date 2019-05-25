@@ -1,7 +1,283 @@
-parcelRequire=function(e,r,t,n){var i,o="function"==typeof parcelRequire&&parcelRequire,u="function"==typeof require&&require;function f(t,n){if(!r[t]){if(!e[t]){var i="function"==typeof parcelRequire&&parcelRequire;if(!n&&i)return i(t,!0);if(o)return o(t,!0);if(u&&"string"==typeof t)return u(t);var c=new Error("Cannot find module '"+t+"'");throw c.code="MODULE_NOT_FOUND",c}p.resolve=function(r){return e[t][1][r]||r},p.cache={};var l=r[t]=new f.Module(t);e[t][0].call(l.exports,p,l,l.exports,this)}return r[t].exports;function p(e){return f(p.resolve(e))}}f.isParcelRequire=!0,f.Module=function(e){this.id=e,this.bundle=f,this.exports={}},f.modules=e,f.cache=r,f.parent=o,f.register=function(r,t){e[r]=[function(e,r){r.exports=t},{}]};for(var c=0;c<t.length;c++)try{f(t[c])}catch(e){i||(i=e)}if(t.length){var l=f(t[t.length-1]);"object"==typeof exports&&"undefined"!=typeof module?module.exports=l:"function"==typeof define&&define.amd?define(function(){return l}):n&&(this[n]=l)}if(parcelRequire=f,i)throw i;return f}({"PX3D":[function(require,module,exports) {
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.readArr=exports.default=void 0;var r=function(r){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};try{return JSON.parse(r)}catch(t){return e}},e=r;exports.default=e;var t=function(e){return r(tk.global(e),[])};exports.readArr=t;
+// modules are defined as an array
+// [ module function, map of requires ]
+//
+// map of requires is short require name -> numeric require
+//
+// anything defined in a previous bundle is accessed via the
+// orig method which is the require for previous bundles
+parcelRequire = (function (modules, cache, entry, globalName) {
+  // Save the require from previous bundle to this closure if any
+  var previousRequire = typeof parcelRequire === 'function' && parcelRequire;
+  var nodeRequire = typeof require === 'function' && require;
+
+  function newRequire(name, jumped) {
+    if (!cache[name]) {
+      if (!modules[name]) {
+        // if we cannot find the module within our internal map or
+        // cache jump to the current global require ie. the last bundle
+        // that was added to the page.
+        var currentRequire = typeof parcelRequire === 'function' && parcelRequire;
+        if (!jumped && currentRequire) {
+          return currentRequire(name, true);
+        }
+
+        // If there are other bundles on this page the require from the
+        // previous one is saved to 'previousRequire'. Repeat this as
+        // many times as there are bundles until the module is found or
+        // we exhaust the require chain.
+        if (previousRequire) {
+          return previousRequire(name, true);
+        }
+
+        // Try the node require function if it exists.
+        if (nodeRequire && typeof name === 'string') {
+          return nodeRequire(name);
+        }
+
+        var err = new Error('Cannot find module \'' + name + '\'');
+        err.code = 'MODULE_NOT_FOUND';
+        throw err;
+      }
+
+      localRequire.resolve = resolve;
+      localRequire.cache = {};
+
+      var module = cache[name] = new newRequire.Module(name);
+
+      modules[name][0].call(module.exports, localRequire, module, module.exports, this);
+    }
+
+    return cache[name].exports;
+
+    function localRequire(x){
+      return newRequire(localRequire.resolve(x));
+    }
+
+    function resolve(x){
+      return modules[name][1][x] || x;
+    }
+  }
+
+  function Module(moduleName) {
+    this.id = moduleName;
+    this.bundle = newRequire;
+    this.exports = {};
+  }
+
+  newRequire.isParcelRequire = true;
+  newRequire.Module = Module;
+  newRequire.modules = modules;
+  newRequire.cache = cache;
+  newRequire.parent = previousRequire;
+  newRequire.register = function (id, exports) {
+    modules[id] = [function (require, module) {
+      module.exports = exports;
+    }, {}];
+  };
+
+  var error;
+  for (var i = 0; i < entry.length; i++) {
+    try {
+      newRequire(entry[i]);
+    } catch (e) {
+      // Save first error but execute all entries
+      if (!error) {
+        error = e;
+      }
+    }
+  }
+
+  if (entry.length) {
+    // Expose entry point to Node, AMD or browser globals
+    // Based on https://github.com/ForbesLindesay/umd/blob/master/template.js
+    var mainExports = newRequire(entry[entry.length - 1]);
+
+    // CommonJS
+    if (typeof exports === "object" && typeof module !== "undefined") {
+      module.exports = mainExports;
+
+    // RequireJS
+    } else if (typeof define === "function" && define.amd) {
+     define(function () {
+       return mainExports;
+     });
+
+    // <script>
+    } else if (globalName) {
+      this[globalName] = mainExports;
+    }
+  }
+
+  // Override the current require with this new one
+  parcelRequire = newRequire;
+
+  if (error) {
+    // throw error from earlier, _after updating parcelRequire_
+    throw error;
+  }
+
+  return newRequire;
+})({"PX3D":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.readArr = exports.default = void 0;
+
+var safeParse = function safeParse(str) {
+  var defaultVal = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  try {
+    return JSON.parse(str);
+  } catch (error) {
+    return defaultVal;
+  }
+};
+
+var _default = safeParse;
+exports.default = _default;
+
+var readArr = function readArr(name) {
+  return safeParse(tk.global(name), []);
+};
+
+exports.readArr = readArr;
 },{}],"PAGD":[function(require,module,exports) {
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.isOdd=void 0;var e=function(e){return e%2!=0};exports.isOdd=e;
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isOdd = void 0;
+
+var isOdd = function isOdd(x) {
+  return x % 2 !== 0;
+};
+
+exports.isOdd = isOdd;
 },{}],"rzbf":[function(require,module,exports) {
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.stopTask=exports.startTask=exports.pauseTask=exports.updateTask=exports.loadTask=exports.emptyTask=exports.getTaskStatus=exports.isPaused=void 0;var t=r(require("./util/safeParse")),e=require("./dashboard/isOdd");function r(t){return t&&t.__esModule?t:{default:t}}function n(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{},n=Object.keys(r);"function"==typeof Object.getOwnPropertySymbols&&(n=n.concat(Object.getOwnPropertySymbols(r).filter(function(t){return Object.getOwnPropertyDescriptor(r,t).enumerable}))),n.forEach(function(e){s(t,e,r[e])})}return t}function s(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}var a=function(e,r){return(0,t.default)(tk.global(e),r)},o=function(t,e){return tk.setGlobal(t,JSON.stringify(e))},u=function(t){return t.length&&(0,e.isOdd)(t.length)};exports.isPaused=u;var p=function(t){var e=t.startedAt,r=t.stoppedAt,n=t.pauses;return r?"stopped":e&&u(n)?"paused":e?"running":"not-started"};exports.getTaskStatus=p;var c=function(t){return{title:t,startedAt:null,pauses:[],stoppedAt:null}};exports.emptyTask=c;var i=function(t){return a("TASK_".concat(t),c(t))};exports.loadTask=i;var l=function(t){return function(e){try{var r=i(e),s=n({},r,t(r));return o("TASK_".concat(e),s),s}catch(a){tk.flash("Error updating task ".concat(e,":\n ").concat(a.toString))}}};exports.updateTask=l;var d=l(function(t){return{pauses:t.pauses.concat(Date.now())}});exports.pauseTask=d;var f=l(function(){return{startedAt:Date.now()}});exports.startTask=f;var k=l(function(){return{stoppedAt:Date.now()}});exports.stopTask=k;
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.emptyTask = exports.getTaskStatus = exports.isPaused = void 0;
+
+var _safeParse = _interopRequireDefault(require("./util/safeParse"));
+
+var _isOdd = require("./dashboard/isOdd");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var readObj = function readObj(name, fallback) {
+  return (0, _safeParse.default)(tk.global(name), fallback);
+};
+
+var saveJson = function saveJson(name, value) {
+  return tk.setGlobal(name, JSON.stringify(value));
+};
+/**
+ * 
+ * @typedef  Task
+ * @property {String} title
+ * @property {Number|null} startedAt
+ * @property {Number|null} stoppedAt
+ * @property {[Number]|[]} pauses
+ */
+
+
+var isPaused = function isPaused(pauses) {
+  return pauses.length && (0, _isOdd.isOdd)(pauses.length);
+};
+/**
+ * computes the status of a task based on its fields
+ * @param {Task} param0 
+ * @returns {'stopped'|'paused'|'running'|'not-started'}
+ */
+
+
+exports.isPaused = isPaused;
+
+var getTaskStatus = function getTaskStatus(_ref) {
+  var startedAt = _ref.startedAt,
+      stoppedAt = _ref.stoppedAt,
+      pauses = _ref.pauses;
+  if (stoppedAt) return 'stopped';
+  if (startedAt && isPaused(pauses)) return 'paused';
+  if (startedAt) return 'running';
+  return 'not-started';
+};
+/**
+ * Creates a new empty task from scratch
+ * @param {String} name the task name
+ * @returns {Task}
+ */
+
+
+exports.getTaskStatus = getTaskStatus;
+
+var emptyTask = function emptyTask(name) {
+  return {
+    title: name,
+    startedAt: null,
+    pauses: [],
+    stoppedAt: null
+  };
+};
+/**
+ * Loads a task from the storage or returns a default one
+ * @param {String} name the name of the task to load
+ * @returns {Task} the task from memory or empty task if it was not found or invalid
+ */
+
+
+exports.emptyTask = emptyTask;
+
+var loadTask = function loadTask(name) {
+  return readObj("TASK_".concat(name), emptyTask(name));
+};
+
+exports.loadTask = loadTask;
+
+var updateTask = function updateTask(updater) {
+  return function (name) {
+    try {
+      var task = loadTask(name);
+      var newFields = updater(task);
+
+      var newTask = _objectSpread({}, task, newFields);
+
+      saveJson("TASK_".concat(name), newTask);
+      return newTask;
+    } catch (error) {
+      tk.flash("Error updating task ".concat(name, ":\n ").concat(error.toString));
+    }
+  };
+};
+
+exports.updateTask = updateTask;
+var pauseTask = updateTask(function (_ref2) {
+  var pauses = _ref2.pauses;
+  return {
+    pauses: pauses.concat(Date.now())
+  };
+});
+exports.pauseTask = pauseTask;
+var startTask = updateTask(function () {
+  return {
+    startedAt: Date.now()
+  };
+});
+exports.startTask = startTask;
+var stopTask = updateTask(function () {
+  return {
+    stoppedAt: Date.now()
+  };
+});
+exports.stopTask = stopTask;
 },{"./util/safeParse":"PX3D","./dashboard/isOdd":"PAGD"}]},{},["rzbf"], null)
