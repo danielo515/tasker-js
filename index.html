@@ -22633,33 +22633,34 @@ var _serialize = function _serialize(d) {
   return JSON.stringify(d, null, 2);
 };
 
-var _deserialize = JSON.parse;
+var _deserialize = function _deserialize(str) {
+  return JSON["parse"](str);
+};
 
 var TaskerAdapter =
 /** @class */
 function () {
-  function TaskerAdapter(storagePath, defaultValue, deserialize, serialize) {
-    if (deserialize === void 0) {
-      deserialize = _deserialize;
-    }
-
-    if (serialize === void 0) {
-      serialize = _serialize;
-    }
-
-    this.storagePath = storagePath;
-    this.defaultValue = defaultValue;
-    this.deserialize = deserialize;
-    this.serialize = serialize;
+  function TaskerAdapter(source, options) {
+    this.source = source;
+    this.options = options;
+    this.serialize = options.serialize || _serialize;
+    this.deserialize = options.deserialize || _deserialize;
+    this.defaultValue = options.defaultValue;
   }
 
   TaskerAdapter.prototype.read = function () {
-    var data = tk.readFile(this.storagePath);
-    return data != 'undefined' ? this.deserialize(data) : this.defaultValue;
+    try {
+      var data = tk.readFile(this.source);
+      return data != 'undefined' ? this.deserialize(data) : this.defaultValue;
+    } catch (error) {
+      tk.flashLong('Database error ' + error.message);
+      this.write(this.defaultValue);
+      return this.defaultValue;
+    }
   };
 
   TaskerAdapter.prototype.write = function (data) {
-    tk.writeFile(this.storagePath, this.serialize(data), false);
+    tk.writeFile(this.source, this.serialize(data), false);
   };
 
   return TaskerAdapter;
@@ -41960,7 +41961,9 @@ if (!window.tk) {
 }
 
 var db = (0, _lowdb.default)(new _taskerAdapter.default('Documents/tasks-db.json', {
-  tasks: tasks || []
+  defaultValue: {
+    tasks: tasks || []
+  }
 }));
 exports.db = db;
 },{"./taskerAdapter":"Snw6","lowdb":"rpNd","../tasks":"rzbf","../../fixtures/fakeTask":"p+TI"}],"yWfa":[function(require,module,exports) {
