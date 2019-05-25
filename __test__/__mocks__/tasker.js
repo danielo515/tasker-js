@@ -5,5 +5,6 @@ global.tk = {
     global: jest.fn(),
     local: jest.fn(),
     flashLong: jest.fn(),
+    flash: jest.fn(),
     exit: jest.fn(),
 };

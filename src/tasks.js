@@ -22,14 +22,21 @@ export const isPaused = (pauses) => pauses.length && isOdd(pauses.length);
  * @param {Task} param0 
  * @returns {'stopped'|'paused'|'running'|'not-started'}
  */
-export const getTaskStatus = ({startedAt,stoppedAt,pauses}) => 
-{
-    if(stoppedAt) return 'stopped';
-    if(startedAt && isPaused(pauses)) return 'paused';
-    if(startedAt) return 'running';
+export const getTaskStatus = ({ startedAt, stoppedAt, pauses }) => {
+    if (stoppedAt) return 'stopped';
+    if (startedAt && isPaused(pauses)) return 'paused';
+    if (startedAt) return 'running';
     return 'not-started';
 };
 
+export const emptyTask = (name) => (
+    {
+        title: name,
+        startedAt: null,
+        pauses: [],
+        stoppedAt: null,
+    }
+);
 
 /**
  * Loads a task from the storage or returns a default one
@@ -38,32 +45,26 @@ export const getTaskStatus = ({startedAt,stoppedAt,pauses}) =>
  */
 export const loadTask = name => readObj(
     `TASK_${name}`,
-    {
-        title: name,
-        startedAt: null,
-        pauses: [],
-        stoppedAt: null,
-    });
+    emptyTask(name));
 
-export const updateTask = field => updater => name => {
+export const updateTask = updater => name => {
     try {
-        const task = loadTask(name);        
-        task[field] = updater(task[field]);// pass the current value for convenience 
-        saveJson(`TASK_${name}`, task);
-        return task;
+        const task = loadTask(name);
+        const newFields = updater(task);
+        const newTask = { ...task, ...newFields };
+        saveJson(`TASK_${name}`, newTask);
+        return newTask;
     } catch (error) {
         tk.flash(`Error updating task ${name}:\n ${error.toString}`);
     }
 };
 
-export const pauseTask = updateTask('pauses')(
-    current => {
-        current.push(Date.now());
-        return current;
-    });
+export const pauseTask = updateTask(({ pauses }) => (
+    { pauses: pauses.concat(Date.now()) }
+));
 
-export const startTask = updateTask('startedAt')(() => Date.now());
-export const stopTask = updateTask('stoppedAt')(() => Date.now());
+export const startTask = updateTask(() => ({ startedAt: Date.now() }));
+export const stopTask = updateTask(() => ({ stoppedAt: Date.now() }));
 
 window.pauseTask = LogErrors(pauseTask);
 window.startTask = LogErrors(startTask);
