@@ -42762,16 +42762,14 @@ var tasks = _db.db.get('tasks').value();
 var start = function start(title) {
   return function () {
     (0, _tasks.startTask)(title);
-    var Ptasks = tasks;
     tasks = _toConsumableArray(_db.db.get('tasks').value());
-    console.log('Re-read tasks', tasks === Ptasks);
   };
 };
 
 var stop = function stop(title) {
   return function () {
     (0, _tasks.stopTask)(title);
-    tasks = _db.db.get('tasks').value();
+    tasks = _toConsumableArray(_db.db.get('tasks').value());
   };
 };
 
