@@ -22445,7 +22445,302 @@ var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.d
 })), 'ExpandMore');
 
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"SpGf","react":"1n8/","./utils/createSvgIcon":"Atth"}],"V/1Z":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"SpGf","react":"1n8/","./utils/createSvgIcon":"Atth"}],"0n1p":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _clsx = _interopRequireDefault(require("clsx"));
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+var _helpers = require("../utils/helpers");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = function styles(theme) {
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      margin: 0
+    },
+
+    /* Styles applied to the root element if `variant="body2"`. */
+    body2: theme.typography.body2,
+
+    /* Styles applied to the root element if `variant="body1"`. */
+    body1: theme.typography.body1,
+
+    /* Styles applied to the root element if `variant="caption"`. */
+    caption: theme.typography.caption,
+
+    /* Styles applied to the root element if `variant="button"`. */
+    button: theme.typography.button,
+
+    /* Styles applied to the root element if `variant="h1"`. */
+    h1: theme.typography.h1,
+
+    /* Styles applied to the root element if `variant="h2"`. */
+    h2: theme.typography.h2,
+
+    /* Styles applied to the root element if `variant="h3"`. */
+    h3: theme.typography.h3,
+
+    /* Styles applied to the root element if `variant="h4"`. */
+    h4: theme.typography.h4,
+
+    /* Styles applied to the root element if `variant="h5"`. */
+    h5: theme.typography.h5,
+
+    /* Styles applied to the root element if `variant="h6"`. */
+    h6: theme.typography.h6,
+
+    /* Styles applied to the root element if `variant="subtitle1"`. */
+    subtitle1: theme.typography.subtitle1,
+
+    /* Styles applied to the root element if `variant="subtitle2"`. */
+    subtitle2: theme.typography.subtitle2,
+
+    /* Styles applied to the root element if `variant="overline"`. */
+    overline: theme.typography.overline,
+
+    /* Styles applied to the root element if `variant="srOnly"`. Only accessible to screen readers. */
+    srOnly: {
+      position: 'absolute',
+      height: 1,
+      width: 1,
+      overflow: 'hidden'
+    },
+
+    /* Styles applied to the root element if `align="left"`. */
+    alignLeft: {
+      textAlign: 'left'
+    },
+
+    /* Styles applied to the root element if `align="center"`. */
+    alignCenter: {
+      textAlign: 'center'
+    },
+
+    /* Styles applied to the root element if `align="right"`. */
+    alignRight: {
+      textAlign: 'right'
+    },
+
+    /* Styles applied to the root element if `align="justify"`. */
+    alignJustify: {
+      textAlign: 'justify'
+    },
+
+    /* Styles applied to the root element if `align="nowrap"`. */
+    noWrap: {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap'
+    },
+
+    /* Styles applied to the root element if `gutterBottom={true}`. */
+    gutterBottom: {
+      marginBottom: '0.35em'
+    },
+
+    /* Styles applied to the root element if `paragraph={true}`. */
+    paragraph: {
+      marginBottom: 16
+    },
+
+    /* Styles applied to the root element if `color="inherit"`. */
+    colorInherit: {
+      color: 'inherit'
+    },
+
+    /* Styles applied to the root element if `color="primary"`. */
+    colorPrimary: {
+      color: theme.palette.primary.main
+    },
+
+    /* Styles applied to the root element if `color="secondary"`. */
+    colorSecondary: {
+      color: theme.palette.secondary.main
+    },
+
+    /* Styles applied to the root element if `color="textPrimary"`. */
+    colorTextPrimary: {
+      color: theme.palette.text.primary
+    },
+
+    /* Styles applied to the root element if `color="textSecondary"`. */
+    colorTextSecondary: {
+      color: theme.palette.text.secondary
+    },
+
+    /* Styles applied to the root element if `color="error"`. */
+    colorError: {
+      color: theme.palette.error.main
+    },
+
+    /* Styles applied to the root element if `display="inline"`. */
+    displayInline: {
+      display: 'inline'
+    },
+
+    /* Styles applied to the root element if `display="block"`. */
+    displayBlock: {
+      display: 'block'
+    }
+  };
+};
+
+exports.styles = styles;
+var defaultVariantMapping = {
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  h4: 'h4',
+  h5: 'h5',
+  h6: 'h6',
+  subtitle1: 'h6',
+  subtitle2: 'h6',
+  body1: 'p',
+  body2: 'p'
+};
+
+var Typography = _react.default.forwardRef(function Typography(props, ref) {
+  var _props$align = props.align,
+      align = _props$align === void 0 ? 'inherit' : _props$align,
+      classes = props.classes,
+      className = props.className,
+      _props$color = props.color,
+      color = _props$color === void 0 ? 'initial' : _props$color,
+      component = props.component,
+      _props$display = props.display,
+      display = _props$display === void 0 ? 'initial' : _props$display,
+      _props$gutterBottom = props.gutterBottom,
+      gutterBottom = _props$gutterBottom === void 0 ? false : _props$gutterBottom,
+      _props$noWrap = props.noWrap,
+      noWrap = _props$noWrap === void 0 ? false : _props$noWrap,
+      _props$paragraph = props.paragraph,
+      paragraph = _props$paragraph === void 0 ? false : _props$paragraph,
+      theme = props.theme,
+      _props$variant = props.variant,
+      variant = _props$variant === void 0 ? 'body1' : _props$variant,
+      _props$variantMapping = props.variantMapping,
+      variantMapping = _props$variantMapping === void 0 ? defaultVariantMapping : _props$variantMapping,
+      other = (0, _objectWithoutProperties2.default)(props, ["align", "classes", "className", "color", "component", "display", "gutterBottom", "noWrap", "paragraph", "theme", "variant", "variantMapping"]);
+  var Component = component || (paragraph ? 'p' : variantMapping[variant] || defaultVariantMapping[variant]) || 'span';
+  return _react.default.createElement(Component, (0, _extends2.default)({
+    className: (0, _clsx.default)(classes.root, variant !== 'inherit' && classes[variant], color !== 'initial' && classes["color".concat((0, _helpers.capitalize)(color))], noWrap && classes.noWrap, gutterBottom && classes.gutterBottom, paragraph && classes.paragraph, align !== 'inherit' && classes["align".concat((0, _helpers.capitalize)(align))], display !== 'initial' && classes["display".concat((0, _helpers.capitalize)(display))], className),
+    ref: ref
+  }, other));
+});
+
+"production" !== "production" ? Typography.propTypes = {
+  /**
+   * Set the text-align on the component.
+   */
+  align: _propTypes.default.oneOf(['inherit', 'left', 'center', 'right', 'justify']),
+
+  /**
+   * The content of the component.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The color of the component. It supports those theme colors that make sense for this component.
+   */
+  color: _propTypes.default.oneOf(['initial', 'inherit', 'primary', 'secondary', 'textPrimary', 'textSecondary', 'error']),
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   * By default, it maps the variant to a good default headline component.
+   */
+  component: _propTypes.default.elementType,
+
+  /**
+   * Controls the display type
+   */
+  display: _propTypes.default.oneOf(['initial', 'block', 'inline']),
+
+  /**
+   * If `true`, the text will have a bottom margin.
+   */
+  gutterBottom: _propTypes.default.bool,
+
+  /**
+   * If `true`, the text will not wrap, but instead will truncate with an ellipsis.
+   */
+  noWrap: _propTypes.default.bool,
+
+  /**
+   * If `true`, the text will have a bottom margin.
+   */
+  paragraph: _propTypes.default.bool,
+
+  /**
+   * @ignore
+   */
+  theme: _propTypes.default.object.isRequired,
+
+  /**
+   * Applies the theme typography styles.
+   */
+  variant: _propTypes.default.oneOf(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'body1', 'body2', 'caption', 'button', 'overline', 'srOnly', 'inherit']),
+
+  /**
+   * We are empirically mapping the variant property to a range of different DOM element types.
+   * For instance, subtitle1 to `<h6>`.
+   * If you wish to change that mapping, you can provide your own.
+   * Alternatively, you can use the `component` property.
+   */
+  variantMapping: _propTypes.default.object
+} : void 0;
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiTypography',
+  withTheme: true
+})(Typography);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/extends":"3dLy","@babel/runtime/helpers/objectWithoutProperties":"U8F3","react":"1n8/","prop-types":"5D9O","clsx":"WLGK","../styles/withStyles":"awmK","../utils/helpers":"OP6V"}],"/pi2":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    return _Typography.default;
+  }
+});
+
+var _Typography = _interopRequireDefault(require("./Typography"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./Typography":"0n1p"}],"V/1Z":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -22474,6 +22769,8 @@ var _ExpansionPanelDetails = _interopRequireDefault(require("@material-ui/core/E
 var _ExpansionPanelSummary = _interopRequireDefault(require("@material-ui/core/ExpansionPanelSummary"));
 
 var _ExpandMore = _interopRequireDefault(require("@material-ui/icons/ExpandMore"));
+
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22560,7 +22857,7 @@ var Task = function Task(_ref) {
   return _react.default.createElement(Root, null, _react.default.createElement(_ExpansionPanel.default, null, _react.default.createElement(_ExpansionPanelSummary.default, {
     expandIcon: _react.default.createElement(_ExpandMore.default, null),
     "aria-controls": "panel1c-content"
-  }, _react.default.createElement(Colum, null, _react.default.createElement(Header, null, title)), _react.default.createElement(Colum, null, _react.default.createElement(SecondaryHeader, null, " ", status, " "))), _react.default.createElement(_ExpansionPanelDetails.default, null, _react.default.createElement(Row, null, " Started: ", startedAt ? (0, _dateFns.distanceInWordsToNow)(startedAt) + ' ago' : '-'), _react.default.createElement(Row, null, " Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-', " "), _react.default.createElement(Row, null, " Running: ", runningTime, " ")), _react.default.createElement(_ExpansionPanelDetails.default, null, lastPause && _react.default.createElement(Row, null, " Last pause: ", lastPause, " ago "), _react.default.createElement(Row, null, " ", computedPauses.join(' |-| '), " "))));
+  }, _react.default.createElement(Colum, null, _react.default.createElement(Header, null, title)), _react.default.createElement(Colum, null, _react.default.createElement(SecondaryHeader, null, " ", status, " "))), _react.default.createElement(_ExpansionPanelDetails.default, null, _react.default.createElement(Row, null, " ", _react.default.createElement(_Typography.default, null, "Started:"), " ", startedAt ? (0, _dateFns.distanceInWordsToNow)(startedAt) + ' ago' : '-'), _react.default.createElement(Row, null, " Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-', " "), _react.default.createElement(Row, null, " Running: ", runningTime, " ")), _react.default.createElement(_ExpansionPanelDetails.default, null, lastPause && _react.default.createElement(Row, null, " Last pause: ", lastPause, " ago "), _react.default.createElement(Row, null, " ", computedPauses.join(' |-| '), " "))));
 };
 
 exports.Task = Task;
@@ -22570,7 +22867,7 @@ Task.propTypes = {
   pauses: _propTypes.default.arrayOf(_propTypes.default.number),
   title: _propTypes.default.string.isRequired
 };
-},{"react":"1n8/","prop-types":"5D9O","date-fns":"cWQX","styled-components":"tFSs","../timeUtils":"9n5r","../util/mapInPairs":"fpUY","../tasks":"rzbf","@material-ui/core/ExpansionPanel":"VT0G","@material-ui/core/ExpansionPanelDetails":"gInR","@material-ui/core/ExpansionPanelSummary":"MGbU","@material-ui/icons/ExpandMore":"/evf"}],"p+TI":[function(require,module,exports) {
+},{"react":"1n8/","prop-types":"5D9O","date-fns":"cWQX","styled-components":"tFSs","../timeUtils":"9n5r","../util/mapInPairs":"fpUY","../tasks":"rzbf","@material-ui/core/ExpansionPanel":"VT0G","@material-ui/core/ExpansionPanelDetails":"gInR","@material-ui/core/ExpansionPanelSummary":"MGbU","@material-ui/icons/ExpandMore":"/evf","@material-ui/core/Typography":"/pi2"}],"p+TI":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
