@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"8Lq7":[function(require,module,exports) {
+})({"PX3D":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -143,26 +143,6 @@ var readArr = function readArr(name) {
 };
 
 exports.readArr = readArr;
-},{}],"T/DR":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var logErrs = function logErrs(fn) {
-  return function () {
-    try {
-      fn.apply(void 0, arguments);
-    } catch (error) {
-      tk.flashLong(error.toString());
-    }
-  };
-};
-
-var _default = logErrs;
-exports.default = _default;
 },{}],"PAGD":[function(require,module,exports) {
 "use strict";
 
@@ -182,17 +162,18 @@ exports.isOdd = isOdd;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.getTaskStatus = exports.isPaused = void 0;
+exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.emptyTask = exports.getTaskStatus = exports.isPaused = void 0;
 
-var _safeParse = _interopRequireDefault(require("../util/safeParse"));
-
-var _errLog = _interopRequireDefault(require("../util/errLog"));
+var _safeParse = _interopRequireDefault(require("./util/safeParse"));
 
 var _isOdd = require("./dashboard/isOdd");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// @ts-check
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var readObj = function readObj(name, fallback) {
   return (0, _safeParse.default)(tk.global(name), fallback);
 };
@@ -206,7 +187,7 @@ var saveJson = function saveJson(name, value) {
  * @property {String} title
  * @property {Number|null} startedAt
  * @property {Number|null} stoppedAt
- * @property {[Number]} pauses
+ * @property {[Number]|[]} pauses
  */
 
 
@@ -232,59 +213,74 @@ var getTaskStatus = function getTaskStatus(_ref) {
   return 'not-started';
 };
 /**
+ * Creates a new empty task from scratch
+ * @param {String} name the task name
+ * @returns {Task}
+ */
+
+
+exports.getTaskStatus = getTaskStatus;
+
+var emptyTask = function emptyTask(name) {
+  return {
+    title: name,
+    startedAt: null,
+    pauses: [],
+    stoppedAt: null
+  };
+};
+/**
  * Loads a task from the storage or returns a default one
  * @param {String} name the name of the task to load
  * @returns {Task} the task from memory or empty task if it was not found or invalid
  */
 
 
-exports.getTaskStatus = getTaskStatus;
+exports.emptyTask = emptyTask;
 
 var loadTask = function loadTask(name) {
-  return readObj("TASK_".concat(name), {
-    title: name,
-    startedAt: null,
-    pauses: [],
-    stoppedAt: null
-  });
+  return readObj("TASK_".concat(name), emptyTask(name));
 };
 
 exports.loadTask = loadTask;
 
-var updateTask = function updateTask(field) {
-  return function (updater) {
-    return function (name) {
-      try {
-        var task = loadTask(name);
-        task[field] = updater(task[field]); // pass the current value for convenience 
+var updateTask = function updateTask(updater) {
+  return function (name) {
+    try {
+      var task = loadTask(name);
+      var newFields = updater(task);
 
-        saveJson("TASK_".concat(name), task);
-        return task;
-      } catch (error) {
-        tk.flash("Error updating task ".concat(name, ":\n ").concat(error.toString));
-      }
-    };
+      var newTask = _objectSpread({}, task, newFields);
+
+      saveJson("TASK_".concat(name), newTask);
+      return newTask;
+    } catch (error) {
+      tk.flash("Error updating task ".concat(name, ":\n ").concat(error.toString));
+    }
   };
 };
 
 exports.updateTask = updateTask;
-var pauseTask = updateTask('pauses')(function (current) {
-  current.push(Date.now());
-  return current;
+var pauseTask = updateTask(function (_ref2) {
+  var pauses = _ref2.pauses;
+  return {
+    pauses: pauses.concat(Date.now())
+  };
 });
 exports.pauseTask = pauseTask;
-var startTask = updateTask('startedAt')(function () {
-  return Date.now();
+var startTask = updateTask(function () {
+  return {
+    startedAt: Date.now()
+  };
 });
 exports.startTask = startTask;
-var stopTask = updateTask('stoppedAt')(function () {
-  return Date.now();
+var stopTask = updateTask(function () {
+  return {
+    stoppedAt: Date.now()
+  };
 });
 exports.stopTask = stopTask;
-window.pauseTask = (0, _errLog.default)(pauseTask);
-window.startTask = (0, _errLog.default)(startTask);
-window.stopTask = (0, _errLog.default)(stopTask);
-},{"../util/safeParse":"8Lq7","../util/errLog":"T/DR","./dashboard/isOdd":"PAGD"}],"bjhr":[function(require,module,exports) {
+},{"./util/safeParse":"PX3D","./dashboard/isOdd":"PAGD"}],"bjhr":[function(require,module,exports) {
 var MILLISECONDS_IN_MINUTE = 60000
 
 /**
@@ -6423,49 +6419,78 @@ module.exports = {
   subYears: require('./sub_years/index.js')
 }
 
-},{"./add_days/index.js":"C8Jj","./add_hours/index.js":"cFoC","./add_iso_years/index.js":"bhh0","./add_milliseconds/index.js":"JXAh","./add_minutes/index.js":"+vZp","./add_months/index.js":"yVyG","./add_quarters/index.js":"H1DN","./add_seconds/index.js":"Gepr","./add_weeks/index.js":"hDyn","./add_years/index.js":"WGS0","./are_ranges_overlapping/index.js":"8tx8","./closest_index_to/index.js":"K0rp","./closest_to/index.js":"xeDi","./compare_asc/index.js":"+NJC","./compare_desc/index.js":"pfSt","./difference_in_calendar_days/index.js":"7dmj","./difference_in_calendar_iso_weeks/index.js":"OCNd","./difference_in_calendar_iso_years/index.js":"KVP/","./difference_in_calendar_months/index.js":"mgfB","./difference_in_calendar_quarters/index.js":"8/M/","./difference_in_calendar_weeks/index.js":"pfXU","./difference_in_calendar_years/index.js":"3TH0","./difference_in_days/index.js":"F0zg","./difference_in_hours/index.js":"lvwL","./difference_in_iso_years/index.js":"32aN","./difference_in_milliseconds/index.js":"KKv9","./difference_in_minutes/index.js":"F5+8","./difference_in_months/index.js":"5KzI","./difference_in_quarters/index.js":"A399","./difference_in_seconds/index.js":"Sjwe","./difference_in_weeks/index.js":"E2bU","./difference_in_years/index.js":"3SSW","./distance_in_words/index.js":"HLwM","./distance_in_words_strict/index.js":"WrFA","./distance_in_words_to_now/index.js":"jUDc","./each_day/index.js":"jayk","./end_of_day/index.js":"hjyj","./end_of_hour/index.js":"Ytlb","./end_of_iso_week/index.js":"1Xfk","./end_of_iso_year/index.js":"p9Kg","./end_of_minute/index.js":"y1Cm","./end_of_month/index.js":"3mb3","./end_of_quarter/index.js":"CR29","./end_of_second/index.js":"W3u2","./end_of_today/index.js":"aAfn","./end_of_tomorrow/index.js":"nuKj","./end_of_week/index.js":"wsAK","./end_of_year/index.js":"zeTk","./end_of_yesterday/index.js":"37Up","./format/index.js":"Vy4H","./get_date/index.js":"Qptf","./get_day/index.js":"3CsB","./get_day_of_year/index.js":"5S8c","./get_days_in_month/index.js":"AF7/","./get_days_in_year/index.js":"HHnJ","./get_hours/index.js":"4vgY","./get_iso_day/index.js":"+P0g","./get_iso_week/index.js":"eL1o","./get_iso_weeks_in_year/index.js":"f/Mr","./get_iso_year/index.js":"7L22","./get_milliseconds/index.js":"iJrm","./get_minutes/index.js":"YRfl","./get_month/index.js":"V3Bo","./get_overlapping_days_in_ranges/index.js":"mYqR","./get_quarter/index.js":"TxW9","./get_seconds/index.js":"gFWC","./get_time/index.js":"+HzN","./get_year/index.js":"bxn3","./is_after/index.js":"+i84","./is_before/index.js":"dR3O","./is_date/index.js":"CFBi","./is_equal/index.js":"Gp5+","./is_first_day_of_month/index.js":"NYcv","./is_friday/index.js":"CMn2","./is_future/index.js":"ngA7","./is_last_day_of_month/index.js":"6qwu","./is_leap_year/index.js":"SThF","./is_monday/index.js":"aaZC","./is_past/index.js":"5OHs","./is_same_day/index.js":"3Ehu","./is_same_hour/index.js":"6NfB","./is_same_iso_week/index.js":"s6JR","./is_same_iso_year/index.js":"Dwal","./is_same_minute/index.js":"Wmy4","./is_same_month/index.js":"9dRT","./is_same_quarter/index.js":"lXxI","./is_same_second/index.js":"0pSd","./is_same_week/index.js":"H3Kb","./is_same_year/index.js":"Qshd","./is_saturday/index.js":"zGeD","./is_sunday/index.js":"ct5/","./is_this_hour/index.js":"gMKA","./is_this_iso_week/index.js":"FptX","./is_this_iso_year/index.js":"+hsk","./is_this_minute/index.js":"dBgs","./is_this_month/index.js":"gjob","./is_this_quarter/index.js":"xJQv","./is_this_second/index.js":"zCzs","./is_this_week/index.js":"V1rv","./is_this_year/index.js":"2q5b","./is_thursday/index.js":"fsMm","./is_today/index.js":"VNQV","./is_tomorrow/index.js":"28nI","./is_tuesday/index.js":"fK+1","./is_valid/index.js":"x3VB","./is_wednesday/index.js":"G+9b","./is_weekend/index.js":"jxMk","./is_within_range/index.js":"g8eB","./is_yesterday/index.js":"NOli","./last_day_of_iso_week/index.js":"xwmC","./last_day_of_iso_year/index.js":"bzJd","./last_day_of_month/index.js":"Zd9R","./last_day_of_quarter/index.js":"EffO","./last_day_of_week/index.js":"8M3P","./last_day_of_year/index.js":"ps1A","./max/index.js":"TgIO","./min/index.js":"yan+","./parse/index.js":"ajCz","./set_date/index.js":"B65t","./set_day/index.js":"ADPD","./set_day_of_year/index.js":"oUK2","./set_hours/index.js":"LmDY","./set_iso_day/index.js":"geG1","./set_iso_week/index.js":"WWMt","./set_iso_year/index.js":"C4o3","./set_milliseconds/index.js":"ur5H","./set_minutes/index.js":"0gvM","./set_month/index.js":"FE9H","./set_quarter/index.js":"ES+P","./set_seconds/index.js":"9lKv","./set_year/index.js":"xEl2","./start_of_day/index.js":"GCdn","./start_of_hour/index.js":"8fe4","./start_of_iso_week/index.js":"Rrov","./start_of_iso_year/index.js":"z+C4","./start_of_minute/index.js":"Y6PB","./start_of_month/index.js":"D/sO","./start_of_quarter/index.js":"EcBT","./start_of_second/index.js":"yE+e","./start_of_today/index.js":"sUjp","./start_of_tomorrow/index.js":"iR7a","./start_of_week/index.js":"bGge","./start_of_year/index.js":"SInJ","./start_of_yesterday/index.js":"RGBM","./sub_days/index.js":"02fE","./sub_hours/index.js":"oWR9","./sub_iso_years/index.js":"jrl+","./sub_milliseconds/index.js":"4ip+","./sub_minutes/index.js":"wdQF","./sub_months/index.js":"vzmz","./sub_quarters/index.js":"3L28","./sub_seconds/index.js":"wwfT","./sub_weeks/index.js":"J4St","./sub_years/index.js":"18SO"}],"aZLK":[function(require,module,exports) {
+},{"./add_days/index.js":"C8Jj","./add_hours/index.js":"cFoC","./add_iso_years/index.js":"bhh0","./add_milliseconds/index.js":"JXAh","./add_minutes/index.js":"+vZp","./add_months/index.js":"yVyG","./add_quarters/index.js":"H1DN","./add_seconds/index.js":"Gepr","./add_weeks/index.js":"hDyn","./add_years/index.js":"WGS0","./are_ranges_overlapping/index.js":"8tx8","./closest_index_to/index.js":"K0rp","./closest_to/index.js":"xeDi","./compare_asc/index.js":"+NJC","./compare_desc/index.js":"pfSt","./difference_in_calendar_days/index.js":"7dmj","./difference_in_calendar_iso_weeks/index.js":"OCNd","./difference_in_calendar_iso_years/index.js":"KVP/","./difference_in_calendar_months/index.js":"mgfB","./difference_in_calendar_quarters/index.js":"8/M/","./difference_in_calendar_weeks/index.js":"pfXU","./difference_in_calendar_years/index.js":"3TH0","./difference_in_days/index.js":"F0zg","./difference_in_hours/index.js":"lvwL","./difference_in_iso_years/index.js":"32aN","./difference_in_milliseconds/index.js":"KKv9","./difference_in_minutes/index.js":"F5+8","./difference_in_months/index.js":"5KzI","./difference_in_quarters/index.js":"A399","./difference_in_seconds/index.js":"Sjwe","./difference_in_weeks/index.js":"E2bU","./difference_in_years/index.js":"3SSW","./distance_in_words/index.js":"HLwM","./distance_in_words_strict/index.js":"WrFA","./distance_in_words_to_now/index.js":"jUDc","./each_day/index.js":"jayk","./end_of_day/index.js":"hjyj","./end_of_hour/index.js":"Ytlb","./end_of_iso_week/index.js":"1Xfk","./end_of_iso_year/index.js":"p9Kg","./end_of_minute/index.js":"y1Cm","./end_of_month/index.js":"3mb3","./end_of_quarter/index.js":"CR29","./end_of_second/index.js":"W3u2","./end_of_today/index.js":"aAfn","./end_of_tomorrow/index.js":"nuKj","./end_of_week/index.js":"wsAK","./end_of_year/index.js":"zeTk","./end_of_yesterday/index.js":"37Up","./format/index.js":"Vy4H","./get_date/index.js":"Qptf","./get_day/index.js":"3CsB","./get_day_of_year/index.js":"5S8c","./get_days_in_month/index.js":"AF7/","./get_days_in_year/index.js":"HHnJ","./get_hours/index.js":"4vgY","./get_iso_day/index.js":"+P0g","./get_iso_week/index.js":"eL1o","./get_iso_weeks_in_year/index.js":"f/Mr","./get_iso_year/index.js":"7L22","./get_milliseconds/index.js":"iJrm","./get_minutes/index.js":"YRfl","./get_month/index.js":"V3Bo","./get_overlapping_days_in_ranges/index.js":"mYqR","./get_quarter/index.js":"TxW9","./get_seconds/index.js":"gFWC","./get_time/index.js":"+HzN","./get_year/index.js":"bxn3","./is_after/index.js":"+i84","./is_before/index.js":"dR3O","./is_date/index.js":"CFBi","./is_equal/index.js":"Gp5+","./is_first_day_of_month/index.js":"NYcv","./is_friday/index.js":"CMn2","./is_future/index.js":"ngA7","./is_last_day_of_month/index.js":"6qwu","./is_leap_year/index.js":"SThF","./is_monday/index.js":"aaZC","./is_past/index.js":"5OHs","./is_same_day/index.js":"3Ehu","./is_same_hour/index.js":"6NfB","./is_same_iso_week/index.js":"s6JR","./is_same_iso_year/index.js":"Dwal","./is_same_minute/index.js":"Wmy4","./is_same_month/index.js":"9dRT","./is_same_quarter/index.js":"lXxI","./is_same_second/index.js":"0pSd","./is_same_week/index.js":"H3Kb","./is_same_year/index.js":"Qshd","./is_saturday/index.js":"zGeD","./is_sunday/index.js":"ct5/","./is_this_hour/index.js":"gMKA","./is_this_iso_week/index.js":"FptX","./is_this_iso_year/index.js":"+hsk","./is_this_minute/index.js":"dBgs","./is_this_month/index.js":"gjob","./is_this_quarter/index.js":"xJQv","./is_this_second/index.js":"zCzs","./is_this_week/index.js":"V1rv","./is_this_year/index.js":"2q5b","./is_thursday/index.js":"fsMm","./is_today/index.js":"VNQV","./is_tomorrow/index.js":"28nI","./is_tuesday/index.js":"fK+1","./is_valid/index.js":"x3VB","./is_wednesday/index.js":"G+9b","./is_weekend/index.js":"jxMk","./is_within_range/index.js":"g8eB","./is_yesterday/index.js":"NOli","./last_day_of_iso_week/index.js":"xwmC","./last_day_of_iso_year/index.js":"bzJd","./last_day_of_month/index.js":"Zd9R","./last_day_of_quarter/index.js":"EffO","./last_day_of_week/index.js":"8M3P","./last_day_of_year/index.js":"ps1A","./max/index.js":"TgIO","./min/index.js":"yan+","./parse/index.js":"ajCz","./set_date/index.js":"B65t","./set_day/index.js":"ADPD","./set_day_of_year/index.js":"oUK2","./set_hours/index.js":"LmDY","./set_iso_day/index.js":"geG1","./set_iso_week/index.js":"WWMt","./set_iso_year/index.js":"C4o3","./set_milliseconds/index.js":"ur5H","./set_minutes/index.js":"0gvM","./set_month/index.js":"FE9H","./set_quarter/index.js":"ES+P","./set_seconds/index.js":"9lKv","./set_year/index.js":"xEl2","./start_of_day/index.js":"GCdn","./start_of_hour/index.js":"8fe4","./start_of_iso_week/index.js":"Rrov","./start_of_iso_year/index.js":"z+C4","./start_of_minute/index.js":"Y6PB","./start_of_month/index.js":"D/sO","./start_of_quarter/index.js":"EcBT","./start_of_second/index.js":"yE+e","./start_of_today/index.js":"sUjp","./start_of_tomorrow/index.js":"iR7a","./start_of_week/index.js":"bGge","./start_of_year/index.js":"SInJ","./start_of_yesterday/index.js":"RGBM","./sub_days/index.js":"02fE","./sub_hours/index.js":"oWR9","./sub_iso_years/index.js":"jrl+","./sub_milliseconds/index.js":"4ip+","./sub_minutes/index.js":"wdQF","./sub_months/index.js":"vzmz","./sub_quarters/index.js":"3L28","./sub_seconds/index.js":"wwfT","./sub_weeks/index.js":"J4St","./sub_years/index.js":"18SO"}],"+qIH":[function(require,module,exports) {
 "use strict";
 
-var _tasks = require("./tasks");
-
-var _dateFns = require("date-fns");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ensureLocal = exports.fail = void 0;
 
 var fail = function fail(msg) {
   tk.flashLong(msg);
   tk.exit();
 };
 
-var taskName = tk.local('task');
-if (taskName == 'undefined') fail('Please set local var. "task" with the task name');
-var action = tk.local('action');
-if (action == 'undefined') fail('Please set a local var. "action" with one of: start,stop,pause');
-tk.flashLong("About to ".concat(action, " task ").concat(taskName));
+exports.fail = fail;
 
-switch (action) {
-  case 'start':
-    (0, _tasks.startTask)(taskName);
-    break;
+var ensureLocal = function ensureLocal(varName, failMsg) {
+  var value = tk.local(varName);
+  if (value == 'undefined') fail(failMsg);
+  return value;
+};
 
-  case 'stop':
-    (0, _tasks.stopTask)(taskName);
-    break;
+exports.ensureLocal = ensureLocal;
+},{}],"aZLK":[function(require,module,exports) {
+"use strict";
 
-  case 'pause':
-    {
-      var task = (0, _tasks.pauseTask)(taskName);
-      var pauses = task.pauses;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 
-      if ((0, _tasks.isPaused)(pauses)) {
-        var a = pauses[pauses.length - 2];
-        var b = pauses[pauses.length - 1];
-        tk.flashLong((0, _dateFns.differenceInMinutes)(b, a) + ' minutes');
+var _tasks = require("./tasks");
+
+var _dateFns = require("date-fns");
+
+var _fail = require("./util/fail");
+
+main();
+
+function main() {
+  var taskName = (0, _fail.ensureLocal)('task', 'Please set local var. "task" with the task name');
+  var action = (0, _fail.ensureLocal)('action', 'Please set a local var. "action" with one of: start,stop,pause');
+  tk.flashLong("About to ".concat(action, " task ").concat(taskName));
+
+  switch (action) {
+    case 'start':
+      (0, _tasks.startTask)(taskName);
+      break;
+
+    case 'stop':
+      (0, _tasks.stopTask)(taskName);
+      break;
+
+    case 'pause':
+      {
+        var task = (0, _tasks.pauseTask)(taskName);
+        var pauses = task.pauses;
+
+        if ((0, _tasks.isPaused)(pauses)) {
+          var a = pauses[pauses.length - 2];
+          var b = pauses[pauses.length - 1];
+          tk.flashLong('pause was ' + (0, _dateFns.differenceInMinutes)(b, a) + ' minutes long');
+        }
       }
-    }
-    break;
+      break;
 
-  default:
-    fail('Unknown action: ' + action);
+    default:
+      (0, _fail.fail)('Unknown action: ' + action);
+  }
+
+  tk.exit();
 }
 
-tk.exit();
-},{"./tasks":"rzbf","date-fns":"cWQX"}]},{},["aZLK"], null)
+var _default = main;
+exports.default = _default;
+},{"./tasks":"rzbf","date-fns":"cWQX","./util/fail":"+qIH"}]},{},["aZLK"], null)

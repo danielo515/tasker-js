@@ -1245,6 +1245,7 @@ var _sub_milliseconds = _interopRequireDefault(require("date-fns/sub_millisecond
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// @ts-check
 var calculatePauseTime = function calculatePauseTime() {
   var pauses = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var pauseTime = 0;
@@ -1259,9 +1260,10 @@ var calculatePauseTime = function calculatePauseTime() {
 
 exports.calculatePauseTime = calculatePauseTime;
 
-var calculateRunningTime = function calculateRunningTime(start, stop, pauses) {
-  var discount = calculatePauseTime(pauses);
-  var adjustedStop = (0, _sub_milliseconds.default)(stop || Date.now(), discount);
+var calculateRunningTime = function calculateRunningTime(start, finish, pauses) {
+  var discount = calculatePauseTime(pauses); // to get the actual running time we make finish date closer to the start one by subtracting pause time.
+
+  var adjustedStop = (0, _sub_milliseconds.default)(finish || Date.now(), discount);
   return (0, _distance_in_words.default)(start, adjustedStop, {
     includeSeconds: true
   });

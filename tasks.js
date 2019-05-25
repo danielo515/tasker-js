@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"8Lq7":[function(require,module,exports) {
+})({"PX3D":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -143,26 +143,6 @@ var readArr = function readArr(name) {
 };
 
 exports.readArr = readArr;
-},{}],"T/DR":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var logErrs = function logErrs(fn) {
-  return function () {
-    try {
-      fn.apply(void 0, arguments);
-    } catch (error) {
-      tk.flashLong(error.toString());
-    }
-  };
-};
-
-var _default = logErrs;
-exports.default = _default;
 },{}],"PAGD":[function(require,module,exports) {
 "use strict";
 
@@ -182,17 +162,18 @@ exports.isOdd = isOdd;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.getTaskStatus = exports.isPaused = void 0;
+exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.emptyTask = exports.getTaskStatus = exports.isPaused = void 0;
 
-var _safeParse = _interopRequireDefault(require("../util/safeParse"));
-
-var _errLog = _interopRequireDefault(require("../util/errLog"));
+var _safeParse = _interopRequireDefault(require("./util/safeParse"));
 
 var _isOdd = require("./dashboard/isOdd");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// @ts-check
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var readObj = function readObj(name, fallback) {
   return (0, _safeParse.default)(tk.global(name), fallback);
 };
@@ -206,7 +187,7 @@ var saveJson = function saveJson(name, value) {
  * @property {String} title
  * @property {Number|null} startedAt
  * @property {Number|null} stoppedAt
- * @property {[Number]} pauses
+ * @property {[Number]|[]} pauses
  */
 
 
@@ -232,56 +213,71 @@ var getTaskStatus = function getTaskStatus(_ref) {
   return 'not-started';
 };
 /**
+ * Creates a new empty task from scratch
+ * @param {String} name the task name
+ * @returns {Task}
+ */
+
+
+exports.getTaskStatus = getTaskStatus;
+
+var emptyTask = function emptyTask(name) {
+  return {
+    title: name,
+    startedAt: null,
+    pauses: [],
+    stoppedAt: null
+  };
+};
+/**
  * Loads a task from the storage or returns a default one
  * @param {String} name the name of the task to load
  * @returns {Task} the task from memory or empty task if it was not found or invalid
  */
 
 
-exports.getTaskStatus = getTaskStatus;
+exports.emptyTask = emptyTask;
 
 var loadTask = function loadTask(name) {
-  return readObj("TASK_".concat(name), {
-    title: name,
-    startedAt: null,
-    pauses: [],
-    stoppedAt: null
-  });
+  return readObj("TASK_".concat(name), emptyTask(name));
 };
 
 exports.loadTask = loadTask;
 
-var updateTask = function updateTask(field) {
-  return function (updater) {
-    return function (name) {
-      try {
-        var task = loadTask(name);
-        task[field] = updater(task[field]); // pass the current value for convenience 
+var updateTask = function updateTask(updater) {
+  return function (name) {
+    try {
+      var task = loadTask(name);
+      var newFields = updater(task);
 
-        saveJson("TASK_".concat(name), task);
-        return task;
-      } catch (error) {
-        tk.flash("Error updating task ".concat(name, ":\n ").concat(error.toString));
-      }
-    };
+      var newTask = _objectSpread({}, task, newFields);
+
+      saveJson("TASK_".concat(name), newTask);
+      return newTask;
+    } catch (error) {
+      tk.flash("Error updating task ".concat(name, ":\n ").concat(error.toString));
+    }
   };
 };
 
 exports.updateTask = updateTask;
-var pauseTask = updateTask('pauses')(function (current) {
-  current.push(Date.now());
-  return current;
+var pauseTask = updateTask(function (_ref2) {
+  var pauses = _ref2.pauses;
+  return {
+    pauses: pauses.concat(Date.now())
+  };
 });
 exports.pauseTask = pauseTask;
-var startTask = updateTask('startedAt')(function () {
-  return Date.now();
+var startTask = updateTask(function () {
+  return {
+    startedAt: Date.now()
+  };
 });
 exports.startTask = startTask;
-var stopTask = updateTask('stoppedAt')(function () {
-  return Date.now();
+var stopTask = updateTask(function () {
+  return {
+    stoppedAt: Date.now()
+  };
 });
 exports.stopTask = stopTask;
-window.pauseTask = (0, _errLog.default)(pauseTask);
-window.startTask = (0, _errLog.default)(startTask);
-window.stopTask = (0, _errLog.default)(stopTask);
-},{"../util/safeParse":"8Lq7","../util/errLog":"T/DR","./dashboard/isOdd":"PAGD"}]},{},["rzbf"], null)
+},{"./util/safeParse":"PX3D","./dashboard/isOdd":"PAGD"}]},{},["rzbf"], null)

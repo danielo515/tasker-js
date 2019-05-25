@@ -1024,7 +1024,106 @@ if ("production" === 'production') {
 }
 },{"./cjs/react-dom.production.min.js":"i17t"}],"CMr0":[function(require,module,exports) {
 
-},{}],"bjhr":[function(require,module,exports) {
+},{}],"Asjh":[function(require,module,exports) {
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+'use strict';
+
+var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+
+module.exports = ReactPropTypesSecret;
+
+},{}],"wVGV":[function(require,module,exports) {
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+'use strict';
+
+var ReactPropTypesSecret = require('./lib/ReactPropTypesSecret');
+
+function emptyFunction() {}
+function emptyFunctionWithReset() {}
+emptyFunctionWithReset.resetWarningCache = emptyFunction;
+
+module.exports = function() {
+  function shim(props, propName, componentName, location, propFullName, secret) {
+    if (secret === ReactPropTypesSecret) {
+      // It is still safe when called from React.
+      return;
+    }
+    var err = new Error(
+      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+      'Use PropTypes.checkPropTypes() to call them. ' +
+      'Read more at http://fb.me/use-check-prop-types'
+    );
+    err.name = 'Invariant Violation';
+    throw err;
+  };
+  shim.isRequired = shim;
+  function getShim() {
+    return shim;
+  };
+  // Important!
+  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
+  var ReactPropTypes = {
+    array: shim,
+    bool: shim,
+    func: shim,
+    number: shim,
+    object: shim,
+    string: shim,
+    symbol: shim,
+
+    any: shim,
+    arrayOf: getShim,
+    element: shim,
+    elementType: shim,
+    instanceOf: getShim,
+    node: shim,
+    objectOf: getShim,
+    oneOf: getShim,
+    oneOfType: getShim,
+    shape: getShim,
+    exact: getShim,
+
+    checkPropTypes: emptyFunctionWithReset,
+    resetWarningCache: emptyFunction
+  };
+
+  ReactPropTypes.PropTypes = ReactPropTypes;
+
+  return ReactPropTypes;
+};
+
+},{"./lib/ReactPropTypesSecret":"Asjh"}],"5D9O":[function(require,module,exports) {
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+if ("production" !== 'production') {
+  var ReactIs = require('react-is'); // By explicitly using `prop-types` you are opting into new development behavior.
+  // http://fb.me/prop-types-in-prod
+
+
+  var throwOnDirectAccess = true;
+  module.exports = require('./factoryWithTypeCheckers')(ReactIs.isElement, throwOnDirectAccess);
+} else {
+  // By explicitly using `prop-types` you are opting into new production behavior.
+  // http://fb.me/prop-types-in-prod
+  module.exports = require('./factoryWithThrowingShims')();
+}
+},{"./factoryWithThrowingShims":"wVGV"}],"bjhr":[function(require,module,exports) {
 var MILLISECONDS_IN_MINUTE = 60000
 
 /**
@@ -7353,106 +7452,7 @@ function index(resultFn, isEqual) {
 
 var _default = index;
 exports.default = _default;
-},{}],"Asjh":[function(require,module,exports) {
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-'use strict';
-
-var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
-
-module.exports = ReactPropTypesSecret;
-
-},{}],"wVGV":[function(require,module,exports) {
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-'use strict';
-
-var ReactPropTypesSecret = require('./lib/ReactPropTypesSecret');
-
-function emptyFunction() {}
-function emptyFunctionWithReset() {}
-emptyFunctionWithReset.resetWarningCache = emptyFunction;
-
-module.exports = function() {
-  function shim(props, propName, componentName, location, propFullName, secret) {
-    if (secret === ReactPropTypesSecret) {
-      // It is still safe when called from React.
-      return;
-    }
-    var err = new Error(
-      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
-      'Use PropTypes.checkPropTypes() to call them. ' +
-      'Read more at http://fb.me/use-check-prop-types'
-    );
-    err.name = 'Invariant Violation';
-    throw err;
-  };
-  shim.isRequired = shim;
-  function getShim() {
-    return shim;
-  };
-  // Important!
-  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
-  var ReactPropTypes = {
-    array: shim,
-    bool: shim,
-    func: shim,
-    number: shim,
-    object: shim,
-    string: shim,
-    symbol: shim,
-
-    any: shim,
-    arrayOf: getShim,
-    element: shim,
-    elementType: shim,
-    instanceOf: getShim,
-    node: shim,
-    objectOf: getShim,
-    oneOf: getShim,
-    oneOfType: getShim,
-    shape: getShim,
-    exact: getShim,
-
-    checkPropTypes: emptyFunctionWithReset,
-    resetWarningCache: emptyFunction
-  };
-
-  ReactPropTypes.PropTypes = ReactPropTypes;
-
-  return ReactPropTypes;
-};
-
-},{"./lib/ReactPropTypesSecret":"Asjh"}],"5D9O":[function(require,module,exports) {
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-if ("production" !== 'production') {
-  var ReactIs = require('react-is'); // By explicitly using `prop-types` you are opting into new development behavior.
-  // http://fb.me/prop-types-in-prod
-
-
-  var throwOnDirectAccess = true;
-  module.exports = require('./factoryWithTypeCheckers')(ReactIs.isElement, throwOnDirectAccess);
-} else {
-  // By explicitly using `prop-types` you are opting into new production behavior.
-  // http://fb.me/prop-types-in-prod
-  module.exports = require('./factoryWithThrowingShims')();
-}
-},{"./factoryWithThrowingShims":"wVGV"}],"subt":[function(require,module,exports) {
+},{}],"subt":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10146,6 +10146,7 @@ var _sub_milliseconds = _interopRequireDefault(require("date-fns/sub_millisecond
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// @ts-check
 var calculatePauseTime = function calculatePauseTime() {
   var pauses = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var pauseTime = 0;
@@ -10160,16 +10161,17 @@ var calculatePauseTime = function calculatePauseTime() {
 
 exports.calculatePauseTime = calculatePauseTime;
 
-var calculateRunningTime = function calculateRunningTime(start, stop, pauses) {
-  var discount = calculatePauseTime(pauses);
-  var adjustedStop = (0, _sub_milliseconds.default)(stop || Date.now(), discount);
+var calculateRunningTime = function calculateRunningTime(start, finish, pauses) {
+  var discount = calculatePauseTime(pauses); // to get the actual running time we make finish date closer to the start one by subtracting pause time.
+
+  var adjustedStop = (0, _sub_milliseconds.default)(finish || Date.now(), discount);
   return (0, _distance_in_words.default)(start, adjustedStop, {
     includeSeconds: true
   });
 };
 
 exports.calculateRunningTime = calculateRunningTime;
-},{"date-fns/distance_in_words":"HLwM","date-fns/difference_in_milliseconds":"KKv9","date-fns/sub_milliseconds":"4ip+"}],"HfN6":[function(require,module,exports) {
+},{"date-fns/distance_in_words":"HLwM","date-fns/difference_in_milliseconds":"KKv9","date-fns/sub_milliseconds":"4ip+"}],"fpUY":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10192,7 +10194,7 @@ var mapInPairs = function mapInPairs(fn) {
 };
 
 exports.mapInPairs = mapInPairs;
-},{}],"8Lq7":[function(require,module,exports) {
+},{}],"PX3D":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10218,26 +10220,6 @@ var readArr = function readArr(name) {
 };
 
 exports.readArr = readArr;
-},{}],"T/DR":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var logErrs = function logErrs(fn) {
-  return function () {
-    try {
-      fn.apply(void 0, arguments);
-    } catch (error) {
-      tk.flashLong(error.toString());
-    }
-  };
-};
-
-var _default = logErrs;
-exports.default = _default;
 },{}],"PAGD":[function(require,module,exports) {
 "use strict";
 
@@ -10257,17 +10239,18 @@ exports.isOdd = isOdd;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.getTaskStatus = exports.isPaused = void 0;
+exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.emptyTask = exports.getTaskStatus = exports.isPaused = void 0;
 
-var _safeParse = _interopRequireDefault(require("../util/safeParse"));
-
-var _errLog = _interopRequireDefault(require("../util/errLog"));
+var _safeParse = _interopRequireDefault(require("./util/safeParse"));
 
 var _isOdd = require("./dashboard/isOdd");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// @ts-check
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var readObj = function readObj(name, fallback) {
   return (0, _safeParse.default)(tk.global(name), fallback);
 };
@@ -10281,7 +10264,7 @@ var saveJson = function saveJson(name, value) {
  * @property {String} title
  * @property {Number|null} startedAt
  * @property {Number|null} stoppedAt
- * @property {[Number]} pauses
+ * @property {[Number]|[]} pauses
  */
 
 
@@ -10307,59 +10290,74 @@ var getTaskStatus = function getTaskStatus(_ref) {
   return 'not-started';
 };
 /**
+ * Creates a new empty task from scratch
+ * @param {String} name the task name
+ * @returns {Task}
+ */
+
+
+exports.getTaskStatus = getTaskStatus;
+
+var emptyTask = function emptyTask(name) {
+  return {
+    title: name,
+    startedAt: null,
+    pauses: [],
+    stoppedAt: null
+  };
+};
+/**
  * Loads a task from the storage or returns a default one
  * @param {String} name the name of the task to load
  * @returns {Task} the task from memory or empty task if it was not found or invalid
  */
 
 
-exports.getTaskStatus = getTaskStatus;
+exports.emptyTask = emptyTask;
 
 var loadTask = function loadTask(name) {
-  return readObj("TASK_".concat(name), {
-    title: name,
-    startedAt: null,
-    pauses: [],
-    stoppedAt: null
-  });
+  return readObj("TASK_".concat(name), emptyTask(name));
 };
 
 exports.loadTask = loadTask;
 
-var updateTask = function updateTask(field) {
-  return function (updater) {
-    return function (name) {
-      try {
-        var task = loadTask(name);
-        task[field] = updater(task[field]); // pass the current value for convenience 
+var updateTask = function updateTask(updater) {
+  return function (name) {
+    try {
+      var task = loadTask(name);
+      var newFields = updater(task);
 
-        saveJson("TASK_".concat(name), task);
-        return task;
-      } catch (error) {
-        tk.flash("Error updating task ".concat(name, ":\n ").concat(error.toString));
-      }
-    };
+      var newTask = _objectSpread({}, task, newFields);
+
+      saveJson("TASK_".concat(name), newTask);
+      return newTask;
+    } catch (error) {
+      tk.flash("Error updating task ".concat(name, ":\n ").concat(error.toString));
+    }
   };
 };
 
 exports.updateTask = updateTask;
-var pauseTask = updateTask('pauses')(function (current) {
-  current.push(Date.now());
-  return current;
+var pauseTask = updateTask(function (_ref2) {
+  var pauses = _ref2.pauses;
+  return {
+    pauses: pauses.concat(Date.now())
+  };
 });
 exports.pauseTask = pauseTask;
-var startTask = updateTask('startedAt')(function () {
-  return Date.now();
+var startTask = updateTask(function () {
+  return {
+    startedAt: Date.now()
+  };
 });
 exports.startTask = startTask;
-var stopTask = updateTask('stoppedAt')(function () {
-  return Date.now();
+var stopTask = updateTask(function () {
+  return {
+    stoppedAt: Date.now()
+  };
 });
 exports.stopTask = stopTask;
-window.pauseTask = (0, _errLog.default)(pauseTask);
-window.startTask = (0, _errLog.default)(startTask);
-window.stopTask = (0, _errLog.default)(stopTask);
-},{"../util/safeParse":"8Lq7","../util/errLog":"T/DR","./dashboard/isOdd":"PAGD"}],"V/1Z":[function(require,module,exports) {
+},{"./util/safeParse":"PX3D","./dashboard/isOdd":"PAGD"}],"V/1Z":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10369,13 +10367,15 @@ exports.Task = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
 var _dateFns = require("date-fns");
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _timeUtils = require("../timeUtils");
 
-var _mapInPairs = require("../../util/mapInPairs");
+var _mapInPairs = require("../util/mapInPairs");
 
 var _tasks = require("../tasks");
 
@@ -10441,7 +10441,13 @@ var Task = function Task(_ref) {
 };
 
 exports.Task = Task;
-},{"react":"1n8/","date-fns":"cWQX","styled-components":"tFSs","../timeUtils":"9n5r","../../util/mapInPairs":"HfN6","../tasks":"rzbf"}],"t2zx":[function(require,module,exports) {
+Task.propTypes = {
+  startedAt: _propTypes.default.string.number,
+  stoppedAt: _propTypes.default.string.number,
+  pauses: _propTypes.default.arrayOf(_propTypes.default.number),
+  title: _propTypes.default.string.isRequired
+};
+},{"react":"1n8/","prop-types":"5D9O","date-fns":"cWQX","styled-components":"tFSs","../timeUtils":"9n5r","../util/mapInPairs":"fpUY","../tasks":"rzbf"}],"t2zx":[function(require,module,exports) {
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
@@ -18381,7 +18387,129 @@ Object.defineProperty(exports, "default", {
 var _Grid = _interopRequireDefault(require("./Grid"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Grid":"hjYL"}],"p+TI":[function(require,module,exports) {
+},{"./Grid":"hjYL"}],"oZim":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _clsx = _interopRequireDefault(require("clsx"));
+
+var _warning = _interopRequireDefault(require("warning"));
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = function styles(theme) {
+  var elevations = {};
+  theme.shadows.forEach(function (shadow, index) {
+    elevations["elevation".concat(index)] = {
+      boxShadow: shadow
+    };
+  });
+  return (0, _extends2.default)({
+    /* Styles applied to the root element. */
+    root: {
+      backgroundColor: theme.palette.background.paper,
+      color: theme.palette.text.primary,
+      transition: theme.transitions.create('box-shadow')
+    },
+
+    /* Styles applied to the root element if `square={false}`. */
+    rounded: {
+      borderRadius: theme.shape.borderRadius
+    }
+  }, elevations);
+};
+
+exports.styles = styles;
+
+var Paper = _react.default.forwardRef(function Paper(props, ref) {
+  var classes = props.classes,
+      classNameProp = props.className,
+      _props$component = props.component,
+      Component = _props$component === void 0 ? 'div' : _props$component,
+      _props$square = props.square,
+      square = _props$square === void 0 ? false : _props$square,
+      _props$elevation = props.elevation,
+      elevation = _props$elevation === void 0 ? 1 : _props$elevation,
+      other = (0, _objectWithoutProperties2.default)(props, ["classes", "className", "component", "square", "elevation"]);
+  "production" !== "production" ? (0, _warning.default)(elevation >= 0 && elevation < 25, "Material-UI: this elevation `".concat(elevation, "` is not implemented.")) : void 0;
+  var className = (0, _clsx.default)(classes.root, classes["elevation".concat(elevation)], !square && classes.rounded, classNameProp);
+  return _react.default.createElement(Component, (0, _extends2.default)({
+    className: className,
+    ref: ref
+  }, other));
+});
+
+"production" !== "production" ? Paper.propTypes = {
+  /**
+   * The content of the component.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
+  component: _propTypes.default.elementType,
+
+  /**
+   * Shadow depth, corresponds to `dp` in the spec.
+   * It accepts values between 0 and 24 inclusive.
+   */
+  elevation: _propTypes.default.number,
+
+  /**
+   * If `true`, rounded corners are disabled.
+   */
+  square: _propTypes.default.bool
+} : void 0;
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiPaper'
+})(Paper);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/objectWithoutProperties":"U8F3","@babel/runtime/helpers/extends":"3dLy","react":"1n8/","prop-types":"5D9O","clsx":"WLGK","warning":"XOCG","../styles/withStyles":"awmK"}],"76mt":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    return _Paper.default;
+  }
+});
+
+var _Paper = _interopRequireDefault(require("./Paper"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./Paper":"oZim"}],"p+TI":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18436,6 +18564,8 @@ var _tasks = require("../tasks");
 
 var _Grid = _interopRequireDefault(require("@material-ui/core/Grid"));
 
+var _Paper = _interopRequireDefault(require("@material-ui/core/Paper"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
@@ -18447,7 +18577,7 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 // const devMode = process.env.NODE_ENV !== 'production';
-var taskNames = ['work', 'eating', 'workout', 'Programming'];
+var taskNames = ['work', 'eating', 'workout', 'programming'];
 var tasks;
 
 if (!window.tk) {
@@ -18468,13 +18598,13 @@ function App() {
     return _react.default.createElement(_Grid.default, {
       item: true,
       key: task.title
-    }, _react.default.createElement(_Task.Task, task));
+    }, _react.default.createElement(_Paper.default, null, _react.default.createElement(_Task.Task, task)));
   }));
 }
 
 var _default = App;
 exports.default = _default;
-},{"react":"1n8/","./App.css":"CMr0","./Task":"V/1Z","../tasks":"rzbf","@material-ui/core/Grid":"5xZh","../../fixtures/fakeTask":"p+TI"}],"pZkM":[function(require,module,exports) {
+},{"react":"1n8/","./App.css":"CMr0","./Task":"V/1Z","../tasks":"rzbf","@material-ui/core/Grid":"5xZh","@material-ui/core/Paper":"76mt","../../fixtures/fakeTask":"p+TI"}],"pZkM":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
