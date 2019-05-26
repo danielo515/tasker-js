@@ -44809,66 +44809,7 @@ function App(_ref) {
 
 var _default = App;
 exports.default = _default;
-},{"react":"1n8/","./App.css":"CMr0","./Task":"V/1Z","@material-ui/core/Paper":"76mt","@material-ui/core/Typography":"/pi2","lodash":"B1iE"}],"czDv":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _reactRedux = require("react-redux");
-
-var _tasks = require("../tasks");
-
-var _App = _interopRequireDefault(require("./App"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var action = function action(type, payload) {
-  return {
-    type: type,
-    payload: payload
-  };
-};
-
-var mapStateToProps = function mapStateToProps(_ref) {
-  var tasks = _ref.tasks;
-  return {
-    tasks: tasks
-  };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  var start = function start(title) {
-    return function () {
-      return dispatch(action('update', {
-        task: (0, _tasks.startTask)(title)
-      }));
-    };
-  };
-
-  var stop = function stop(title) {
-    return function () {
-      return dispatch({
-        type: 'update',
-        payload: {
-          task: (0, _tasks.stopTask)(title)
-        }
-      });
-    };
-  };
-
-  return {
-    start: start,
-    stop: stop
-  };
-};
-
-var _default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_App.default);
-
-exports.default = _default;
-},{"react-redux":"jYI/","../tasks":"rzbf","./App":"yWfa"}],"dla6":[function(require,module,exports) {
+},{"react":"1n8/","./App.css":"CMr0","./Task":"V/1Z","@material-ui/core/Paper":"76mt","@material-ui/core/Typography":"/pi2","lodash":"B1iE"}],"dla6":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44960,7 +44901,42 @@ var _default = function _default() {
 };
 
 exports.default = _default;
-},{"redux":"aV+f","../database/db":"ms86","lodash":"B1iE"}],"pZkM":[function(require,module,exports) {
+},{"redux":"aV+f","../database/db":"ms86","lodash":"B1iE"}],"czDv":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reactRedux = require("react-redux");
+
+var _tasks = require("../tasks");
+
+var _App = _interopRequireDefault(require("./App"));
+
+var _store = require("./store");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(_ref) {
+  var tasks = _ref.tasks;
+  return {
+    tasks: tasks
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    start: (0, _store.start)(dispatch),
+    stop: (0, _store.stop)(dispatch)
+  };
+};
+
+var _default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_App.default);
+
+exports.default = _default;
+},{"react-redux":"jYI/","../tasks":"rzbf","./App":"yWfa","./store":"dla6"}],"pZkM":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
