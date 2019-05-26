@@ -43,9 +43,7 @@ export const loadTask = title =>
 {
     const task = db.get('tasks')
         .find({title})
-        .value();
-    console.log('Load task',title,task);
-    
+        .value();    
     return task || emptyTask(title);
 };
 
@@ -65,5 +63,5 @@ export const pauseTask = updateTask(({ pauses }) => (
     { pauses: pauses.concat(Date.now()) }
 ));
 
-export const startTask = updateTask(() => ({ startedAt: Date.now() }));
+export const startTask = updateTask(() => ({ startedAt: Date.now(), stoppedAt: null }));
 export const stopTask = updateTask(() => ({ stoppedAt: Date.now() }));
