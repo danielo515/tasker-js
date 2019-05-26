@@ -44832,7 +44832,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = exports.stop = exports.start = exports.PAUSE = exports.STOP = exports.START = void 0;
 
 var _redux = require("redux");
 
@@ -44845,6 +44845,44 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var initialState = (0, _lodash.keyBy)(_db.db.get('tasks').value(), 'title');
+var START = 'habit START';
+exports.START = START;
+var STOP = 'habit STOP';
+exports.STOP = STOP;
+var PAUSE = 'habit PAUSE';
+exports.PAUSE = PAUSE;
+
+var action = function action(type, payload) {
+  return {
+    type: type,
+    payload: payload
+  };
+};
+
+var start = function start(dispatch) {
+  return function (title) {
+    return function () {
+      return dispatch(action(START, {
+        task: startTask(title)
+      }));
+    };
+  };
+};
+
+exports.start = start;
+
+var stop = function stop(title) {
+  return function () {
+    return dispatch({
+      type: 'update',
+      payload: {
+        task: stopTask(title)
+      }
+    });
+  };
+};
+
+exports.stop = stop;
 
 function tasksReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -44857,7 +44895,13 @@ function tasksReducer() {
   var task = _ref$payload.task;
 
   switch (type) {
-    case 'update':
+    case START:
+      return _objectSpread({}, state, _defineProperty({}, task.title, task));
+
+    case STOP:
+      return _objectSpread({}, state, _defineProperty({}, task.title, task));
+
+    case PAUSE:
       return _objectSpread({}, state, _defineProperty({}, task.title, task));
 
     default:
