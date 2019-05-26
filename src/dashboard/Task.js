@@ -9,7 +9,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import  Button from '@material-ui/core/Button';
-import { distanceInWordsToNow } from 'date-fns';
+import TimeRelative from './components/TimeRelative';
 
 const Root = styled.div`
     display: flex;
@@ -66,8 +66,8 @@ export const Task = ({
                     </Colum>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                    <Row> Started: {startedAt ? distanceInWordsToNow(startedAt) + ' ago' : '-'}</Row>
-                    <Row> Finished: {stoppedAt ? distanceInWordsToNow(stoppedAt) : '-'} </Row>
+                    <Row> Started: { startedAt ? <TimeRelative startedAt={startedAt} /> : '-'}</Row>
+                    <Row> Finished: {stoppedAt ? <TimeRelative startedAt={stoppedAt} /> : '-'} </Row>
                     <Row> Running: {runningTime} </Row>
                 </ExpansionPanelDetails>
                 <ExpansionPanelDetails>
