@@ -44820,7 +44820,8 @@ var action = function action(type, payload) {
     type: type,
     payload: payload
   };
-};
+}; // This actions are performing side effects...
+
 
 var start = function start(dispatch) {
   return function (title) {
@@ -44850,7 +44851,7 @@ var pause = function pause(dispatch) {
   return function (title) {
     return function () {
       return dispatch(action(PAUSE, {
-        task: (0, _tasks.stopTask)(title)
+        task: (0, _tasks.pauseTask)(title)
       }));
     };
   };
