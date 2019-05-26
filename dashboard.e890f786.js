@@ -44840,6 +44840,7 @@ var stop = function stop(dispatch) {
 exports.stop = stop;
 
 var computePauses = function computePauses(task) {
+  var now = Date.now();
   return {
     pauseLengths: (0, _mapInPairs.mapInPairs)(function () {
       var a = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : now;
