@@ -8,9 +8,13 @@ const minute = 60 * second;
 export default class TimeRelative extends Component {
     constructor(props) {
         super(props);
-        this.state = { text: distanceInWordsToNow(props.startedAt, { includeSeconds: true }) };
+        this.state = {};
         this.timeout = null;
         this.startedAt = props.startedAt;
+    }
+
+    static getDerivedStateFromProps({startedAt}){
+        return { text: distanceInWordsToNow(startedAt, { includeSeconds: true }) };
     }
 
     tick() {
@@ -30,15 +34,11 @@ export default class TimeRelative extends Component {
     }
     
     render() {
-        return (
-            <span>
-                {this.state.text}
-            </span>
-        );
+        return (<div> {this.state.text} </div>);
     }
 }
 
 TimeRelative.propTypes={
-    startedAt: PropTypes.number.isRequired,
+    startedAt: PropTypes.number.isRequired
 };
 
