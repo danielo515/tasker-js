@@ -44781,6 +44781,8 @@ var _db = require("../database/db");
 
 var _lodash = require("lodash");
 
+var _tasks = require("../tasks");
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -44804,7 +44806,7 @@ var start = function start(dispatch) {
   return function (title) {
     return function () {
       return dispatch(action(START, {
-        task: startTask(title)
+        task: (0, _tasks.startTask)(title)
       }));
     };
   };
@@ -44817,7 +44819,7 @@ var stop = function stop(title) {
     return dispatch({
       type: 'update',
       payload: {
-        task: stopTask(title)
+        task: (0, _tasks.stopTask)(title)
       }
     });
   };
@@ -44859,7 +44861,7 @@ var _default = function _default() {
 };
 
 exports.default = _default;
-},{"redux":"aV+f","../database/db":"ms86","lodash":"B1iE"}],"czDv":[function(require,module,exports) {
+},{"redux":"aV+f","../database/db":"ms86","lodash":"B1iE","../tasks":"rzbf"}],"czDv":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
