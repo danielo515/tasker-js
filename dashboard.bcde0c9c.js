@@ -44368,6 +44368,7 @@ var Task = function Task(_ref) {
   var title = _ref.title,
       onStart = _ref.onStart,
       onStop = _ref.onStop,
+      onPause = _ref.onPause,
       startedAt = _ref.startedAt,
       stoppedAt = _ref.stoppedAt,
       lastPause = _ref.lastPause,
@@ -44383,10 +44384,13 @@ var Task = function Task(_ref) {
   return _react.default.createElement(Root, null, _react.default.createElement(FullExpansion, null, _react.default.createElement(_ExpansionPanelSummary.default, {
     expandIcon: _react.default.createElement(_ExpandMore.default, null),
     "aria-controls": "panel1c-content"
-  }, _react.default.createElement(Colum, null, _react.default.createElement(Header, null, title)), _react.default.createElement(Colum, null, _react.default.createElement(SecondaryHeader, null, " ", status, " "))), _react.default.createElement(_ExpansionPanelDetails.default, null, _react.default.createElement(Row, null, " Started: ", startedAt ? (0, _dateFns.distanceInWordsToNow)(startedAt) + ' ago' : '-'), _react.default.createElement(Row, null, " Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-', " "), _react.default.createElement(Row, null, " Running: ", runningTime, " ")), _react.default.createElement(_ExpansionPanelDetails.default, null, lastPause && _react.default.createElement(Row, null, " Last pause: ", lastPause, " ago "), _react.default.createElement(Row, null, " ", pauseLengths.join(' |-| '), " ")), _react.default.createElement(_ExpansionPanelActions.default, null, status === 'running' ? _react.default.createElement(_Button.default, {
+  }, _react.default.createElement(Colum, null, _react.default.createElement(Header, null, title)), _react.default.createElement(Colum, null, _react.default.createElement(SecondaryHeader, null, " ", status, " "))), _react.default.createElement(_ExpansionPanelDetails.default, null, _react.default.createElement(Row, null, " Started: ", startedAt ? (0, _dateFns.distanceInWordsToNow)(startedAt) + ' ago' : '-'), _react.default.createElement(Row, null, " Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-', " "), _react.default.createElement(Row, null, " Running: ", runningTime, " ")), _react.default.createElement(_ExpansionPanelDetails.default, null, lastPause && _react.default.createElement(Row, null, " Last pause: ", lastPause, " ago "), _react.default.createElement(Row, null, " ", pauseLengths.join(' |-| '), " ")), _react.default.createElement(_ExpansionPanelActions.default, null, status === 'running' ? _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_Button.default, {
     onClick: onStop,
     color: "primary"
-  }, "Stop") : _react.default.createElement(_Button.default, {
+  }, "Stop"), _react.default.createElement(_Button.default, {
+    onClick: onPause,
+    color: "secondary"
+  }, "Pause")) : _react.default.createElement(_Button.default, {
     onClick: onStart,
     color: "primary"
   }, "Start"))));
@@ -44401,7 +44405,8 @@ Task.propTypes = {
   lastPause: _propTypes.default.string,
   pauseLengths: _propTypes.default.arrayOf(_propTypes.default.string),
   onStart: _propTypes.default.func.isRequired,
-  onStop: _propTypes.default.func.isRequired
+  onStop: _propTypes.default.func.isRequired,
+  onPause: _propTypes.default.func.isRequired
 };
 Task.defaultProps = {
   pauseLengths: [],
