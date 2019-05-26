@@ -7267,30 +7267,7 @@ var calculateRunningTime = function calculateRunningTime(start, finish, pauses) 
 };
 
 exports.calculateRunningTime = calculateRunningTime;
-},{"date-fns/distance_in_words":"HLwM","date-fns/difference_in_milliseconds":"KKv9","date-fns/sub_milliseconds":"4ip+"}],"fpUY":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.mapInPairs = void 0;
-
-var mapInPairs = function mapInPairs(fn) {
-  return function (arr) {
-    var ln = arr.length;
-    var acc = [];
-
-    for (var i = 0; i < ln; i += 2) {
-      // not sure why I have to invert this
-      acc.push(fn(arr[i + 1], arr[i]));
-    }
-
-    return acc;
-  };
-};
-
-exports.mapInPairs = mapInPairs;
-},{}],"PAGD":[function(require,module,exports) {
+},{"date-fns/distance_in_words":"HLwM","date-fns/difference_in_milliseconds":"KKv9","date-fns/sub_milliseconds":"4ip+"}],"PAGD":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44295,8 +44272,6 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _timeUtils = require("../timeUtils");
 
-var _mapInPairs = require("../util/mapInPairs");
-
 var _tasks = require("../tasks");
 
 var _ExpansionPanel = _interopRequireDefault(require("@material-ui/core/ExpansionPanel"));
@@ -44388,15 +44363,14 @@ var Colum = _styledComponents.default.span(_templateObject5());
 var FullExpansion = (0, _styledComponents.default)(_ExpansionPanel.default)(_templateObject6());
 
 var Task = function Task(_ref) {
-  var startedAt = _ref.startedAt,
-      stoppedAt = _ref.stoppedAt,
-      _ref$pauses = _ref.pauses,
-      pauses = _ref$pauses === void 0 ? [] : _ref$pauses,
-      title = _ref.title,
+  var title = _ref.title,
       onStart = _ref.onStart,
       onStop = _ref.onStop,
+      startedAt = _ref.startedAt,
+      stoppedAt = _ref.stoppedAt,
       lastPause = _ref.lastPause,
-      pauseLengths = _ref.pauseLengths;
+      pauseLengths = _ref.pauseLengths,
+      pauses = _ref.pauses;
   var runningTime = startedAt ? (0, _timeUtils.calculateRunningTime)(startedAt, stoppedAt, pauses) : '-';
   var status = (0, _tasks.getTaskStatus)({
     startedAt: startedAt,
@@ -44428,9 +44402,10 @@ Task.propTypes = {
   onStop: _propTypes.default.func.isRequired
 };
 Task.defaultProps = {
-  pauseLengths: []
+  pauseLengths: [],
+  pauses: []
 };
-},{"react":"1n8/","prop-types":"5D9O","styled-components":"tFSs","../timeUtils":"9n5r","../util/mapInPairs":"fpUY","../tasks":"rzbf","@material-ui/core/ExpansionPanel":"VT0G","@material-ui/core/ExpansionPanelDetails":"gInR","@material-ui/core/ExpansionPanelSummary":"MGbU","@material-ui/icons/ExpandMore":"/evf","@material-ui/core/ExpansionPanelActions":"qFdA","@material-ui/core/Button":"uzLy"}],"0n1p":[function(require,module,exports) {
+},{"react":"1n8/","prop-types":"5D9O","styled-components":"tFSs","../timeUtils":"9n5r","../tasks":"rzbf","@material-ui/core/ExpansionPanel":"VT0G","@material-ui/core/ExpansionPanelDetails":"gInR","@material-ui/core/ExpansionPanelSummary":"MGbU","@material-ui/icons/ExpandMore":"/evf","@material-ui/core/ExpansionPanelActions":"qFdA","@material-ui/core/Button":"uzLy"}],"0n1p":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44776,7 +44751,30 @@ function App(_ref) {
 
 var _default = App;
 exports.default = _default;
-},{"react":"1n8/","./App.css":"CMr0","./Task":"V/1Z","@material-ui/core/Paper":"76mt","@material-ui/core/Typography":"/pi2","lodash":"B1iE"}],"dla6":[function(require,module,exports) {
+},{"react":"1n8/","./App.css":"CMr0","./Task":"V/1Z","@material-ui/core/Paper":"76mt","@material-ui/core/Typography":"/pi2","lodash":"B1iE"}],"fpUY":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.mapInPairs = void 0;
+
+var mapInPairs = function mapInPairs(fn) {
+  return function (arr) {
+    var ln = arr.length;
+    var acc = [];
+
+    for (var i = 0; i < ln; i += 2) {
+      // not sure why I have to invert this
+      acc.push(fn(arr[i + 1], arr[i]));
+    }
+
+    return acc;
+  };
+};
+
+exports.mapInPairs = mapInPairs;
+},{}],"dla6":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
