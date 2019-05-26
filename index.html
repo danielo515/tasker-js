@@ -44328,6 +44328,8 @@ var _ExpansionPanelActions = _interopRequireDefault(require("@material-ui/core/E
 
 var _Button = _interopRequireDefault(require("@material-ui/core/Button"));
 
+var _dateFns = require("date-fns");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject6() {
@@ -44423,7 +44425,7 @@ var Task = function Task(_ref) {
   return _react.default.createElement(Root, null, _react.default.createElement(FullExpansion, null, _react.default.createElement(_ExpansionPanelSummary.default, {
     expandIcon: _react.default.createElement(_ExpandMore.default, null),
     "aria-controls": "panel1c-content"
-  }, _react.default.createElement(Colum, null, _react.default.createElement(Header, null, title)), _react.default.createElement(Colum, null, _react.default.createElement(SecondaryHeader, null, " ", status, " "))), _react.default.createElement(_ExpansionPanelDetails.default, null, _react.default.createElement(Row, null, " Started: ", startedAt ? distanceInWordsToNow(startedAt) + ' ago' : '-'), _react.default.createElement(Row, null, " Finished: ", stoppedAt ? distanceInWordsToNow(stoppedAt) : '-', " "), _react.default.createElement(Row, null, " Running: ", runningTime, " ")), _react.default.createElement(_ExpansionPanelDetails.default, null, lastPause && _react.default.createElement(Row, null, " Last pause: ", lastPause, " ago "), _react.default.createElement(Row, null, " ", pauseLengths.join(' |-| '), " ")), _react.default.createElement(_ExpansionPanelActions.default, null, status === 'running' ? _react.default.createElement(_Button.default, {
+  }, _react.default.createElement(Colum, null, _react.default.createElement(Header, null, title)), _react.default.createElement(Colum, null, _react.default.createElement(SecondaryHeader, null, " ", status, " "))), _react.default.createElement(_ExpansionPanelDetails.default, null, _react.default.createElement(Row, null, " Started: ", startedAt ? (0, _dateFns.distanceInWordsToNow)(startedAt) + ' ago' : '-'), _react.default.createElement(Row, null, " Finished: ", stoppedAt ? (0, _dateFns.distanceInWordsToNow)(stoppedAt) : '-', " "), _react.default.createElement(Row, null, " Running: ", runningTime, " ")), _react.default.createElement(_ExpansionPanelDetails.default, null, lastPause && _react.default.createElement(Row, null, " Last pause: ", lastPause, " ago "), _react.default.createElement(Row, null, " ", pauseLengths.join(' |-| '), " ")), _react.default.createElement(_ExpansionPanelActions.default, null, status === 'running' ? _react.default.createElement(_Button.default, {
     onClick: onStop,
     color: "primary"
   }, "Stop") : _react.default.createElement(_Button.default, {
@@ -44447,7 +44449,7 @@ Task.defaultProps = {
   pauseLengths: [],
   pauses: []
 };
-},{"react":"1n8/","prop-types":"5D9O","styled-components":"tFSs","../timeUtils":"9n5r","../tasks":"rzbf","@material-ui/core/ExpansionPanel":"VT0G","@material-ui/core/ExpansionPanelDetails":"gInR","@material-ui/core/ExpansionPanelSummary":"MGbU","@material-ui/icons/ExpandMore":"/evf","@material-ui/core/ExpansionPanelActions":"qFdA","@material-ui/core/Button":"uzLy"}],"0n1p":[function(require,module,exports) {
+},{"react":"1n8/","prop-types":"5D9O","styled-components":"tFSs","../timeUtils":"9n5r","../tasks":"rzbf","@material-ui/core/ExpansionPanel":"VT0G","@material-ui/core/ExpansionPanelDetails":"gInR","@material-ui/core/ExpansionPanelSummary":"MGbU","@material-ui/icons/ExpandMore":"/evf","@material-ui/core/ExpansionPanelActions":"qFdA","@material-ui/core/Button":"uzLy","date-fns":"cWQX"}],"0n1p":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
