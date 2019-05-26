@@ -44856,14 +44856,13 @@ var start = function start(dispatch) {
 
 exports.start = start;
 
-var stop = function stop(title) {
-  return function () {
-    return dispatch({
-      type: 'update',
-      payload: {
+var stop = function stop(dispatch) {
+  return function (title) {
+    return function () {
+      return dispatch(action(STOP, {
         task: (0, _tasks.stopTask)(title)
-      }
-    });
+      }));
+    };
   };
 };
 
