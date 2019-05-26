@@ -25682,7 +25682,7 @@ exports.db = db;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.saveTask = exports.getTaskStatus = exports.isPaused = void 0;
+exports.stopTask = exports.startTask = exports.pauseTask = exports.updateTask = exports.loadTask = exports.saveTask = exports.getTaskStatus = exports.status = exports.isPaused = void 0;
 
 var _isOdd = require("./dashboard/isOdd");
 
@@ -25708,22 +25708,33 @@ var isPaused = function isPaused(pauses) {
   return pauses.length && (0, _isOdd.isOdd)(pauses.length);
 };
 /**
- * computes the status of a task based on its fields
- * @param {Task} param0 
- * @returns {'stopped'|'paused'|'running'|'not-started'}
+ * @typedef {'running'|'stopped'} Status
  */
 
 
 exports.isPaused = isPaused;
+var status = {
+  STOPPED: 'stopped',
+  PAUSED: 'paused',
+  RUNNING: 'running',
+  NOT_STARTED: 'not-started'
+};
+/**
+ * computes the status of a task based on its fields
+ * @param {Task} param0 
+ * @returns {Status}
+ */
+
+exports.status = status;
 
 var getTaskStatus = function getTaskStatus(_ref) {
   var startedAt = _ref.startedAt,
       stoppedAt = _ref.stoppedAt,
       pauses = _ref.pauses;
-  if (stoppedAt) return 'stopped';
-  if (startedAt && isPaused(pauses)) return 'paused';
-  if (startedAt) return 'running';
-  return 'not-started';
+  if (stoppedAt) return status.STOPPED;
+  if (startedAt && isPaused(pauses)) return status.PAUSED;
+  if (startedAt) return status.RUNNING;
+  return status.NOT_STARTED;
 };
 
 exports.getTaskStatus = getTaskStatus;
