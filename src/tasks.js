@@ -19,7 +19,7 @@ export const isPaused = (pauses) => pauses.length && isOdd(pauses.length);
 /**
  * @typedef {'running'|'stopped'} Status
  */
-export const status = {
+export const TaskStatus = {
     STOPPED: 'stopped',
     PAUSED: 'paused',
     RUNNING: 'running',
@@ -32,10 +32,10 @@ export const status = {
  * @returns {Status}
  */
 export const getTaskStatus = ({ startedAt, stoppedAt, pauses }) => {
-    if (stoppedAt) return status.STOPPED;
-    if (startedAt && isPaused(pauses)) return status.PAUSED;
-    if (startedAt) return status.RUNNING;
-    return status.NOT_STARTED;
+    if (stoppedAt) return TaskStatus.STOPPED;
+    if (startedAt && isPaused(pauses)) return TaskStatus.PAUSED;
+    if (startedAt) return TaskStatus.RUNNING;
+    return TaskStatus.NOT_STARTED;
 };
 
 export const saveTask = (value) => 

@@ -2,7 +2,7 @@
 import { createStore, combineReducers } from 'redux'; 
 import {db} from '../database/db';
 import { keyBy } from 'lodash';
-import { startTask, stopTask, status, pauseTask } from '../tasks';
+import { startTask, stopTask, TaskStatus, pauseTask } from '../tasks';
 import { mapInPairs } from '../util/mapInPairs';
 import { distanceInWordsToNow, differenceInMinutes } from 'date-fns';
 
@@ -50,7 +50,7 @@ function tasksReducer(state = initialState,{type, payload:{task} = {}}) {
             [task.title]:{
                 ...task,
                 ...computePauses(task),
-                status: status.STOPPED
+                status: TaskStatus.STOPPED
             }
         };
     case PAUSE:
@@ -58,7 +58,7 @@ function tasksReducer(state = initialState,{type, payload:{task} = {}}) {
             [task.title]:{
                 ...task,
                 ...computePauses(task),
-                status: status.PAUSED
+                status: TaskStatus.PAUSED
             }
         };
     
