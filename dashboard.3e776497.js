@@ -44928,7 +44928,8 @@ var mapStateToProps = function mapStateToProps(_ref) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     start: (0, _store.start)(dispatch),
-    stop: (0, _store.stop)(dispatch)
+    stop: (0, _store.stop)(dispatch),
+    pause: (0, _store.pause)(dispatch)
   };
 };
 
