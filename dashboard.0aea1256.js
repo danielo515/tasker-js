@@ -44782,7 +44782,7 @@ exports.mapInPairs = mapInPairs;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.stop = exports.start = exports.PAUSE = exports.STOP = exports.START = void 0;
+exports.default = exports.pause = exports.stop = exports.start = exports.PAUSE = exports.STOP = exports.START = void 0;
 
 var _redux = require("redux");
 
@@ -44838,6 +44838,18 @@ var stop = function stop(dispatch) {
 };
 
 exports.stop = stop;
+
+var pause = function pause(dispatch) {
+  return function (title) {
+    return function () {
+      return dispatch(action(PAUSE, {
+        task: (0, _tasks.stopTask)(title)
+      }));
+    };
+  };
+};
+
+exports.pause = pause;
 
 var computePauses = function computePauses(_ref) {
   var pauses = _ref.pauses;
