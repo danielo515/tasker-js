@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { distanceInWordsToNow, differenceInMinutes } from 'date-fns';
 import styled from 'styled-components';
 import { calculateRunningTime } from '../timeUtils';
-import { mapInPairs } from '../util/mapInPairs';
 import { getTaskStatus } from '../tasks';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -11,6 +9,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import  Button from '@material-ui/core/Button';
+import { distanceInWordsToNow } from 'date-fns';
 
 const Root = styled.div`
     display: flex;
@@ -42,13 +41,16 @@ width: 100%;
 padding-bottom: 0;
 `;
 
-export const Task = ({ startedAt, stoppedAt, pauses, title, onStart, onStop }) => {
+export const Task = ({ 
+    title, 
+    onStart, onStop, onPause,
+    startedAt, stoppedAt, 
+    lastPause, pauseLengths , pauses, 
+}) => {
 
     const runningTime = startedAt ? calculateRunningTime(startedAt, stoppedAt, pauses) : '-';
     const status = getTaskStatus({ startedAt, stoppedAt, pauses });
-    const lastPause = pauses.length ? distanceInWordsToNow(pauses[pauses.length - 1]) : null;
-    const now = Date.now();
-    const computedPauses = mapInPairs((a = now, b = now) => differenceInMinutes(a, b))(pauses);
+    tk.flash('Loading task '+title);
     return (
         <Root>
             <FullExpansion>
@@ -72,12 +74,17 @@ export const Task = ({ startedAt, stoppedAt, pauses, title, onStart, onStop }) =
                     {lastPause &&
                         <Row> Last pause: {lastPause} ago </Row>
                     }
-                    <Row> {computedPauses.join(' |-| ')} </Row>
+                    <Row> {pauseLengths.join(' |-| ')} </Row>
                 </ExpansionPanelDetails>
                 <ExpansionPanelActions>
                     { status === 'running' 
-                        ? <Button onClick={onStop} color="primary" >Stop</Button>
-                        : <Button onClick={onStart} color="primary" >Start</Button> 
+                        ? <>
+                        <Button onClick={onStop} color="primary" >Stop</Button>
+                        <Button onClick={onPause} color="secondary" >Pause</Button>
+                        </>
+                        : status === 'paused' 
+                            ? <Button onClick={onPause} color="primary" >Resume</Button> 
+                            : <Button onClick={onStart} color="primary" >Start</Button> 
                     }
                 </ExpansionPanelActions>
             </FullExpansion>
@@ -86,11 +93,19 @@ export const Task = ({ startedAt, stoppedAt, pauses, title, onStart, onStop }) =
 };
 
 Task.propTypes = {
-    startedAt: PropTypes.string.number,
-    stoppedAt: PropTypes.string.number,
+    startedAt: PropTypes.number,
+    stoppedAt: PropTypes.number,
     pauses: PropTypes.arrayOf(PropTypes.number),
     title: PropTypes.string.isRequired,
+    lastPause: PropTypes.string,
+    pauseLengths: PropTypes.arrayOf(PropTypes.string,),
     onStart: PropTypes.func.isRequired,
     onStop: PropTypes.func.isRequired,
+    onPause: PropTypes.func.isRequired,
+};
+
+Task.defaultProps = {
+    pauseLengths: [],
+    pauses: []
 };
 

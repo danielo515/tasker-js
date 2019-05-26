@@ -1,22 +1,19 @@
 import { connect } from 'react-redux';
-import { startTask, stopTask } from '../tasks';
-import  App from './App';
+import App from './App';
 
+import { start, stop, pause } from './store';
 
-
-const mapStateToProps = ({tasks}) => ({
+const mapStateToProps = ({ tasks }) => ({
     tasks
 });
 
 const mapDispatchToProps = dispatch => {
-    const start = title => () => {
-        return dispatch({type: 'update', payload: {task: startTask(title)}});
-    };
-    const stop = title => () => {
-        return dispatch({type: 'update', payload: {task: stopTask(title)}});
-    };
 
-    return { start, stop };
+    return { 
+        start: start(dispatch), 
+        stop: stop(dispatch),
+        pause: pause(dispatch)
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

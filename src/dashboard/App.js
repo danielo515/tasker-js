@@ -6,7 +6,7 @@ import Paper  from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { map } from 'lodash';
 
-function App({tasks, start, stop}) {    
+function App({ tasks, start, stop, pause }) {    
     return (
         <Paper className='App-header'>
             {
@@ -15,6 +15,7 @@ function App({tasks, start, stop}) {
                         key={task.title} 
                         onStart={start(task.title)}
                         onStop={stop(task.title)}
+                        onPause={pause(task.title)}
                     ></Task>
                 )}
         </Paper>

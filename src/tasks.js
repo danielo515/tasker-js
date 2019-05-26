@@ -17,15 +17,25 @@ import { emptyTask } from './emptyTask';
 export const isPaused = (pauses) => pauses.length && isOdd(pauses.length);
 
 /**
+ * @typedef {'running'|'stopped'} Status
+ */
+export const status = {
+    STOPPED: 'stopped',
+    PAUSED: 'paused',
+    RUNNING: 'running',
+    NOT_STARTED: 'not-started'
+};
+
+/**
  * computes the status of a task based on its fields
  * @param {Task} param0 
- * @returns {'stopped'|'paused'|'running'|'not-started'}
+ * @returns {Status}
  */
 export const getTaskStatus = ({ startedAt, stoppedAt, pauses }) => {
-    if (stoppedAt) return 'stopped';
-    if (startedAt && isPaused(pauses)) return 'paused';
-    if (startedAt) return 'running';
-    return 'not-started';
+    if (stoppedAt) return status.STOPPED;
+    if (startedAt && isPaused(pauses)) return status.PAUSED;
+    if (startedAt) return status.RUNNING;
+    return status.NOT_STARTED;
 };
 
 export const saveTask = (value) => 
