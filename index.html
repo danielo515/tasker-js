@@ -44825,6 +44825,13 @@ var _App = _interopRequireDefault(require("./App"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var action = function action(type, payload) {
+  return {
+    type: type,
+    payload: payload
+  };
+};
+
 var mapStateToProps = function mapStateToProps(_ref) {
   var tasks = _ref.tasks;
   return {
@@ -44835,12 +44842,9 @@ var mapStateToProps = function mapStateToProps(_ref) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   var start = function start(title) {
     return function () {
-      return dispatch({
-        type: 'update',
-        payload: {
-          task: (0, _tasks.startTask)(title)
-        }
-      });
+      return dispatch(action('update', {
+        task: (0, _tasks.startTask)(title)
+      }));
     };
   };
 
