@@ -44729,14 +44729,16 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 function App(_ref) {
   var tasks = _ref.tasks,
       start = _ref.start,
-      stop = _ref.stop;
+      stop = _ref.stop,
+      pause = _ref.pause;
   return _react.default.createElement(_Paper.default, {
     className: "App-header"
   }, (0, _lodash.map)(tasks, function (task) {
     return _react.default.createElement(_Task.Task, _extends({}, task, {
       key: task.title,
       onStart: start(task.title),
-      onStop: stop(task.title)
+      onStop: stop(task.title),
+      onPause: pause(task.title)
     }));
   }));
 } // function App() {
