@@ -2,23 +2,19 @@
 import React from 'react';
 import './App.css';
 import { Task } from './Task';
-import {db} from '../database/db';
 import Paper  from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { startTask, stopTask } from '../tasks';
+import { map } from 'lodash';
 
-const tasks = db.get('tasks').value();
-
-function App() {
+function App({tasks, start, stop}) {    
     return (
         <Paper className='App-header'>
-            {!tasks.length ? <Typography> No tasks yet</Typography>
-                :
-                tasks.map(task =>
+            {
+                map(tasks,task =>
                     <Task {...task} 
                         key={task.title} 
-                        onStart={()=> startTask(task.title)}
-                        onStop={()=> stopTask(task.title)}
+                        onStart={start(task.title)}
+                        onStop={stop(task.title)}
                     ></Task>
                 )}
         </Paper>
