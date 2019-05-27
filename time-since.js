@@ -29,5 +29,5 @@ var e=require("../compare_desc/index.js"),n=require("../parse/index.js"),r=requi
 },{"../compare_desc/index.js":"pfSt","../parse/index.js":"ajCz","../difference_in_seconds/index.js":"Sjwe","../difference_in_months/index.js":"5KzI","../locale/en/index.js":"N6L2"}],"jUDc":[function(require,module,exports) {
 var e=require("../distance_in_words/index.js");function n(n,r){return e(Date.now(),n,r)}module.exports=n;
 },{"../distance_in_words/index.js":"HLwM"}],"Wjjo":[function(require,module,exports) {
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.timeSinceGlobal=exports.timeSince=void 0;var e=t(require("date-fns/distance_in_words_to_now"));function t(e){return e&&e.__esModule?e:{default:e}}var i=function(t){return(0,e.default)(Number(t))};exports.timeSince=i;var n=function(t){return(0,e.default)(Number(tk.global(t)))};exports.timeSinceGlobal=n,window.timeSince=i,window.timeSinceGlobal=n;
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.timeSinceGlobal=void 0;var e=t(require("date-fns/distance_in_words_to_now"));function t(e){return e&&e.__esModule?e:{default:e}}var o=function(t){return(0,e.default)(Number(tk.global(t)))};exports.timeSinceGlobal=o,window.timeSinceGlobal=o;
 },{"date-fns/distance_in_words_to_now":"jUDc"}]},{},["Wjjo"], null)
