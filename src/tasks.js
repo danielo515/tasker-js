@@ -77,5 +77,5 @@ export const pauseTask = updateTask(({ pauses }) => (
     { pauses: pauses.concat(Date.now()) }
 ));
 
-export const startTask = updateTask(() => ({ startedAt: Date.now(), stoppedAt: null }));
+export const startTask = updateTask(() => ({ startedAt: Date.now(), stoppedAt: null, pauses: [] }));
 export const stopTask = updateTask(() => ({ stoppedAt: Date.now() }));
