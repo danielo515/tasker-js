@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 
+const dbName = 'tasker-db';
 
 export function fakeTasker() {    
     if(process.env.NODE_ENV === 'test') return;
@@ -8,15 +9,16 @@ export function fakeTasker() {
     
     window.tk = {
         global: () => { },
-        readFile: () => {
-            console.log('Database read');
+        readFile: (filename) => {
+            console.log('Database read', filename);
             
-            return  JSON.stringify({
+            return  localStorage.getItem(dbName) || JSON.stringify({
                 tasks: [
                     require('../../fixtures/fakeTask').running, ...taskNames.slice(1).map(emptyTask)
                 ]
-            });},
-        writeFile: () => void 0,
+            });
+        },
+        writeFile: (filename,data) => localStorage.setItem(dbName, data),
         flash: console.info,
         flashLong: console.info,
     };
