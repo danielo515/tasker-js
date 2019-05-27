@@ -40,11 +40,13 @@ export const getTaskStatus = ({ startedAt, stoppedAt, pauses }) => {
     return TaskStatus.NOT_STARTED;
 };
 
-export const saveTask = (value) => 
-    db.get('tasks')
-        .find({title:value.title})
-        .assign(value)
-        .write();
+export const saveTask = (value) => {
+    const current = db.get('tasks').find({title:value.title});
+    if(current.value()){
+        return current.assign(value).write();
+    }
+    return db.get('tasks').push(value).write();
+};
 
 /**
  * Loads a task from the storage or returns a default one

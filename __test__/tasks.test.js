@@ -28,20 +28,20 @@ describe('Should task tasks =>', () => {
         // expect(tk.flash).toHaveBeenCalledWith('Reading from database');
     });
 
-    it('update specific Task field', () => {
+    it('update/create Task and write it to disk', () => {
         const title = 'test-2';
         const startedAt = Symbol('startedAt');
         const updater = jest.fn().mockReturnValue({startedAt});
-        const initialValue = JSON.stringify({tasks:[]},null,2);
         const task = {
             title,
             startedAt,
             pauses: [],
             stoppedAt: null,
         };
+        const expected = JSON.stringify({tasks:[task]},null,2);
         expect(updateTask(updater)(title)).toEqual(task);
         expect(updater).toHaveBeenCalledWith(emptyTask(title));
-        expect(tk.writeFile).toHaveBeenCalledWith(expect.any(String),initialValue,false);
+        expect(tk.writeFile).toHaveBeenCalledWith(expect.any(String),expected,false);
         expect(tk.flash).toHaveBeenCalledWith('DB write complete!');
     });
 });
