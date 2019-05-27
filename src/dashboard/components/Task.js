@@ -11,6 +11,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import Button from '@material-ui/core/Button';
 import TimeRelative from './TimeRelative';
+import Tick from './Tick';
 
 
 const Root = styled.div`
@@ -55,7 +56,7 @@ const makeRunningText = (status, { startedAt, stoppedAt, pauses }) => {
     case TaskStatus.PAUSED:
         return calculateRunningTime(startedAt, stoppedAt, pauses);
     case TaskStatus.RUNNING:
-        return <TimeRelative startedAt={startedAt} />;
+        return <Tick interval={5}>{() => calculateRunningTime(startedAt, stoppedAt, pauses)}</Tick>;
     default: return '-';
     }
 };
@@ -68,7 +69,6 @@ export const Task = ({
 }) => {
 
     const status = getTaskStatus({ startedAt, stoppedAt, pauses });
-    const runningTime = makeRunningText(status, { startedAt, stoppedAt, pauses });
     tk.flash('Loading task ' + title);
     return (
         <Root>
@@ -87,11 +87,10 @@ export const Task = ({
                 <ExpansionPanelDetails>
                     <Row label=' Started' >{startedAt ? <TimeRelative startedAt={startedAt} /> : '-'}</Row>
                     <Row label=' Finished' > {stoppedAt ? <TimeRelative startedAt={stoppedAt} /> : '-'} </Row>
-                    <Row label=' Running' >{runningTime} </Row>
+                    <Row label=' Running' >{makeRunningText(status, { startedAt, stoppedAt, pauses })}</Row>
                 </ExpansionPanelDetails>
                 <ExpansionPanelDetails>
-                    <Row label='Last pause' >  {lastPause ? lastPause + ' ago' : '-'} </Row>
-                    <Row> {pauseLengths.join(' |-| ')} </Row>
+                    <Row label='Last pause' >  {lastPause ? lastPause + ' ago' : '-'} </Row>                    <Row> {pauseLengths.join(' |-| ')} </Row>
                 </ExpansionPanelDetails>
                 <ExpansionPanelActions>
                     {status === 'running'
