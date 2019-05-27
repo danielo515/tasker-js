@@ -12,7 +12,8 @@
     "deploy": "yarn build && yarn push",
     "deploy-dev": "yarn build-dev && yarn push",
     "watch": "nodemon --watch src --exec yarn deploy",
-    "watch-dev": "nodemon --watch src --exec yarn deploy-dev"
+    "watch-dev": "nodemon --watch src --exec yarn deploy-dev",
+    "precommit": "eslint src"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import {calculatePauseTime, calculateRunningTime} from '../src/timeUtils';
+import {calculatePauseTime, calculateRunningTime} from '../src/util/timeUtils';
 import { addHours } from 'date-fns';
 
 const hour = 3.6e6;

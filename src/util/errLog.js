@@ -1,9 +1,9 @@
 const logErrs = (fn) => (...args) => {
     try {
-        fn(...args)
+        fn(...args);
     } catch (error) {
-        tk.flashLong(error.toString())
+        tk.flashLong(error.toString());
     }
-}
+};
 
 export default logErrs;
