@@ -65,9 +65,23 @@ function tasksReducer(state = initialState,{type, payload:{task} = {}}) {
     default: return state;
     }
 }
+
+export const OPEN_MODAL = 'ui OPEN_MODAL';
+const initialUiState = { create_open: false };
+export const createTaskModal = dispatch => () => dispatch(action(OPEN_MODAL));
+
+function uiReducer(state=initialUiState, {type}) {
+    switch (type) {
+    case START: return {create_open: false};
+    case OPEN_MODAL:
+        return {create_open: true};
+    default: return state;
+    }
+}
  
 const rootReducer = combineReducers({ 
-    tasks: tasksReducer
+    tasks: tasksReducer,
+    ui: uiReducer,
 }); 
  
 export default () => createStore(rootReducer, initialState);

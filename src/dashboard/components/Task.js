@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { calculateRunningTime } from '../timeUtils';
-import { getTaskStatus, TaskStatus } from '../tasks';
+import { calculateRunningTime } from '../../timeUtils';
+import { getTaskStatus, TaskStatus } from '../../tasks';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import Button from '@material-ui/core/Button';
-import TimeRelative from './components/TimeRelative';
+import TimeRelative from './TimeRelative';
 
 
 const Root = styled.div`

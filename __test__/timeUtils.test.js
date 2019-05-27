@@ -23,12 +23,12 @@ describe('Time calculation utils => ', () => {
     
         
         it('Running time 3 hours and no pauses', () => {
-            const expected = 'about 3 hours';
+            const expected = '2 hours 59 min. 59 sec.';
             expect(calculateRunningTime(Date.now(),addHours(now,3),[])).toEqual(expected);
         });
 
         it('Running time 3 hours and 1 hour pause', () => {
-            const expected = 'about 2 hours';
+            const expected = '1 hours 59 min. 59 sec.';
             const pauses = makePauses(now,2);
             expect(calculateRunningTime(Date.now(),addHours(now,3),pauses)).toEqual(expected);
         });

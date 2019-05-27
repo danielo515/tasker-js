@@ -5,7 +5,8 @@ import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import styled from 'styled-components';
 import './App.css';
-import { Task } from './Task';
+import Form from './createForm.container';
+import { Task } from './components/Task';
 
 import { map } from 'lodash';
 
@@ -17,7 +18,7 @@ const FabRight = styled(Fab)`
   }
 `;
 
-function App({ tasks, start, stop, pause }) {
+function App({ tasks, start, stop, pause, openModal }) {
     return (
         <Paper className='App-header'>
             {
@@ -30,8 +31,9 @@ function App({ tasks, start, stop, pause }) {
                     ></Task>
                 )}
             <FabRight color='primary' aria-label='Add' size='small' >
-                <AddIcon />
+                <AddIcon onClick={openModal}/>
             </FabRight>
+            <Form ></Form>
         </Paper>
     );
 }

@@ -17,9 +17,11 @@ import { emptyTask } from './emptyTask';
 export const isPaused = (pauses) => pauses.length && isOdd(pauses.length);
 
 /**
- * @typedef {'running'|'stopped'} Status
+ * @typedef {'running'|'stopped'|'running'|'not-started'} Status
  */
+
 export const TaskStatus = {
+    /** @type {Status} */
     STOPPED: 'stopped',
     PAUSED: 'paused',
     RUNNING: 'running',
@@ -47,7 +49,7 @@ export const saveTask = (value) =>
 /**
  * Loads a task from the storage or returns a default one
  * @param {String} title the name of the task to load
- * @returns {Task} the task from memory or empty task if it was not found or invalid
+ * @returns {Task} the task from database or empty task if it was not found or invalid
  */
 export const loadTask = title => 
 {
