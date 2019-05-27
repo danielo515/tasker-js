@@ -1,0 +1,17 @@
+{
+  "name": "my-project",
+
+    "verbose": true,
+
+  "transform": {
+    "^.+\\.jsx?$": "babel-jest"
+  },
+  "coverageThreshold": {
+    "global": {
+      "branches": 100,
+      "statements": 100
+    }
+  },
+  "collectCoverage": true,
+  "collectCoverageFrom": [ "src/**/*.js"  ]
+ }
