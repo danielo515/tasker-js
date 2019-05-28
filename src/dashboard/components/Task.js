@@ -69,7 +69,7 @@ export const Task = ({
     title,
     onStart, onStop, onPause,
     startedAt, stoppedAt,
-    lastPause, pauseLengths, pauses,
+    pauseLengths, pauses,
 }) => {
 
     const status = getTaskStatus({ startedAt, stoppedAt, pauses });
@@ -94,7 +94,8 @@ export const Task = ({
                     <InfoColumn label=' Running' >{makeRunningText(status, { startedAt, stoppedAt, pauses })}</InfoColumn>
                 </ExpansionPanelDetails>
                 <ExpansionPanelDetails>
-                    <InfoColumn label='Last pause' >  {lastPause ? lastPause + ' ago' : '-'} </InfoColumn>                    <InfoColumn> {pauseLengths.join(' |-| ')} </InfoColumn>
+                    <InfoColumn label='Last pause' >  {pauses.length ? <TimeRelative startedAt={pauses[pauses.length - 1]} suffix=' ago' /> : '-'} </InfoColumn>
+                    <InfoColumn> {pauseLengths.join(' |-| ')} </InfoColumn>
                 </ExpansionPanelDetails>
                 <PanelActions>
                     {status === 'running'
@@ -117,8 +118,7 @@ Task.propTypes = {
     stoppedAt: PropTypes.number,
     pauses: PropTypes.arrayOf(PropTypes.number),
     title: PropTypes.string.isRequired,
-    lastPause: PropTypes.string,
-    pauseLengths: PropTypes.arrayOf(PropTypes.string),
+    pauseLengths: PropTypes.arrayOf(PropTypes.number),
     onStart: PropTypes.func.isRequired,
     onStop: PropTypes.func.isRequired,
     onPause: PropTypes.func.isRequired,

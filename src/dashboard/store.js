@@ -37,7 +37,6 @@ const computePauses = ({pauses}) => {
     const now = Date.now();
     return ({
         pauseLengths: mapInPairs((a = now, b = now) => differenceInMinutes(a, b))(pauses),
-        lastPause: pauses.length ? distanceInWordsToNow(pauses[pauses.length - 1]) : null,
     });
 };
 
