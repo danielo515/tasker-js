@@ -21,7 +21,7 @@ const Root = styled.div`
     padding: 0.5em 1em;
     padding-bottom: 0;
 `;
-const Row = styled(({ className, children, label }) =>
+const InfoColumn = styled(({ className, children, label }) =>
     <div className={className}>
         <Typography variant='subtitle1' color='textPrimary'> {label} </Typography>
         <Typography variant='subtitle2' color='textSecondary'> {children} </Typography>
@@ -41,13 +41,17 @@ const SecondaryHeader = styled.span`
   color: grey;
 `;
 
-const Colum = styled.div`
+const HeaderCol = styled.div`
   flex-basis: 50%;
 `;
 
 const FullExpansion = styled(ExpansionPanel)`
 width: 100%;
 padding-bottom: 0;
+`;
+
+const PanelActions = styled(ExpansionPanelActions)`
+ &&{ justify-content: center;}
 `;
 
 const makeRunningText = (status, { startedAt, stoppedAt, pauses }) => {
@@ -69,7 +73,7 @@ export const Task = ({
 }) => {
 
     const status = getTaskStatus({ startedAt, stoppedAt, pauses });
-    tk.flash('Loading task ' + title);
+    // tk.flash('Loading task ' + title);
     return (
         <Root>
             <FullExpansion>
@@ -77,22 +81,22 @@ export const Task = ({
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1c-content"
                 >
-                    <Colum>
+                    <HeaderCol>
                         <Header>{title}</Header>
-                    </Colum>
-                    <Colum>
+                    </HeaderCol>
+                    <HeaderCol>
                         <SecondaryHeader> {status} </SecondaryHeader>
-                    </Colum>
+                    </HeaderCol>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                    <Row label=' Started' >{startedAt ? <TimeRelative startedAt={startedAt} /> : '-'}</Row>
-                    <Row label=' Finished' > {stoppedAt ? <TimeRelative startedAt={stoppedAt} /> : '-'} </Row>
-                    <Row label=' Running' >{makeRunningText(status, { startedAt, stoppedAt, pauses })}</Row>
+                    <InfoColumn label=' Started' >{startedAt ? <TimeRelative startedAt={startedAt} /> : '-'}</InfoColumn>
+                    <InfoColumn label=' Finished' > {stoppedAt ? <TimeRelative startedAt={stoppedAt} /> : '-'} </InfoColumn>
+                    <InfoColumn label=' Running' >{makeRunningText(status, { startedAt, stoppedAt, pauses })}</InfoColumn>
                 </ExpansionPanelDetails>
                 <ExpansionPanelDetails>
-                    <Row label='Last pause' >  {lastPause ? lastPause + ' ago' : '-'} </Row>                    <Row> {pauseLengths.join(' |-| ')} </Row>
+                    <InfoColumn label='Last pause' >  {lastPause ? lastPause + ' ago' : '-'} </InfoColumn>                    <InfoColumn> {pauseLengths.join(' |-| ')} </InfoColumn>
                 </ExpansionPanelDetails>
-                <ExpansionPanelActions>
+                <PanelActions>
                     {status === 'running'
                         ? <>
                             <Button onClick={onStop} color="primary" >Stop</Button>
@@ -102,7 +106,7 @@ export const Task = ({
                             ? <Button onClick={onPause} color="primary" >Resume</Button>
                             : <Button onClick={onStart} color="primary" >Start</Button>
                     }
-                </ExpansionPanelActions>
+                </PanelActions>
             </FullExpansion>
         </Root>
     );
