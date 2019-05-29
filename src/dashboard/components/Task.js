@@ -18,7 +18,7 @@ const Root = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0.5em 1em;
+    padding: 0 1em;
     padding-bottom: 0;
 `;
 const InfoColumn = styled(({ className, children, label }) =>
@@ -76,8 +76,9 @@ export const Task = ({
     // tk.flash('Loading task ' + title);
     return (
         <Root>
-            <FullExpansion>
+            <FullExpansion elevation={1} square TransitionProps={{ unmountOnExit: true }} >
                 <ExpansionPanelSummary
+                    
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1c-content"
                 >

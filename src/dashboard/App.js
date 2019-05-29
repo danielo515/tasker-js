@@ -14,13 +14,13 @@ const FabRight = styled(Fab)`
   && {
     bottom: 1rem;
     right: 1rem;
-    position: absolute ;
+    position: fixed ;
   }
 `;
 
 function App({ tasks, start, stop, pause, openModal }) {
     return (
-        <Paper className='App-header'>
+        <Paper className='App'>
             {
                 map(tasks, task =>
                     <Task {...task}
