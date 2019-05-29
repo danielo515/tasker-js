@@ -1,17 +1,24 @@
 // @ts-check
 import { isOdd } from '../dashboard/isOdd';
-import {db} from '../database/db';
+import { db } from '../database/db';
 import { emptyTask } from './emptyTask';
 
 // const readObj = (name, fallback) => safeParse(tk.global(name), fallback);
+
+
+/**
+ * 
+ * @typedef  TaskEntry
+ * @property {Number|null} startedAt
+ * @property {Number|null} stoppedAt
+ * @property {[Number]|[]} pauses
+ */
 
 /**
  * 
  * @typedef  Task
  * @property {String} title
- * @property {Number|null} startedAt
- * @property {Number|null} stoppedAt
- * @property {[Number]|[]} pauses
+ * @property {TaskEntry[]} executionLog
  */
 
 export const isPaused = (pauses) => pauses.length && isOdd(pauses.length);
@@ -41,8 +48,8 @@ export const getTaskStatus = ({ startedAt, stoppedAt, pauses }) => {
 };
 
 export const saveTask = (value) => {
-    const current = db.get('tasks').find({title:value.title});
-    if(current.value()){
+    const current = db.get('tasks').find({ title: value.title });
+    if (current.value()) {
         return current.assign(value).write();
     }
     return db.get('tasks').push(value).write();
@@ -53,29 +60,42 @@ export const saveTask = (value) => {
  * @param {String} title the name of the task to load
  * @returns {Task} the task from database or empty task if it was not found or invalid
  */
-export const loadTask = title => 
-{
+export const loadTask = title => {
     const task = db.get('tasks')
-        .find({title})
-        .value();    
+        .find({ title })
+        .value();
     return task || emptyTask(title);
 };
 
+export const formatOutputTask = ({executionLog, ...task}) => ({...task, ...executionLog[0]});
+
 export const updateTask = updater => name => {
     try {
-        const task = loadTask(name);
-        const newFields = updater(task);
-        const newTask = { ...task, ...newFields };
+        const {executionLog, ...task} = loadTask(name);
+        const newLog = updater(executionLog);
+        const newTask = { ...task, executionLog: newLog };
         saveTask(newTask);
-        return newTask;
+        return formatOutputTask(newTask);
     } catch (error) {
-        tk.flash(`Error updating task ${name}:\n ${error.toString}`);
+        tk.flash(`Error updating task ${name}:\n ${error.toString()}`);
     }
 };
+/**
+ * Takes a function and uses it to update the first entry of the array
+ * @param {(Object)=>Object} fn 
+ */
+const updateHead = fn => ([current, ...tail]) => {
+    const updatedEntry = { ...current, ...fn(current) };
+    return [updatedEntry, ...tail];
+};
 
-export const pauseTask = updateTask(({ pauses }) => (
+
+// This is the only function that inserts a new entry on the execution log
+export const startTask = updateTask((executionLog) => [
+    { startedAt: Date.now(), stoppedAt: null, pauses: [] }, 
+    ...executionLog
+]);
+export const stopTask = updateTask(updateHead(() => ({ stoppedAt: Date.now() })));
+export const pauseTask = updateTask(updateHead(({ pauses }) => (
     { pauses: pauses.concat(Date.now()) }
-));
-
-export const startTask = updateTask(() => ({ startedAt: Date.now(), stoppedAt: null, pauses: [] }));
-export const stopTask = updateTask(() => ({ stoppedAt: Date.now() }));
+)));

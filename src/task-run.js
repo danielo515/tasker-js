@@ -1,4 +1,4 @@
-import { pauseTask, isPaused, startTask, stopTask } from './tasks';
+import { pauseTask, isPaused, startTask, stopTask } from './core/tasks';
 import { differenceInMinutes } from 'date-fns';
 import { ensureLocal, fail } from './util/fail';
 
