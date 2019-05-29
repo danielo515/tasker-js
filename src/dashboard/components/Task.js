@@ -42,7 +42,12 @@ const SecondaryHeader = styled.span`
 `;
 
 const HeaderCol = styled.div`
+  padding: 5px;
   flex-basis: 50%;
+  /* The parent is flex, so that's why we have a flex basis to make it grow.
+  And the properties below is to arrange the children*/
+  display: flex;
+  justify-content: space-between;
 `;
 
 const FullExpansion = styled(ExpansionPanel)`
