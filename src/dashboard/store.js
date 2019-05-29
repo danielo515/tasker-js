@@ -2,7 +2,7 @@
 import { createStore, combineReducers } from 'redux'; 
 import {db} from '../database/db';
 import { keyBy } from 'lodash';
-import { startTask, stopTask, TaskStatus, pauseTask } from '../tasks';
+import { startTask, stopTask, TaskStatus, pauseTask } from '../core/tasks';
 import { mapInPairs } from '../util/mapInPairs';
 import { distanceInWordsToNow, differenceInMinutes } from 'date-fns';
 

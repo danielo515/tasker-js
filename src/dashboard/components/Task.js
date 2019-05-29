@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { calculateRunningTime } from '../../util/timeUtils';
-import { getTaskStatus, TaskStatus } from '../../tasks';
+import { getTaskStatus, TaskStatus } from '../../core/tasks';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';

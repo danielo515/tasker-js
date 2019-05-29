@@ -1,6 +1,6 @@
 // @ts-check
-import { isOdd } from './dashboard/isOdd';
-import {db} from './database/db';
+import { isOdd } from '../dashboard/isOdd';
+import {db} from '../database/db';
 import { emptyTask } from './emptyTask';
 
 // const readObj = (name, fallback) => safeParse(tk.global(name), fallback);

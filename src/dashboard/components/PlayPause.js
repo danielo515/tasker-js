@@ -1,5 +1,5 @@
 import React from 'react';
-import { TaskStatus } from '../../tasks';
+import { TaskStatus } from '../../core/tasks';
 import IconButton from '@material-ui/core/IconButton';
 import PlayIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';

@@ -5,7 +5,7 @@ const dbName = 'tasker-db';
 export function fakeTasker() {    
     if(process.env.NODE_ENV === 'test') return;
     const taskNames = ['work', 'eating', 'workout', 'programming'];
-    const emptyTask = require('../emptyTask').emptyTask;
+    const emptyTask = require('../core/emptyTask').emptyTask;
     
     window.tk = {
         global: () => { },
