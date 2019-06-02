@@ -29,7 +29,7 @@ export const isPaused = (pauses) => pauses.length && isOdd(pauses.length);
  */
 
 export const TaskStatus = {
-    /** @type {Status} */
+    /** @type {'stopped'} */
     STOPPED: 'stopped',
     PAUSED: 'paused',
     RUNNING: 'running',

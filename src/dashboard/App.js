@@ -6,7 +6,7 @@ import Fab from '@material-ui/core/Fab';
 import styled from 'styled-components';
 import './App.css';
 import Form from './createForm.container';
-import { Task } from './components/Task';
+import { Task } from './components/Task/Task';
 
 import { map } from 'lodash';
 
