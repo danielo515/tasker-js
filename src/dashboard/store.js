@@ -3,8 +3,7 @@ import { createStore, combineReducers } from 'redux';
 import {db} from '../database/db';
 import { keyBy } from 'lodash';
 import { startTask, stopTask, TaskStatus, pauseTask, formatOutputTask } from '../core/tasks';
-import { mapInPairs } from '../util/mapInPairs';
-import { differenceInMinutes } from 'date-fns';
+import { computePauses } from '../core/computePauses';
 
 const initialState = { 
     tasks: keyBy(db.get('tasks').value().map(formatOutputTask),'title')
@@ -31,13 +30,6 @@ export const pause = dispatch => title => () => {
     return dispatch(action(
         PAUSE, { task: pauseTask(title) }
     ));
-};
-
-const computePauses = ({pauses}) => {
-    const now = Date.now();
-    return ({
-        pauseLengths: mapInPairs((a = now, b = now) => differenceInMinutes(a, b))(pauses),
-    });
 };
 
 function tasksReducer(state = initialState,{type, payload:{task} = {}}) {
