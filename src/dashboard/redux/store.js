@@ -1,9 +1,9 @@
 
 import { createStore, combineReducers } from 'redux'; 
-import {db} from '../database/db';
+import {db} from '../../database/db';
 import { keyBy } from 'lodash';
-import { startTask, stopTask, TaskStatus, pauseTask, formatOutputTask } from '../core/tasks';
-import { computePauses } from '../core/computePauses';
+import { startTask, stopTask, TaskStatus, pauseTask, formatOutputTask } from '../../core/tasks';
+import { computePauses } from '../../core/computePauses';
 
 const initialState = { 
     tasks: keyBy(db.get('tasks').value().map(formatOutputTask),'title')

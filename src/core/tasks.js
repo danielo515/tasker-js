@@ -25,11 +25,11 @@ import * as fb from './fb';
 export const isPaused = (pauses) => pauses.length && isOdd(pauses.length);
 
 /**
- * @typedef {'running'|'stopped'|'running'|'not-started'} Status
+ * @typedef {'running'|stopped|'running'|'not-started'} Status
  */
 
 export const TaskStatus = {
-    /** @type {'stopped'} */
+    /** @type {Status} */
     STOPPED: 'stopped',
     PAUSED: 'paused',
     RUNNING: 'running',
