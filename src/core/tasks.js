@@ -2,6 +2,7 @@
 import { isOdd } from '../dashboard/isOdd';
 import { db } from '../database/db';
 import { emptyTask } from './emptyTask';
+import * as fb from './fb';
 
 // const readObj = (name, fallback) => safeParse(tk.global(name), fallback);
 
@@ -49,6 +50,7 @@ export const getTaskStatus = ({ startedAt, stoppedAt, pauses }) => {
 
 export const saveTask = (value) => {
     const current = db.get('tasks').find({ title: value.title });
+    fb.saveTask(value);
     if (current.value()) {
         return current.assign(value).write();
     }
