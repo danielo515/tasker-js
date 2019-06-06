@@ -3,9 +3,9 @@ import { isOdd } from '../dashboard/isOdd';
 import { db } from '../database/db';
 import { emptyTask } from './emptyTask';
 import * as fb from './fb';
+import forOwn from 'lodash/forOwn';
 
-// const readObj = (name, fallback) => safeParse(tk.global(name), fallback);
-
+const Now = () => new Date().toISOString();
 
 /**
  * 
@@ -25,7 +25,7 @@ import * as fb from './fb';
 export const isPaused = (pauses) => pauses.length && isOdd(pauses.length);
 
 /**
- * @typedef {'running'|stopped|'running'|'not-started'} Status
+ * @typedef {'running'|'stopped'|'running'|'not-started'} Status
  */
 
 export const TaskStatus = {
@@ -48,13 +48,20 @@ export const getTaskStatus = ({ startedAt, stoppedAt, pauses }) => {
     return TaskStatus.NOT_STARTED;
 };
 
-export const saveTask = (value) => {
+export const saveLocalTask = (value) => {
     const current = db.get('tasks').find({ title: value.title });
-    fb.saveTask(value);
     if (current.value()) {
         return current.assign(value).write();
     }
     return db.get('tasks').push(value).write();
+};
+
+/**
+ * Gets an object of tasks from firebase and saves each task to the local database
+ * @param {Object} tasks Object containing the tasks to sync them with the local database
+ */
+export const syncTasks = tasks => {
+    forOwn(tasks,saveLocalTask);
 };
 
 /**
@@ -76,7 +83,8 @@ export const updateTask = updater => name => {
         const {executionLog, ...task} = loadTask(name);
         const newLog = updater(executionLog);
         const newTask = { ...task, executionLog: newLog };
-        saveTask(newTask);
+        saveLocalTask(newTask);
+        fb.saveTask(newTask); //send it to firebase too
         return formatOutputTask(newTask);
     } catch (error) {
         tk.flash(`Error updating task ${name}:\n ${error.toString()}`);
@@ -90,14 +98,15 @@ const updateHead = fn => ([current, ...tail]) => {
     const updatedEntry = { ...current, ...fn(current) };
     return [updatedEntry, ...tail];
 };
-
-
 // This is the only function that inserts a new entry on the execution log
 export const startTask = updateTask((executionLog) => [
-    { startedAt: Date.now(), stoppedAt: null, pauses: [] }, 
+    { startedAt: Now(), stoppedAt: null, pauses: [] }, 
     ...executionLog
 ]);
-export const stopTask = updateTask(updateHead(() => ({ stoppedAt: Date.now() })));
+export const stopTask = updateTask(updateHead(() => ({ stoppedAt: Now() })));
 export const pauseTask = updateTask(updateHead(({ pauses }) => (
-    { pauses: pauses.concat(Date.now()) }
+    { pauses: pauses.concat(Now()) }
 )));
+
+// Sync with firebase
+fb.subscribe(saveLocalTask, i=>i);

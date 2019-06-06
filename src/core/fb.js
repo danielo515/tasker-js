@@ -8,9 +8,9 @@ const db = firebase.database();
 
 const habits = db.ref('/habits');
 
-export function subscribe(cb) {
+export function subscribe(cb, formatter = formatOutputTask) {
     habits.on('child_changed',(snapshot) => {
-        if(snapshot.exists()) cb(formatOutputTask(
+        if(snapshot.exists()) cb(formatter(
             snapshot.val()
         ));
     });

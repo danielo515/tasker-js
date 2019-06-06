@@ -2,7 +2,7 @@
 import { createStore, combineReducers } from 'redux';
 import { db } from '../../database/db';
 import { keyBy, mapValues } from 'lodash';
-import { startTask, stopTask, TaskStatus, pauseTask, formatOutputTask } from '../../core/tasks';
+import { startTask, stopTask, TaskStatus, pauseTask, formatOutputTask, syncTasks } from '../../core/tasks';
 import { computePauses } from '../../core/computePauses';
 import { subscribe, getData } from '../../core/fb';
 
@@ -12,6 +12,7 @@ const initialState = {
 
 export const START = 'habit START';
 export const LOAD = 'habit fb LOAD';
+export const UPDATE = 'habit fb UPDATE';
 export const STOP = 'habit STOP';
 export const PAUSE = 'habit PAUSE';
 
@@ -41,6 +42,7 @@ function tasksReducer(state = initialState, { type, payload: { task, tasks } = {
             ...state,
             ...mapValues(tasks, formatOutputTask)
         };
+    case UPDATE:
     case START:
         return { ...state, [task.title]: task };
     case STOP:
@@ -87,8 +89,11 @@ const rootReducer = combineReducers({
 export default () => {
     const store = createStore(rootReducer, initialState);
     subscribe(
-        task => store.dispatch(action(START, { task }))
+        task => store.dispatch(action(UPDATE, { task }))
     );
-    getData(tasks => store.dispatch(action(LOAD, { tasks })));
+    getData(tasks => {
+        store.dispatch(action(LOAD, { tasks }));
+        syncTasks(tasks); // This is not the nicest thing to do but.... works nice
+    });
     return store;
 };
