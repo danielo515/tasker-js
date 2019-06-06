@@ -109,4 +109,4 @@ export const pauseTask = updateTask(updateHead(({ pauses }) => (
 )));
 
 // Sync with firebase
-fb.subscribe(saveLocalTask, i=>i);
+fb.subscribe(saveLocalTask);

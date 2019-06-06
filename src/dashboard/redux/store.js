@@ -89,7 +89,7 @@ const rootReducer = combineReducers({
 export default () => {
     const store = createStore(rootReducer, initialState);
     subscribe(
-        task => store.dispatch(action(UPDATE, { task }))
+        task => store.dispatch(action(UPDATE, { task: formatOutputTask(task) }))
     );
     getData(tasks => {
         store.dispatch(action(LOAD, { tasks }));
