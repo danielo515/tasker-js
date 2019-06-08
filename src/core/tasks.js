@@ -104,7 +104,7 @@ export const startTask = updateTask((executionLog) => [
     ...executionLog
 ]);
 export const stopTask = updateTask(updateHead(() => ({ stoppedAt: Now() })));
-export const pauseTask = updateTask(updateHead(({ pauses }) => (
+export const pauseTask = updateTask(updateHead(({ pauses = [] }) => (
     { pauses: pauses.concat(Now()) }
 )));
 
