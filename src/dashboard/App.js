@@ -25,9 +25,9 @@ function App({ tasks, start, stop, pause, openModal }) {
                 map(tasks, task =>
                     <Task {...task}
                         key={task.title}
-                        onStart={start(task.title)}
-                        onStop={stop(task.title)}
-                        onPause={pause(task.title)}
+                        onStart={start}
+                        onStop={stop}
+                        onPause={pause}
                     ></Task>
                 )}
             <FabRight color='primary' aria-label='Add' size='small' >

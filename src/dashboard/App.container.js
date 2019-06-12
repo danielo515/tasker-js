@@ -7,14 +7,4 @@ const mapStateToProps = ({ tasks }) => ({
     tasks
 });
 
-const mapDispatchToProps = dispatch => {
-
-    return { 
-        start: start(dispatch), 
-        stop: stop(dispatch),
-        pause: pause(dispatch),
-        openModal: createTaskModal(dispatch),
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, { start, stop, pause, createTaskModal })(App);
