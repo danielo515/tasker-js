@@ -5,24 +5,24 @@ const startedAt = subHours(now, 9);
 
 export const paused = { 
     'title': 'work', 
-    'startedAt': 1558678978541, 
-    'pauses': [1558682273187, 1558688205396, 1558704128727], 
-    'stoppedAt': null 
+    executionLog: [{'startedAt': 1558678978541, 
+        'pauses': [1558682273187, 1558688205396, 1558704128727], 
+        'stoppedAt': null }]
 };
 
 export const running = { 
     'title': 'work', 
-    'startedAt': 1558678978541, 
-    'pauses': [1558682273187, 1558688205396], 
-    'stoppedAt': null 
+    executionLog: [{'startedAt': 1558678978541, 
+        'pauses': [1558682273187, 1558688205396], 
+        'stoppedAt': null }]
 };
 
 
 export const fakeONe = {
     title: 'work',
-    startedAt,
-    pauses: [addHours(startedAt, 1), addHours(startedAt, 2)],
-    stoppedAt: addHours(startedAt, 8),
+    executionLog: [{startedAt,
+        pauses: [addHours(startedAt, 1), addHours(startedAt, 2)],
+        stoppedAt: addHours(startedAt, 8)}],
 };
 
 export const tasks = {

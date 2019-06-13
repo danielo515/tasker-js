@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { calculateRunningTime } from '../../timeUtils';
-import { getTaskStatus, TaskStatus } from '../../tasks';
+import { calculateRunningTime } from '../../../util/timeUtils';
+import { getTaskStatus, TaskStatus } from '../../../core/tasks';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -10,17 +10,19 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import Button from '@material-ui/core/Button';
-import TimeRelative from './TimeRelative';
+import TimeRelative from '../TimeRelative';
+import Tick from '../Tick';
+import { makeCloudWatch } from './formatAsClock';
 
 
 const Root = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0.5em 1em;
+    padding: 0 1em;
     padding-bottom: 0;
 `;
-const Row = styled(({ className, children, label }) =>
+const InfoColumn = styled(({ className, children, label }) =>
     <div className={className}>
         <Typography variant='subtitle1' color='textPrimary'> {label} </Typography>
         <Typography variant='subtitle2' color='textSecondary'> {children} </Typography>
@@ -40,13 +42,22 @@ const SecondaryHeader = styled.span`
   color: grey;
 `;
 
-const Colum = styled.div`
+const HeaderCol = styled.div`
+  padding: 5px;
   flex-basis: 50%;
+  /* The parent is flex, so that's why we have a flex basis to make it grow.
+  And the properties below is to arrange the children*/
+  display: flex;
+  justify-content: space-between;
 `;
 
 const FullExpansion = styled(ExpansionPanel)`
 width: 100%;
 padding-bottom: 0;
+`;
+
+const PanelActions = styled(ExpansionPanelActions)`
+ &&{ justify-content: center;}
 `;
 
 const makeRunningText = (status, { startedAt, stoppedAt, pauses }) => {
@@ -55,7 +66,7 @@ const makeRunningText = (status, { startedAt, stoppedAt, pauses }) => {
     case TaskStatus.PAUSED:
         return calculateRunningTime(startedAt, stoppedAt, pauses);
     case TaskStatus.RUNNING:
-        return <TimeRelative startedAt={startedAt} />;
+        return <Tick interval={5}>{() => calculateRunningTime(startedAt, stoppedAt, pauses)}</Tick>;
     default: return '-';
     }
 };
@@ -64,36 +75,36 @@ export const Task = ({
     title,
     onStart, onStop, onPause,
     startedAt, stoppedAt,
-    lastPause, pauseLengths, pauses,
+    pauseLengths, pauses,
 }) => {
 
     const status = getTaskStatus({ startedAt, stoppedAt, pauses });
-    const runningTime = makeRunningText(status, { startedAt, stoppedAt, pauses });
-    tk.flash('Loading task ' + title);
+    // tk.flash('Loading task ' + title);
     return (
         <Root>
-            <FullExpansion>
+            <FullExpansion elevation={1} square TransitionProps={{ unmountOnExit: true }} >
                 <ExpansionPanelSummary
+                    
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1c-content"
                 >
-                    <Colum>
+                    <HeaderCol>
                         <Header>{title}</Header>
-                    </Colum>
-                    <Colum>
-                        <SecondaryHeader> {status} </SecondaryHeader>
-                    </Colum>
+                    </HeaderCol>
+                    <HeaderCol>
+                        <SecondaryHeader> {makeCloudWatch(status,{ startedAt, stoppedAt, pauses })} </SecondaryHeader>
+                    </HeaderCol>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                    <Row label=' Started' >{startedAt ? <TimeRelative startedAt={startedAt} /> : '-'}</Row>
-                    <Row label=' Finished' > {stoppedAt ? <TimeRelative startedAt={stoppedAt} /> : '-'} </Row>
-                    <Row label=' Running' >{runningTime} </Row>
+                    <InfoColumn label=' Started' >{startedAt ? <TimeRelative startedAt={startedAt} /> : '-'}</InfoColumn>
+                    <InfoColumn label=' Finished' > {stoppedAt ? <TimeRelative startedAt={stoppedAt} /> : '-'} </InfoColumn>
+                    <InfoColumn label=' Running' >{makeRunningText(status, { startedAt, stoppedAt, pauses })}</InfoColumn>
                 </ExpansionPanelDetails>
                 <ExpansionPanelDetails>
-                    <Row label='Last pause' >  {lastPause ? lastPause + ' ago' : '-'} </Row>
-                    <Row> {pauseLengths.join(' |-| ')} </Row>
+                    <InfoColumn label='Last pause' >  {pauses.length ? <TimeRelative startedAt={pauses[pauses.length - 1]} suffix=' ago' /> : '-'} </InfoColumn>
+                    <InfoColumn> {pauseLengths.join(' |-| ')} </InfoColumn>
                 </ExpansionPanelDetails>
-                <ExpansionPanelActions>
+                <PanelActions>
                     {status === 'running'
                         ? <>
                             <Button onClick={onStop} color="primary" >Stop</Button>
@@ -103,7 +114,7 @@ export const Task = ({
                             ? <Button onClick={onPause} color="primary" >Resume</Button>
                             : <Button onClick={onStart} color="primary" >Start</Button>
                     }
-                </ExpansionPanelActions>
+                </PanelActions>
             </FullExpansion>
         </Root>
     );
@@ -114,8 +125,7 @@ Task.propTypes = {
     stoppedAt: PropTypes.number,
     pauses: PropTypes.arrayOf(PropTypes.number),
     title: PropTypes.string.isRequired,
-    lastPause: PropTypes.string,
-    pauseLengths: PropTypes.arrayOf(PropTypes.string),
+    pauseLengths: PropTypes.arrayOf(PropTypes.number),
     onStart: PropTypes.func.isRequired,
     onStop: PropTypes.func.isRequired,
     onPause: PropTypes.func.isRequired,

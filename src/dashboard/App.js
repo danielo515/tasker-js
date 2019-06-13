@@ -6,7 +6,7 @@ import Fab from '@material-ui/core/Fab';
 import styled from 'styled-components';
 import './App.css';
 import Form from './createForm.container';
-import { Task } from './components/Task';
+import { Task } from './components/Task/Task';
 
 import { map } from 'lodash';
 
@@ -14,13 +14,13 @@ const FabRight = styled(Fab)`
   && {
     bottom: 1rem;
     right: 1rem;
-    position: absolute ;
+    position: fixed ;
   }
 `;
 
 function App({ tasks, start, stop, pause, openModal }) {
     return (
-        <Paper className='App-header'>
+        <Paper className='App'>
             {
                 map(tasks, task =>
                     <Task {...task}

@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import './__mocks__/tasker';
-import { loadTask, updateTask } from '../src/tasks';
+import { loadTask, updateTask } from '../src/core/tasks';
 import { emptyTask } from '../src/emptyTask';
 
 describe('Should task tasks =>', () => {

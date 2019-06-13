@@ -5,7 +5,6 @@
  */
 export const emptyTask = (name) => ({
     title: name,
-    startedAt: null,
-    pauses: [],
-    stoppedAt: null,
+    createdAt: new Date().toISOString(),
+    executionLog: [],
 });

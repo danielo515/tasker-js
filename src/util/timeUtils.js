@@ -25,10 +25,11 @@ const detailedDistance = (start,finish) => {
     return [hours, minutes, seconds];
 };
 
-export const calculateRunningTime = (start, finish, pauses) => {
+const formatDetail = (hours,minutes,seconds) => `${hours} hours ${minutes} min. ${seconds} sec.`;
+
+export const calculateRunningTime = (start, finish, pauses, format = formatDetail) => {
     const discount = calculatePauseTime(pauses);
     // to get the actual running time we make finish date closer to the start one by subtracting pause time.
     const adjustedStop = subMilliseconds(finish || Date.now(), discount);
-    const [hours, minutes,seconds] = detailedDistance(start,adjustedStop);
-    return `${hours} hours ${minutes} min. ${seconds} sec.`;
+    return format(...detailedDistance(start,adjustedStop));
 };

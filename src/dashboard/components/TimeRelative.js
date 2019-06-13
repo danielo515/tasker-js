@@ -11,6 +11,7 @@ export default class TimeRelative extends Component {
         this.state = {};
         this.timeout = null;
         this.startedAt = props.startedAt;
+        this.suffix = props.suffix;
     }
 
     static getDerivedStateFromProps({startedAt}){
@@ -34,11 +35,12 @@ export default class TimeRelative extends Component {
     }
     
     render() {
-        return (<div> {this.state.text} </div>);
+        return (<div> {this.state.text} {!!this.suffix && this.suffix}</div>);
     }
 }
 
 TimeRelative.propTypes={
-    startedAt: PropTypes.number.isRequired
+    startedAt: PropTypes.number.isRequired,
+    suffix: PropTypes.string,
 };
 

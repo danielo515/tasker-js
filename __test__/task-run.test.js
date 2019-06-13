@@ -1,11 +1,11 @@
 /* eslint-env jest */
 import './__mocks__/tasker';
-import { pauseTask, isPaused, startTask, stopTask } from '../src/tasks';
+import { pauseTask, isPaused, startTask, stopTask } from '../src/core/tasks';
 import { paused, running } from '../fixtures/fakeTask';
 import main from '../src/task-run';
 
 
-jest.mock('../src/tasks');
+jest.mock('../src/core/tasks');
 pauseTask.mockReturnValue(paused);
 isPaused.mockReturnValue(true);
 
