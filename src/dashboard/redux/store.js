@@ -19,20 +19,20 @@ export const PAUSE = 'habit PAUSE';
 const action = (type, payload) => ({ type, payload });
 
 // This actions are performing side effects...
-export const start = dispatch => title => () => {
-    return dispatch(action(
+export const start = title => {
+    return action(
         START, { task: startTask(title) }
-    ));
+    );
 };
-export const stop = dispatch => title => () => {
-    return dispatch(action(
+export const stop = title => {
+    return action(
         STOP, { task: stopTask(title) }
-    ));
+    );
 };
-export const pause = dispatch => title => () => {
-    return dispatch(action(
+export const pause = title => {
+    return action(
         PAUSE, { task: pauseTask(title) }
-    ));
+    );
 };
 
 function tasksReducer(state = initialState, { type, payload: { task, tasks } = {} }) {
@@ -70,7 +70,7 @@ function tasksReducer(state = initialState, { type, payload: { task, tasks } = {
 
 export const OPEN_MODAL = 'ui OPEN_MODAL';
 const initialUiState = { create_open: false };
-export const createTaskModal = dispatch => () => dispatch(action(OPEN_MODAL));
+export const createTaskModal = () => action(OPEN_MODAL);
 
 function uiReducer(state = initialUiState, { type }) {
     switch (type) {

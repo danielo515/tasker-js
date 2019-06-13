@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { calculateRunningTime } from '../../../util/timeUtils';
@@ -71,7 +71,7 @@ const makeRunningText = (status, { startedAt, stoppedAt, pauses }) => {
     }
 };
 
-export const Task = ({
+export const Task = memo(({
     title,
     onStart, onStop, onPause,
     startedAt, stoppedAt,
@@ -107,18 +107,18 @@ export const Task = ({
                 <PanelActions>
                     {status === 'running'
                         ? <>
-                            <Button onClick={onStop} color="primary" >Stop</Button>
-                            <Button onClick={onPause} color="secondary" >Pause</Button>
+                            <Button onClick={()=>onStop(title)} color="primary" >Stop</Button>
+                            <Button onClick={()=>onPause(title)} color="secondary" >Pause</Button>
                         </>
                         : status === 'paused'
-                            ? <Button onClick={onPause} color="primary" >Resume</Button>
-                            : <Button onClick={onStart} color="primary" >Start</Button>
+                            ? <Button onClick={()=>onPause(title)} color="primary" >Resume</Button>
+                            : <Button onClick={()=>onStart(title)} color="primary" >Start</Button>
                     }
                 </PanelActions>
             </FullExpansion>
         </Root>
     );
-};
+});
 
 Task.propTypes = {
     startedAt: PropTypes.number,

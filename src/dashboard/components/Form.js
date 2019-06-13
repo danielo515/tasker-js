@@ -22,11 +22,9 @@ export default class Form extends PureComponent {
     }
 
     submit(){
-        this.props.start(this.state.name)();
+        this.props.start(this.state.name);
         this.setState({name:''});
     }
-
-  
 
     render() {
         const { isOpen } = this.props;
